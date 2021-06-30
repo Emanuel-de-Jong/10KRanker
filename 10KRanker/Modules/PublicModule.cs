@@ -14,7 +14,7 @@ namespace _10KRanker.Modules
         [Command("ping")]
         [Alias("pong", "hello")]
         public Task PingAsync()
-            => ReplyAsync("pong!");
+            => ReplyAsync("pong!"); 
 
 
 
