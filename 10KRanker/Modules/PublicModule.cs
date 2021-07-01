@@ -1,5 +1,4 @@
-﻿
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
@@ -14,7 +13,7 @@ namespace _10KRanker.Modules
         [Command("ping")]
         [Alias("pong", "hello")]
         public Task PingAsync()
-            => ReplyAsync("pong!"); 
+            => ReplyAsync("pong!");
 
 
 

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
 using _10KRanker.Services;
+using OsuAPI;
 
 namespace _10KRanker
 {
