@@ -1,70 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using Database.Models;
+﻿using Database.Models;
+using System;
+using System.Linq;
 
 namespace Database
 {
     public class DB
     {
-        public static string dbName = "db.db";
-        public static string dbPath = @"" + dbName;
-
-        private Context context;
-
-        private CRUD<Nominator> nominatorCRUD;
-        private CRUD<Mapper> mapperCRUD;
-
-        public DB() => DBAsync();
-
-        private async Task DBAsync()
+        public DB()
         {
-            await using var context = new Context();
-            this.context = context;
-
-            //CRUD._Context = context;
-            nominatorCRUD = new CRUD<Nominator>(context.Nominators, context);
-            mapperCRUD = new CRUD<Mapper>(context.Mappers, context);
-
-
-            await Init();
-
-
-            await nominatorCRUD.Create(new List<Nominator>()
-                {
-                    new Nominator("Nominator 1"),
-                    new Nominator("Nominator 2"),
-                });
-
-            foreach (var nominator in await nominatorCRUD.ReadAll())
+            using (var db = new Context())
             {
-                Console.WriteLine(nominator.Name);
-            }
+                // Create
+                Console.WriteLine("Inserting a new blog");
+                db.Add(new Nominator("Nominator 1"));
+                db.SaveChanges();
 
+                // Read
+                Console.WriteLine("Querying for a blog");
+                var nominator = db.Nominators
+                    .OrderBy(n => n.NominatorId)
+                    .First();
 
-            await mapperCRUD.Create(new List<Mapper>()
-                {
-                    new Mapper("Mapper 1"),
-                    new Mapper("Mapper 2"),
-                });
+                // Update
+                Console.WriteLine("Updating the blog and adding a post");
+                nominator.Name = "Nominator 11";
+                db.SaveChanges();
 
-            foreach (var mapper in await mapperCRUD.ReadAll())
-            {
-                Console.WriteLine(mapper.Name);
-            }
-        }
-
-        private async Task Init()
-        {
-            try
-            {
-                await context.Database.EnsureCreatedAsync();
-            }
-            catch (Exception)
-            {
-                File.Delete(dbPath);
-                await Init();
+                // Delete
+                Console.WriteLine("Delete the blog");
+                db.Remove(nominator);
+                db.SaveChanges();
             }
         }
     }

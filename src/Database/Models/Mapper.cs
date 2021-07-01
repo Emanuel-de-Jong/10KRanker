@@ -2,7 +2,7 @@
 {
     public class Mapper
     {
-        public int Id { get; set; }
+        public int MapperId { get; set; }
         public string Name { get; set; }
 
         public Mapper(string name)
