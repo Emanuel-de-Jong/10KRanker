@@ -8,24 +8,31 @@ using System.Threading.Tasks;
 
 namespace Database
 {
-    public abstract class CRUD
+    public class CRUD<T> where T : class
     {
-        public static Context _Context { get; set; }
-        public static DbSet<Nominator> DBSet { get; set; }
+        public Context _Context { get; set; }
+        public DbSet<T> DBSet { get; set; }
 
-        public static async Task Create(Nominator obj)
+        public CRUD(DbSet<T> dbSet, Context context)
+        {
+            this.DBSet = dbSet;
+            this._Context = context;
+        }
+
+
+        public async Task Create(T obj)
         {
             DBSet.Add(obj);
             await _Context.SaveChangesAsync();
         }
 
-        public static async Task Create(List<Nominator> objs)
+        public async Task Create(List<T> objs)
         {
             await DBSet.AddRangeAsync(objs);
             await _Context.SaveChangesAsync();
         }
 
-        public static Task<List<Nominator>> ReadAll()
+        public Task<List<T>> ReadAll()
         {
             return Task.FromResult(DBSet.ToList());
         }

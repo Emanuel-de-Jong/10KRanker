@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Database.Models;
 
@@ -14,6 +13,9 @@ namespace Database
 
         private Context context;
 
+        private CRUD<Nominator> nominatorCRUD;
+        private CRUD<Mapper> mapperCRUD;
+
         public DB() => DBAsync();
 
         private async Task DBAsync()
@@ -21,31 +23,48 @@ namespace Database
             await using var context = new Context();
             this.context = context;
 
-            CRUD._Context = context;
+            //CRUD._Context = context;
+            nominatorCRUD = new CRUD<Nominator>(context.Nominators, context);
+            mapperCRUD = new CRUD<Mapper>(context.Mappers, context);
 
-            await init();
 
-            foreach (var nominator in await Nominator.ReadAll())
+            await Init();
+
+
+            await nominatorCRUD.Create(new List<Nominator>()
+                {
+                    new Nominator("Nominator 1"),
+                    new Nominator("Nominator 2"),
+                });
+
+            foreach (var nominator in await nominatorCRUD.ReadAll())
             {
                 Console.WriteLine(nominator.Name);
             }
+
+
+            await mapperCRUD.Create(new List<Mapper>()
+                {
+                    new Mapper("Mapper 1"),
+                    new Mapper("Mapper 2"),
+                });
+
+            foreach (var mapper in await mapperCRUD.ReadAll())
+            {
+                Console.WriteLine(mapper.Name);
+            }
         }
 
-        private async Task init()
+        private async Task Init()
         {
             try
             {
                 await context.Database.EnsureCreatedAsync();
-                await Nominator.Create(new List<Nominator>()
-                {
-                    new Nominator("Test1"),
-                    new Nominator("Test2"),
-                });
             }
             catch (Exception)
             {
                 File.Delete(dbPath);
-                await init();
+                await Init();
             }
         }
     }

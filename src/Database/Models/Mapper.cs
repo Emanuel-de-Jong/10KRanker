@@ -1,11 +1,11 @@
 ﻿namespace Database.Models
 {
-    public class Nominator
+    public class Mapper
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public Nominator(string name)
+        public Mapper(string name)
         {
             Name = name;
         }
