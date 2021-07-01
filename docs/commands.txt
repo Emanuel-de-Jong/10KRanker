@@ -1,0 +1,19 @@
+add <link|beatmapsetid>
+	what status?
+	what mapper?
+	bns involved?
+		which bns?
+
+rm <link>
+
+changestatus <link> <status>
+changemapper <link> <mapper>
+
+addbn <link> <bn>
+rmbn <link> <bn>
+
+list (mapper|bn)
+
+show <link>
+
+help
