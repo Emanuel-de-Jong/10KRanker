@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Database.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace Database.Models
@@ -9,34 +10,36 @@ namespace Database.Models
         public int BeatmapsetId { get; set; }
         public string Name { get; set; }
         public string Status { get; set; }
+
+        public Category Category { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
         public DateTime OsuModificationDate { get; set; }
 
         public int MapperId { get; set; }
         public Mapper Mapper { get; set; }
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
 
         public List<Nominator> Nominators { get; set; }
 
-        public Map(int beatmapsetId, string name, string status,
+        public Map(int beatmapsetId, string name, string status, Category category,
             string creationDate, string modificationDate, string osuModificationDate)
         {
             this.BeatmapsetId = beatmapsetId;
             this.Name = name;
             this.Status = status;
+            this.Category = category;
             this.CreationDate = DateTime.Parse(creationDate);
             this.ModificationDate = DateTime.Parse(modificationDate);
             this.OsuModificationDate = DateTime.Parse(osuModificationDate);
         }
 
-        public Map(int beatmapsetId, string name, string status,
+        public Map(int beatmapsetId, string name, string status, Category category,
             DateTime creationDate, DateTime modificationDate, DateTime osuModificationDate)
         {
             this.BeatmapsetId = beatmapsetId;
             this.Name = name;
             this.Status = status;
+            this.Category = category;
             this.CreationDate = creationDate;
             this.ModificationDate = modificationDate;
             this.OsuModificationDate = osuModificationDate;

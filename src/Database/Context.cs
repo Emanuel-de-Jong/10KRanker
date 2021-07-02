@@ -12,7 +12,6 @@ namespace Database
     {
         public DbSet<Nominator> Nominators { get; set; }
         public DbSet<Mapper> Mappers { get; set; }
-        public DbSet<Category> Categories { get; set; }
         public DbSet<Map> Maps { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)

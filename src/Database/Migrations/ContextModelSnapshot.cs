@@ -16,20 +16,6 @@ namespace Database.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.7");
 
-            modelBuilder.Entity("Database.Models.Category", b =>
-                {
-                    b.Property<int>("CategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("CategoryId");
-
-                    b.ToTable("Categories");
-                });
-
             modelBuilder.Entity("Database.Models.Map", b =>
                 {
                     b.Property<int>("MapId")
@@ -39,7 +25,7 @@ namespace Database.Migrations
                     b.Property<int>("BeatmapsetId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Category")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreationDate")
@@ -61,8 +47,6 @@ namespace Database.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("MapId");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("MapperId");
 
@@ -114,19 +98,11 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Models.Map", b =>
                 {
-                    b.HasOne("Database.Models.Category", "Category")
-                        .WithMany("Maps")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Database.Models.Mapper", "Mapper")
                         .WithMany("Maps")
                         .HasForeignKey("MapperId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
 
                     b.Navigation("Mapper");
                 });
@@ -144,11 +120,6 @@ namespace Database.Migrations
                         .HasForeignKey("NominatorsNominatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Database.Models.Category", b =>
-                {
-                    b.Navigation("Maps");
                 });
 
             modelBuilder.Entity("Database.Models.Mapper", b =>

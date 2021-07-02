@@ -3,21 +3,34 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Database.Migrations
 {
-    public partial class AllTables : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "Mappers",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
+                    MapperId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                    table.PrimaryKey("PK_Mappers", x => x.MapperId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Nominators",
+                columns: table => new
+                {
+                    NominatorId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Nominators", x => x.NominatorId);
                 });
 
             migrationBuilder.CreateTable(
@@ -29,21 +42,15 @@ namespace Database.Migrations
                     BeatmapsetId = table.Column<int>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Status = table.Column<string>(type: "TEXT", nullable: true),
+                    Category = table.Column<int>(type: "INTEGER", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ModificationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     OsuModificationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    MapperId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
+                    MapperId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Maps", x => x.MapId);
-                    table.ForeignKey(
-                        name: "FK_Maps_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Maps_Mappers_MapperId",
                         column: x => x.MapperId,
@@ -82,11 +89,6 @@ namespace Database.Migrations
                 column: "NominatorsNominatorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Maps_CategoryId",
-                table: "Maps",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Maps_MapperId",
                 table: "Maps",
                 column: "MapperId");
@@ -101,7 +103,10 @@ namespace Database.Migrations
                 name: "Maps");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Nominators");
+
+            migrationBuilder.DropTable(
+                name: "Mappers");
         }
     }
 }
