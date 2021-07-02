@@ -17,10 +17,9 @@ namespace _10KRanker.Modules
         public async Task AddAsync(string mapId)
         {
             var osuMap = Osu.GetMap(mapId);
-            var osuUser = Osu.GetUser(osuMap.AuthorId);
 
-            var dbMapper = OsuToDB.ParseMapper(osuUser);
             var dbMap = OsuToDB.ParseMap(osuMap);
+            var dbMapper = OsuToDB.CreateMapper(osuMap.AuthorId);
 
             dbMap.Mapper = dbMapper;
 
