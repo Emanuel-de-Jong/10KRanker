@@ -8,8 +8,7 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            var db = new DB();
-            var osuAPI = new OsuAPIClient();
+            
         }
     }
 }

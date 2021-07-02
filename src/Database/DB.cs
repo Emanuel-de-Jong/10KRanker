@@ -7,8 +7,8 @@ namespace Database
 {
     public static class DB
     {
-        private static Context context = new Context();
-        public static Context _Context { get; } = context;
+        private static Context context = new();
+        public static Context Context { get; } = context;
 
 
         public static void Save()

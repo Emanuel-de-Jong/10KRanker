@@ -1,19 +1,17 @@
 add <link|beatmapsetid>
-	what status?
-	what mapper?
+	<status>
 	bns involved?
-		which bns?
+		<bn link|bn userid>
 
-rm <link>
+rm <link|beatmapsetid>
 
-changestatus <link> <status>
-changemapper <link> <mapper>
+editstatus <link|beatmapsetid> <status>
 
-addbn <link> <bn>
-rmbn <link> <bn>
+addbn <link|beatmapsetid> <bn link|bn userid>
+rmbn <link|beatmapsetid> <bn link|bn userid>
 
-list (mapper|bn)
+list (mapper link|bn link|userid)
 
-show <link>
+show <link|beatmapsetid>
 
-help
+help (command)
