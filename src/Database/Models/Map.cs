@@ -6,8 +6,7 @@ namespace Database.Models
 {
     public class Map
     {
-        public int MapId { get; set; }
-        public int BeatmapsetId { get; set; }
+        public long MapId { get; set; }
         public string Name { get; set; }
         public string Status { get; set; }
 
@@ -21,10 +20,10 @@ namespace Database.Models
 
         public List<Nominator> Nominators { get; set; }
 
-        public Map(int beatmapsetId, string name, string status, Category category,
+        public Map(long mapId, string name, string status, Category category,
             string creationDate, string modificationDate, string osuModificationDate)
         {
-            this.BeatmapsetId = beatmapsetId;
+            this.MapId = mapId;
             this.Name = name;
             this.Status = status;
             this.Category = category;
@@ -33,10 +32,10 @@ namespace Database.Models
             this.OsuModificationDate = DateTime.Parse(osuModificationDate);
         }
 
-        public Map(int beatmapsetId, string name, string status, Category category,
+        public Map(long mapId, string name, string status, Category category,
             DateTime creationDate, DateTime modificationDate, DateTime osuModificationDate)
         {
-            this.BeatmapsetId = beatmapsetId;
+            this.MapId = mapId;
             this.Name = name;
             this.Status = status;
             this.Category = category;

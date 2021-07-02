@@ -8,7 +8,7 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            
+            var osuMap = Osu.GetMap(1193846);
         }
     }
 }

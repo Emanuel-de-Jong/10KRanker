@@ -4,13 +4,14 @@ namespace Database.Models
 {
     public class Nominator
     {
-        public int NominatorId { get; set; }
+        public long NominatorId { get; set; }
         public string Name { get; set; }
 
         public List<Map> Maps { get; set; }
 
-        public Nominator(string name)
+        public Nominator(long nominatorId, string name)
         {
+            this.NominatorId = nominatorId;
             this.Name = name;
         }
     }

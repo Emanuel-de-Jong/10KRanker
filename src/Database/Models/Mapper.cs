@@ -4,13 +4,14 @@ namespace Database.Models
 {
     public class Mapper
     {
-        public int MapperId { get; set; }
+        public long MapperId { get; set; }
         public string Name { get; set; }
 
         public List<Map> Maps { get; set; }
 
-        public Mapper(string name)
+        public Mapper(long mapperId, string name)
         {
+            this.MapperId = mapperId;
             this.Name = name;
         }
     }
