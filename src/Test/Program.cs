@@ -1,4 +1,5 @@
 ﻿using Database;
+using OsuAPI;
 using System;
 
 namespace Test
@@ -7,7 +8,8 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            new DB();
+            var db = new DB();
+            var osuAPI = new OsuAPIClient();
         }
     }
 }

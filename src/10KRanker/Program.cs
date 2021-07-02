@@ -7,6 +7,7 @@ using Discord.WebSocket;
 using Discord.Commands;
 using _10KRanker.Services;
 using OsuAPI;
+using Database;
 
 namespace _10KRanker
 {
