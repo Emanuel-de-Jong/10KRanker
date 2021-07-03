@@ -6,6 +6,7 @@ using _10KRanker.Services;
 using OsuAPI;
 using OsuSharp;
 using Database;
+using System.Collections.Generic;
 
 namespace _10KRanker.Modules
 {
@@ -25,6 +26,21 @@ namespace _10KRanker.Modules
             DB.Add(dbMap);
 
             await ReplyAsync("Map saved");
+        }
+
+        [Command("list")]
+        [Alias("l", "all")]
+        public async Task ListAsync()
+        {
+            List<Map> maps = DB.GetMaps();
+
+            string reply = "";
+            foreach (Map m in maps)
+            {
+                reply += $"{m.Artist} - {m.Name}\n\t{m.Mapper.Name}\n";
+            }
+
+            await ReplyAsync(reply);
         }
     }
 }

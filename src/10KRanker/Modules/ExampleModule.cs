@@ -11,12 +11,12 @@ namespace _10KRanker.Modules
         // Dependency Injection will fill this value in for us
         public PictureService PictureService { get; set; }
 
-        [Command("ping")]
-        [Alias("pong", "hello")]
+        [Command("e-ping")]
+        [Alias("e-pong", "e-hello")]
         public Task PingAsync()
             => ReplyAsync("pong!");
 
-        [Command("cat")]
+        [Command("e-cat")]
         public async Task CatAsync()
         {
             // Get a stream containing an image of a cat
@@ -27,7 +27,7 @@ namespace _10KRanker.Modules
         }
 
         // Get info on a user, or the user who invoked the command if one is not specified
-        [Command("userinfo")]
+        [Command("e-userinfo")]
         public async Task UserInfoAsync(IUser user = null)
         {
             user = user ?? Context.User;
@@ -36,7 +36,7 @@ namespace _10KRanker.Modules
         }
 
         // Ban a user
-        [Command("ban")]
+        [Command("e-ban")]
         [RequireContext(ContextType.Guild)]
         // make sure the user invoking the command can ban
         [RequireUserPermission(GuildPermission.BanMembers)]
@@ -49,18 +49,18 @@ namespace _10KRanker.Modules
         }
 
         // [Remainder] takes the rest of the command's arguments as one argument, rather than splitting every space
-        [Command("echo")]
+        [Command("e-echo")]
         public Task EchoAsync([Remainder] string text)
             // Insert a ZWSP before the text to prevent triggering other bots!
             => ReplyAsync('\u200B' + text);
 
         // 'params' will parse space-separated elements into a list
-        [Command("list")]
+        [Command("e-list")]
         public Task ListAsync(params string[] objects)
             => ReplyAsync("You listed: " + string.Join("; ", objects));
 
         // Setting a custom ErrorMessage property will help clarify the precondition error
-        [Command("guild_only")]
+        [Command("e-guild_only")]
         [RequireContext(ContextType.Guild, ErrorMessage = "Sorry, this command must be ran from within a server, not a DM!")]
         public Task GuildOnlyCommand()
             => ReplyAsync("Nothing to see here!");

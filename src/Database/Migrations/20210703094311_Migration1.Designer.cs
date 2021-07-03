@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210703092817_Migration1")]
+    [Migration("20210703094311_Migration1")]
     partial class Migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,10 +30,7 @@ namespace Database.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("MapperId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long?>("MapperId1")
+                    b.Property<long>("MapperId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -59,7 +56,7 @@ namespace Database.Migrations
 
                     b.HasKey("MapId");
 
-                    b.HasIndex("MapperId1");
+                    b.HasIndex("MapperId");
 
                     b.ToTable("Maps");
                 });
@@ -111,7 +108,9 @@ namespace Database.Migrations
                 {
                     b.HasOne("Database.Mapper", "Mapper")
                         .WithMany("Maps")
-                        .HasForeignKey("MapperId1");
+                        .HasForeignKey("MapperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Mapper");
                 });

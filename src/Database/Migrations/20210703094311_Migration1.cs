@@ -48,18 +48,17 @@ namespace Database.Migrations
                     OsuAprovedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     SubmitDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    MapperId = table.Column<int>(type: "INTEGER", nullable: false),
-                    MapperId1 = table.Column<long>(type: "INTEGER", nullable: true)
+                    MapperId = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Maps", x => x.MapId);
                     table.ForeignKey(
-                        name: "FK_Maps_Mappers_MapperId1",
-                        column: x => x.MapperId1,
+                        name: "FK_Maps_Mappers_MapperId",
+                        column: x => x.MapperId,
                         principalTable: "Mappers",
                         principalColumn: "MapperId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,9 +91,9 @@ namespace Database.Migrations
                 column: "NominatorsNominatorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Maps_MapperId1",
+                name: "IX_Maps_MapperId",
                 table: "Maps",
-                column: "MapperId1");
+                column: "MapperId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

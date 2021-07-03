@@ -16,7 +16,7 @@ namespace Database
         public DateTime SubmitDate { get; set; }
         public DateTime UpdateDate { get; set; }
 
-        public int MapperId { get; set; }
+        public long MapperId { get; set; }
         public Mapper Mapper { get; set; }
 
         public List<Nominator> Nominators { get; set; }
