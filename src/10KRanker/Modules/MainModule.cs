@@ -31,8 +31,8 @@ namespace _10KRanker.Modules
         }
 
 
-        [Command("remove")]
-        [Alias("removemap", "rm", "rmmap", "delete", "deletemap")]
+        [Command("rm")]
+        [Alias("rmmap", "remove", "removemap", "delete", "deletemap")]
         public async Task RemoveMapAsync(string mapId)
         {
             Map map = DB.Get<Map>(long.Parse(mapId));
@@ -75,8 +75,8 @@ namespace _10KRanker.Modules
         }
 
 
-        [Command("removebn")]
-        [Alias("removenominator", "rmbn", "rmnominator", "deletebn", "deletenominator")]
+        [Command("rmbn")]
+        [Alias("rmnominator", "removebn", "removenominator", "deletebn", "deletenominator")]
         public async Task RemoveNominatorAsync(string mapId, string userId)
         {
             Map map = DB.GetFullMap(long.Parse(mapId));
@@ -162,6 +162,30 @@ namespace _10KRanker.Modules
                     reply += $"\t\t{ n.Name }\n";
             }
             return reply;
+        }
+
+
+
+
+        [Command("info")]
+        [Alias("i", "help", "h", "commands", "c")]
+        public async Task InfoAsync()
+        {
+            await ReplyAsync(
+@"```
+<> = required
+() = optional
+|  = or
+----------
+Add a map and describe in what stage of the ranking/mapping proces it is.
+!add   <map link|beatmapsetid>   (status)
+
+Remove a previously added map.
+!rm/rmmap   <map link|beatmapsetid|map title>
+
+Assign a BN to a map. A map can have multiple BNs.
+!addbn/addnominator   <map link|beatmapsetid|map title>   <bn link|userid|bn name>
+```");
         }
     }
 }

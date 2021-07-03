@@ -1,4 +1,5 @@
-﻿using Database;
+﻿using _10KRanker;
+using Database;
 using OsuAPI;
 using OsuSharp;
 using System;
@@ -9,7 +10,12 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            DB.ClearDatabase();
+            Validator.MapLinkToId("https://osu.ppy.sh/beatmapsets/1488095#mania/3050710");
+            Validator.MapLinkToId("https://osu.ppy.sh/beatmapsets/1488095");
+            Validator.UserLinkToId("https://osu.ppy.sh/users/10948555/mania");
+            Validator.UserLinkToId("https://osu.ppy.sh/users/10948555");
+            //while (true)
+            //    Validator.MapLinkToId(Console.ReadLine());
         }
 
         private static void OsuTest()
