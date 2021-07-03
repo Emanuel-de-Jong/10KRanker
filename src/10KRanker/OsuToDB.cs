@@ -22,14 +22,26 @@ namespace _10KRanker
             return new Mapper(osuUser.UserId, osuUser.Username);
         }
 
+        public static Nominator ParseNominator(User osuUser)
+        {
+            return new Nominator(osuUser.UserId, osuUser.Username);
+        }
+
+
         public static Map CreateMap(long mapId)
         {
             return ParseMap(Osu.GetMap(mapId));
         }
 
-        public static Map CreateMap(string mapId)
+        public static Map CreateFullMap(long mapId)
         {
-            return ParseMap(Osu.GetMap(mapId));
+            Beatmap osuMap = Osu.GetMap(mapId);
+
+            Map dbMap = ParseMap(osuMap);
+            Mapper dbMapper = CreateMapper(osuMap.AuthorId);
+
+            dbMap.Mapper = dbMapper;
+            return dbMap;
         }
 
         public static Mapper CreateMapper(long userId)
@@ -37,9 +49,9 @@ namespace _10KRanker
             return ParseMapper(Osu.GetUser(userId));
         }
 
-        public static Mapper CreateMapper(string userId)
+        public static Nominator CreateNominator(long userId)
         {
-            return ParseMapper(Osu.GetUser(userId));
+            return ParseNominator(Osu.GetUser(userId));
         }
     }
 }

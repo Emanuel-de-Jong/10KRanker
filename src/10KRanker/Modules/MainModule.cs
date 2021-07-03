@@ -16,14 +16,7 @@ namespace _10KRanker.Modules
         [Alias("addmap")]
         public async Task AddAsync(string mapId)
         {
-            var osuMap = Osu.GetMap(mapId);
-
-            var dbMap = OsuToDB.ParseMap(osuMap);
-            var dbMapper = OsuToDB.CreateMapper(osuMap.AuthorId);
-
-            dbMap.Mapper = dbMapper;
-
-            DB.Add(dbMap);
+            DB.Add(OsuToDB.CreateFullMap(long.Parse(mapId)));
 
             await ReplyAsync("Map saved");
         }

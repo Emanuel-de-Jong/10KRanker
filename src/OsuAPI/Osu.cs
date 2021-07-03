@@ -33,11 +33,6 @@ namespace OsuAPI
             return map;
         }
 
-        public static Beatmap GetMap(string beatmapsetId)
-        {
-            return GetMap(long.Parse(beatmapsetId));
-        }
-
         public static User GetUser(long userId)
         {
             User user = client.GetUserByUserIdAsync(userId, GameMode.Mania).Result;
@@ -45,11 +40,6 @@ namespace OsuAPI
                 throw new ArgumentException("A user with that id does not exist");
 
             return user;
-        }
-
-        public static User GetUser(string userId)
-        {
-            return GetUser(long.Parse(userId));
         }
     }
 }
