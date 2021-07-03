@@ -44,8 +44,8 @@ namespace Database.Migrations
                     Status = table.Column<string>(type: "TEXT", nullable: true),
                     Category = table.Column<int>(type: "INTEGER", nullable: false),
                     OsuSubmitDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    OsuUpdateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    OsuAprovedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    OsuUpdateDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    OsuAprovedDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     SubmitDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     MapperId = table.Column<long>(type: "INTEGER", nullable: false)

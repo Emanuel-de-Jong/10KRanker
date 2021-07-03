@@ -34,13 +34,13 @@ namespace Database.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("OsuAprovedDate")
+                    b.Property<DateTime?>("OsuAprovedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("OsuSubmitDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("OsuUpdateDate")
+                    b.Property<DateTime?>("OsuUpdateDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Status")

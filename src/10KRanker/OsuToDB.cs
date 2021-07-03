@@ -9,8 +9,11 @@ namespace _10KRanker
     {
         public static Map ParseMap(Beatmap osuMap)
         {
+            DateTime? osuUpdateDate = osuMap.LastUpdate.HasValue ? osuMap.LastUpdate.Value.DateTime : null;
+            DateTime? osuAprovedDate = osuMap.ApprovedDate.HasValue ? osuMap.ApprovedDate.Value.DateTime : null;
+
             return new Map(osuMap.BeatmapsetId, osuMap.Title, osuMap.Artist, (Database.Category)osuMap.State,
-                osuMap.SubmitDate.Value.DateTime, osuMap.LastUpdate.Value.DateTime, osuMap.ApprovedDate.Value.DateTime,
+                osuMap.SubmitDate.Value.DateTime, osuUpdateDate, osuAprovedDate,
                 DateTime.Now, DateTime.Now);
         }
 

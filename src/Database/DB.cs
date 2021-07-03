@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +19,14 @@ namespace Database
         public static void Dispose()
         {
             context.Dispose();
+        }
+
+
+        public static void ClearDatabase()
+        {
+            foreach (string table in context.TableNames)
+                context.Database.ExecuteSqlRawAsync($"DELETE FROM { table };");
+            context.SaveChanges();
         }
 
 

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210703094311_Migration1")]
+    [Migration("20210703095929_Migration1")]
     partial class Migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,13 +36,13 @@ namespace Database.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("OsuAprovedDate")
+                    b.Property<DateTime?>("OsuAprovedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("OsuSubmitDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("OsuUpdateDate")
+                    b.Property<DateTime?>("OsuUpdateDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
