@@ -38,9 +38,13 @@ namespace _10KRanker
             Beatmap osuMap = Osu.GetMap(mapId);
 
             Map dbMap = ParseMap(osuMap);
-            Mapper dbMapper = CreateMapper(osuMap.AuthorId);
+
+            Mapper dbMapper = DB.Get<Mapper>(osuMap.AuthorId);
+            if (dbMapper == null)
+                dbMapper = CreateMapper(osuMap.AuthorId);
 
             dbMap.Mapper = dbMapper;
+
             return dbMap;
         }
 

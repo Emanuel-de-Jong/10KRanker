@@ -42,15 +42,15 @@ namespace Database
             context.SaveChanges();
         }
 
-        public static T Get<T>(int objId) where T : class
+        public static T Get<T>(long objId) where T : class
         {
-            return context.Find<T>(new int[] { objId });
+            return context.Find<T>(new object[] { objId });
         }
 
-        public static List<T> Get<T>(List<int> objIds) where T : class
+        public static List<T> Get<T>(List<long> objIds) where T : class
         {
             List<T> objs = new List<T>();
-            foreach (int objId in objIds)
+            foreach (long objId in objIds)
             {
                 objs.Add(Get<T>(objId));
             }
@@ -75,7 +75,7 @@ namespace Database
             context.SaveChanges();
         }
 
-        public static void Remove<T>(int objId) where T : class
+        public static void Remove<T>(long objId) where T : class
         {
             Remove(Get<T>(objId));
         }
@@ -86,7 +86,7 @@ namespace Database
             context.SaveChanges();
         }
 
-        public static void Remove<T>(List<int> objIds) where T : class
+        public static void Remove<T>(List<long> objIds) where T : class
         {
             Remove(Get<T>(objIds));
         }

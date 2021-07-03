@@ -9,6 +9,11 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            DB.ClearDatabase();
+        }
+
+        private static void OsuTest()
+        {
             Beatmap osuMap = null;
             try
             {
@@ -32,8 +37,6 @@ namespace Test
             //}
             //PrintProperties(osuUser);
         }
-
-
 
         private static void PrintProperties(object obj)
         {
