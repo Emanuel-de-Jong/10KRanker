@@ -4,7 +4,6 @@ using Discord;
 using Discord.Commands;
 using _10KRanker.Services;
 using OsuAPI;
-using Database.Models;
 using OsuSharp;
 using Database;
 

@@ -1,5 +1,4 @@
-﻿using Database.Models;
-using OsuAPI;
+﻿using OsuAPI;
 using OsuSharp;
 using System;
 using System.Collections.Generic;

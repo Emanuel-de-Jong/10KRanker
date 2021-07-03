@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Database.Models
+namespace Database
 {
     public class Mapper
     {

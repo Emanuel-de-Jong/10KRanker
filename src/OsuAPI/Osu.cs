@@ -1,6 +1,5 @@
 ﻿using OsuSharp;
 using System;
-using System.Threading.Tasks;
 
 namespace OsuAPI
 {

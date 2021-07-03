@@ -1,5 +1,4 @@
-﻿using Database.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -49,11 +48,11 @@ namespace Database
             return objs;
         }
 
-        public static List<Database.Models.Map> GetMaps() => context.Maps.ToList();
+        public static List<Database.Map> GetMaps() => context.Maps.ToList();
 
-        public static List<Database.Models.Mapper> GetMappers() => context.Mappers.ToList();
+        public static List<Database.Mapper> GetMappers() => context.Mappers.ToList();
 
-        public static List<Database.Models.Nominator> GetNominators() => context.Nominators.ToList();
+        public static List<Database.Nominator> GetNominators() => context.Nominators.ToList();
 
         public static void Update(object obj)
         {
