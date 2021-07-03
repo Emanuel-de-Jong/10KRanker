@@ -14,17 +14,26 @@ namespace _10KRanker.Modules
     {
         [Command("add")]
         [Alias("addmap", "create", "createmap")]
-        public async Task AddMapAsync(string mapId, [Remainder] string status = null)
+        public async Task AddMapAsync(string mapIndicator, [Remainder] string status = null)
         {
-            if (DB.Exists<Map>(long.Parse(mapId)))
+            bool mapExists = false;
+            Map map = null;
+            try
             {
-                await ReplyAsync("A beatmapset with that id already exists");
+                map = Validator.InputToMap(mapIndicator, out mapExists);
+            }
+            catch (Exception ex)
+            {
+                await ReplyAsync(ex.Message);
+            }
+
+            if (mapExists)
+            {
+                await ReplyAsync("The map already exists");
                 return;
             }
 
-            Map map = OsuToDB.CreateFullMap(long.Parse(mapId));
             map.Status = status;
-
             DB.Add(map);
 
             await ReplyAsync("Map added");
@@ -33,12 +42,22 @@ namespace _10KRanker.Modules
 
         [Command("rm")]
         [Alias("rmmap", "remove", "removemap", "delete", "deletemap")]
-        public async Task RemoveMapAsync(string mapId)
+        public async Task RemoveMapAsync(string mapIndicator)
         {
-            Map map = DB.Get<Map>(long.Parse(mapId));
-            if (map == null)
+            bool mapExists = false;
+            Map map = null;
+            try
             {
-                await ReplyAsync("A beatmapset with that id doesn't exist");
+                map = Validator.InputToMap(mapIndicator, out mapExists);
+            }
+            catch (Exception ex)
+            {
+                await ReplyAsync(ex.Message);
+            }
+
+            if (!mapExists)
+            {
+                await ReplyAsync("The map doesn't exist");
                 return;
             }
 

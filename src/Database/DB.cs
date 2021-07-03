@@ -63,6 +63,11 @@ namespace Database
             return objs;
         }
 
+        public static T Get<T>(string objNames) where T : class
+        {
+            return context.Find<T>(new object[] { objNames });
+        }
+
         public static Map GetFullMap(long mapId)
         {
             return context.Maps
@@ -71,9 +76,22 @@ namespace Database
                 .FirstOrDefault(x => x.MapId == mapId);
         }
 
+        public static Map GetFullMap(string mapName)
+        {
+            return context.Maps
+                .Include(i => i.Mapper)
+                .Include(i => i.Nominators)
+                .FirstOrDefault(x => x.Name == mapName);
+        }
+
         public static Mapper GetFullMapper(long mapperId)
         {
             return Get<Mapper>(mapperId);
+        }
+
+        public static Mapper GetFullMapper(string mapperName)
+        {
+            return Get<Mapper>(mapperName);
         }
 
         public static Nominator GetFullNominator(long nominatorId)
@@ -82,6 +100,13 @@ namespace Database
                 .Include(i => i.Maps)
                 .FirstOrDefault(x => x.NominatorId == nominatorId);
         }
+        public static Nominator GetFullNominator(string nominatorName)
+        {
+            return context.Nominators
+                .Include(i => i.Maps)
+                .FirstOrDefault(x => x.Name == nominatorName);
+        }
+
 
         public static List<Map> GetMaps() => context.Maps.ToList();
 
