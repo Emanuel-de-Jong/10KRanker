@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210702155232_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20210703092817_Migration1")]
+    partial class Migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,46 +18,55 @@ namespace Database.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.7");
 
-            modelBuilder.Entity("Database.Models.Map", b =>
+            modelBuilder.Entity("Database.Map", b =>
                 {
-                    b.Property<int>("MapId")
+                    b.Property<long>("MapId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BeatmapsetId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Artist")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Category")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("MapperId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("ModificationDate")
-                        .HasColumnType("TEXT");
+                    b.Property<long?>("MapperId1")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("OsuModificationDate")
+                    b.Property<DateTime>("OsuAprovedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("OsuSubmitDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("OsuUpdateDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("SubmitDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("MapId");
 
-                    b.HasIndex("MapperId");
+                    b.HasIndex("MapperId1");
 
                     b.ToTable("Maps");
                 });
 
-            modelBuilder.Entity("Database.Models.Mapper", b =>
+            modelBuilder.Entity("Database.Mapper", b =>
                 {
-                    b.Property<int>("MapperId")
+                    b.Property<long>("MapperId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -69,9 +78,9 @@ namespace Database.Migrations
                     b.ToTable("Mappers");
                 });
 
-            modelBuilder.Entity("Database.Models.Nominator", b =>
+            modelBuilder.Entity("Database.Nominator", b =>
                 {
-                    b.Property<int>("NominatorId")
+                    b.Property<long>("NominatorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -85,10 +94,10 @@ namespace Database.Migrations
 
             modelBuilder.Entity("MapNominator", b =>
                 {
-                    b.Property<int>("MapsMapId")
+                    b.Property<long>("MapsMapId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("NominatorsNominatorId")
+                    b.Property<long>("NominatorsNominatorId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("MapsMapId", "NominatorsNominatorId");
@@ -98,33 +107,31 @@ namespace Database.Migrations
                     b.ToTable("MapNominator");
                 });
 
-            modelBuilder.Entity("Database.Models.Map", b =>
+            modelBuilder.Entity("Database.Map", b =>
                 {
-                    b.HasOne("Database.Models.Mapper", "Mapper")
+                    b.HasOne("Database.Mapper", "Mapper")
                         .WithMany("Maps")
-                        .HasForeignKey("MapperId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MapperId1");
 
                     b.Navigation("Mapper");
                 });
 
             modelBuilder.Entity("MapNominator", b =>
                 {
-                    b.HasOne("Database.Models.Map", null)
+                    b.HasOne("Database.Map", null)
                         .WithMany()
                         .HasForeignKey("MapsMapId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Database.Models.Nominator", null)
+                    b.HasOne("Database.Nominator", null)
                         .WithMany()
                         .HasForeignKey("NominatorsNominatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Database.Models.Mapper", b =>
+            modelBuilder.Entity("Database.Mapper", b =>
                 {
                     b.Navigation("Maps");
                 });

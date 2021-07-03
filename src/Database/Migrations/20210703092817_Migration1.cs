@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Database.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Migration1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,7 @@ namespace Database.Migrations
                 name: "Mappers",
                 columns: table => new
                 {
-                    MapperId = table.Column<int>(type: "INTEGER", nullable: false)
+                    MapperId = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -24,7 +24,7 @@ namespace Database.Migrations
                 name: "Nominators",
                 columns: table => new
                 {
-                    NominatorId = table.Column<int>(type: "INTEGER", nullable: false)
+                    NominatorId = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -37,34 +37,37 @@ namespace Database.Migrations
                 name: "Maps",
                 columns: table => new
                 {
-                    MapId = table.Column<int>(type: "INTEGER", nullable: false)
+                    MapId = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    BeatmapsetId = table.Column<int>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Artist = table.Column<string>(type: "TEXT", nullable: true),
                     Status = table.Column<string>(type: "TEXT", nullable: true),
                     Category = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ModificationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    OsuModificationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    MapperId = table.Column<int>(type: "INTEGER", nullable: false)
+                    OsuSubmitDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    OsuUpdateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    OsuAprovedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    SubmitDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    MapperId = table.Column<int>(type: "INTEGER", nullable: false),
+                    MapperId1 = table.Column<long>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Maps", x => x.MapId);
                     table.ForeignKey(
-                        name: "FK_Maps_Mappers_MapperId",
-                        column: x => x.MapperId,
+                        name: "FK_Maps_Mappers_MapperId1",
+                        column: x => x.MapperId1,
                         principalTable: "Mappers",
                         principalColumn: "MapperId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "MapNominator",
                 columns: table => new
                 {
-                    MapsMapId = table.Column<int>(type: "INTEGER", nullable: false),
-                    NominatorsNominatorId = table.Column<int>(type: "INTEGER", nullable: false)
+                    MapsMapId = table.Column<long>(type: "INTEGER", nullable: false),
+                    NominatorsNominatorId = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,9 +92,9 @@ namespace Database.Migrations
                 column: "NominatorsNominatorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Maps_MapperId",
+                name: "IX_Maps_MapperId1",
                 table: "Maps",
-                column: "MapperId");
+                column: "MapperId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
