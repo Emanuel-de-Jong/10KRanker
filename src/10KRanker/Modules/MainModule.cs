@@ -13,8 +13,8 @@ namespace _10KRanker.Modules
     public class MainModule : ModuleBase<SocketCommandContext>
     {
         [Command("add")]
-        [Alias("addmap")]
-        public async Task AddMapAsync(string mapId, [Remainder] string status)
+        [Alias("addmap", "create", "createmap")]
+        public async Task AddMapAsync(string mapId, [Remainder] string status = null)
         {
             if (DB.Exists<Map>(long.Parse(mapId)))
             {
@@ -31,8 +31,8 @@ namespace _10KRanker.Modules
         }
 
 
-        [Command("rm")]
-        [Alias("rmmap")]
+        [Command("remove")]
+        [Alias("removemap", "rm", "rmmap", "delete", "deletemap")]
         public async Task RemoveMapAsync(string mapId)
         {
             Map map = DB.Get<Map>(long.Parse(mapId));
@@ -51,6 +51,7 @@ namespace _10KRanker.Modules
 
 
         [Command("addbn")]
+        [Alias("addnominator", "createbn", "createnominator")]
         public async Task AddNominatorAsync(string mapId, string userId)
         {
             Map map = DB.GetFullMap(long.Parse(mapId));
@@ -74,7 +75,8 @@ namespace _10KRanker.Modules
         }
 
 
-        [Command("rmbn")]
+        [Command("removebn")]
+        [Alias("removenominator", "rmbn", "rmnominator", "deletebn", "deletenominator")]
         public async Task RemoveNominatorAsync(string mapId, string userId)
         {
             Map map = DB.GetFullMap(long.Parse(mapId));
@@ -101,7 +103,7 @@ namespace _10KRanker.Modules
 
 
         [Command("changestatus")]
-        [Alias("cs")]
+        [Alias("cs", "updatestatus", "changedescription", "updatedescription")]
         public async Task UpdateMapStatusAsync(string mapId, [Remainder] string status)
         {
             Map map = DB.GetFullMap(long.Parse(mapId));
@@ -121,39 +123,45 @@ namespace _10KRanker.Modules
 
 
         [Command("list")]
-        [Alias("l", "all")]
+        [Alias("l", "all", "maps")]
         public async Task ListAsync()
         {
             List<Map> maps = DB.GetFullMaps();
 
             string reply = "";
-            foreach (Map m in maps)
-            {
-                reply +=
-                    $"{ m.Artist } - { m.Name } ({ m.Category })\n" +
-                    $"\tStatus: { m.Status }\n" +
-                    $"\tMapper: { m.Mapper.Name }\n";
-
-                if (m.Nominators.Count != 0)
-                {
-                    reply += "\tBNs:\n";
-                    foreach (Nominator n in m.Nominators)
-                        reply += $"\t\t{ n.Name }\n";
-                }
-
-                reply += "\n";
-            }
+            foreach (Map map in maps)
+                reply += ShowMap(map) + "\n";
 
             await ReplyAsync(reply);
         }
 
 
         [Command("show")]
+        [Alias("s", "map", "display")]
         public async Task ShowAsync(string mapId)
         {
             Map map = DB.GetFullMap(long.Parse(mapId));
+            await ReplyAsync(ShowMap(map));
+        }
 
-            await ReplyAsync($"{map.Artist} - {map.Name}\n\t{map.Mapper.Name}");
+
+        private string ShowMap(Map map)
+        {
+            string reply = "";
+            reply +=
+                    $"{ map.Artist } - { map.Name } ({ map.Category })\n" +
+                    $"\tMapper: { map.Mapper.Name }\n";
+
+            if (map.Status != null)
+                reply += $"\tStatus: { map.Status }\n";
+
+            if (map.Nominators.Count != 0)
+            {
+                reply += "\tBNs:\n";
+                foreach (Nominator n in map.Nominators)
+                    reply += $"\t\t{ n.Name }\n";
+            }
+            return reply;
         }
     }
 }
