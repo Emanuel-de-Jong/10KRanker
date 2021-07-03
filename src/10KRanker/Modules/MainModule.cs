@@ -16,9 +16,36 @@ namespace _10KRanker.Modules
         [Alias("addmap")]
         public async Task AddAsync(string mapId)
         {
+            if (DB.Exists<Map>(long.Parse(mapId)))
+            {
+                await ReplyAsync("A beatmapset with that id already exists");
+                return;
+            }
+
             DB.Add(OsuToDB.CreateFullMap(long.Parse(mapId)));
 
             await ReplyAsync("Map saved");
+        }
+
+        [Command("addbn")]
+        public async Task AddNominatorAsync(string mapId, string userId)
+        {
+            Map map = DB.GetFullMap(long.Parse(mapId));
+            if (map == null)
+            {
+                await ReplyAsync("A beatmapset with that id doesn't exist");
+                return;
+            }
+
+            Nominator nominator = DB.Get<Nominator>(long.Parse(userId));
+            if (nominator == null)
+                nominator = OsuToDB.CreateNominator(long.Parse(userId));
+
+            map.Nominators.Add(nominator);
+
+            DB.Update(map);
+
+            await ReplyAsync("BN added to map");
         }
 
         [Command("list")]
@@ -34,6 +61,14 @@ namespace _10KRanker.Modules
             }
 
             await ReplyAsync(reply);
+        }
+
+        [Command("show")]
+        public async Task ShowAsync(string mapId)
+        {
+            Map map = DB.GetFullMap(long.Parse(mapId));
+
+            await ReplyAsync($"{map.Artist} - {map.Name}\n\t{map.Mapper.Name}");
         }
     }
 }

@@ -42,6 +42,12 @@ namespace Database
             context.SaveChanges();
         }
 
+
+        public static bool Exists<T>(long objId) where T : class
+        {
+            return Get<T>(objId) != null;
+        }
+
         public static T Get<T>(long objId) where T : class
         {
             return context.Find<T>(new object[] { objId });
@@ -57,11 +63,32 @@ namespace Database
             return objs;
         }
 
+        public static Map GetFullMap(long mapId)
+        {
+            return context.Maps
+                .Include(i => i.Mapper)
+                .Include(i => i.Nominators)
+                .FirstOrDefault(x => x.MapId == mapId);
+        }
+
+        public static Mapper GetFullMapper(long mapperId)
+        {
+            return Get<Mapper>(mapperId);
+        }
+
+        public static Nominator GetFullNominator(long nominatorId)
+        {
+            return context.Nominators
+                .Include(i => i.Maps)
+                .FirstOrDefault(x => x.NominatorId == nominatorId);
+        }
+
         public static List<Database.Map> GetMaps() => context.Maps.ToList();
 
         public static List<Database.Mapper> GetMappers() => context.Mappers.ToList();
 
         public static List<Database.Nominator> GetNominators() => context.Nominators.ToList();
+
 
         public static void Update(object obj)
         {
@@ -74,6 +101,7 @@ namespace Database
             context.UpdateRange(objs);
             context.SaveChanges();
         }
+
 
         public static void Remove<T>(long objId) where T : class
         {
