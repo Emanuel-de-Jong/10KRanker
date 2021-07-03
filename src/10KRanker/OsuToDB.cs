@@ -11,9 +11,15 @@ namespace _10KRanker
 {
     public static class OsuToDB
     {
-        public static Map CreateMap(string mapId)
+        public static Map ParseMap(Beatmap osuMap)
         {
-            return ParseMap(Osu.GetMap(mapId));
+            return new Map(osuMap.BeatmapsetId, osuMap.Title, osuMap.Artist, (Database.Enums.Category)osuMap.State,
+                DateTime.Now, DateTime.Now, osuMap.LastUpdate.Value.DateTime);
+        }
+
+        public static Mapper ParseMapper(User osuUser)
+        {
+            return new Mapper(osuUser.UserId, osuUser.Username);
         }
 
         public static Map CreateMap(long mapId)
@@ -21,9 +27,9 @@ namespace _10KRanker
             return ParseMap(Osu.GetMap(mapId));
         }
 
-        public static Mapper CreateMapper(string userId)
+        public static Map CreateMap(string mapId)
         {
-            return ParseMapper(Osu.GetUser(userId));
+            return ParseMap(Osu.GetMap(mapId));
         }
 
         public static Mapper CreateMapper(long userId)
@@ -31,15 +37,9 @@ namespace _10KRanker
             return ParseMapper(Osu.GetUser(userId));
         }
 
-        public static Map ParseMap(Beatmap osuMap)
+        public static Mapper CreateMapper(string userId)
         {
-            return new Map(osuMap.BeatmapId, osuMap.Title + osuMap.Difficulty, "",
-                (Database.Enums.Category)osuMap.State, DateTime.Now, DateTime.Now, DateTime.Now);
-        }
-
-        public static Mapper ParseMapper(User osuUser)
-        {
-            return new Mapper(osuUser.UserId, osuUser.Username);
+            return ParseMapper(Osu.GetUser(userId));
         }
     }
 }

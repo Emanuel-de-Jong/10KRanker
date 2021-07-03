@@ -11,22 +11,43 @@ namespace OsuAPI
 
         public static Beatmap GetMap(long beatmapsetId)
         {
-            return client.GetBeatmapByIdAsync(beatmapsetId).Result;
+            var maps = client.GetBeatmapsetAsync(beatmapsetId).Result;
+            if (maps.Count == 0)
+                throw new ArgumentException("A beatmapset with that id does not exist");
+
+            Beatmap map = null;
+            foreach (Beatmap m in maps)
+            {
+                if (m.GameMode == GameMode.Mania && m.CircleSize == 10)
+                {
+                    map = m;
+                    break;
+                }
+            }
+
+            if (map == null)
+                throw new ArgumentException("The beatmapset does not have a 10K difficulty");
+
+            return map;
         }
 
         public static Beatmap GetMap(string beatmapsetId)
         {
-            return GetMap(Int32.Parse(beatmapsetId));
+            return GetMap(long.Parse(beatmapsetId));
         }
 
         public static User GetUser(long userId)
         {
-            return client.GetUserByUserIdAsync(userId, GameMode.Mania).Result;
+            User user = client.GetUserByUserIdAsync(userId, GameMode.Mania).Result;
+            if (user == null)
+                throw new ArgumentException("A user with that id does not exist");
+
+            return user;
         }
 
         public static User GetUser(string userId)
         {
-            return GetUser(Int32.Parse(userId));
+            return GetUser(long.Parse(userId));
         }
     }
 }

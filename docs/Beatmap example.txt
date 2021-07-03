@@ -1,0 +1,56 @@
+BeatmapsetId = 1193846
+BeatmapId = 2488937
+FileMd5 = 0f483549bd19f933b55508d2bb5d1c28
+
+Title = BLACK or WHITE?
+Difficulty = ADVANCED
+Artist = BlackYooh vs. siromaru
+Author = XDerbyX
+AuthorId = 7326238
+Source = SOUND VOLTEX II -infinite infection-
+Genre = VideoGame
+Language = Instrumental
+Tags = System.String[]
+
+GameMode = Mania
+State = Ranked
+Bpm = 185
+StarRating = 3.29298
+SpeedDifficulty =
+AimDifficulty =
+MaxCombo =
+
+TotalLength = 00:01:56
+HitLength = 00:01:55
+
+CircleSize = 10
+OverallDifficulty = 7.5
+ApproachRate = 5
+HpDrain = 7.5
+
+CircleCount = 1333
+SliderCount = 42
+SpinnerCount = 0
+
+SubmitDate = 6/16/2020 8:06:28 AM +02:00
+ApprovedDate = 3/30/2021 10:42:50 PM +02:00
+LastUpdate = 3/29/2021 10:06:21 AM +02:00
+
+FavoriteCount = 138
+PlayCount = 839
+PassCount = 267
+FailCount = 572
+Rating = 9.42308
+
+DownloadUnavailable = False
+AudioUnavailable = False
+
+Packs = System.String[]
+
+Client = OsuSharp.OsuClient
+
+ThumbnailUri = https://b.ppy.sh/thumb/1193846l.jpg
+CoverUri = https://assets.ppy.sh/beatmaps/1193846/covers/cover.jpg
+SoundPreviewUri = https://b.ppy.sh/preview/1193846.mp3
+OsuDirectDownloadUri = osu://dl/1193846
+BeatmapUri = https://osu.ppy.sh/beatmaps/2488937
