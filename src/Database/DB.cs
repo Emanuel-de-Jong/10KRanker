@@ -83,11 +83,23 @@ namespace Database
                 .FirstOrDefault(x => x.NominatorId == nominatorId);
         }
 
-        public static List<Database.Map> GetMaps() => context.Maps.ToList();
+        public static List<Map> GetMaps() => context.Maps.ToList();
 
-        public static List<Database.Mapper> GetMappers() => context.Mappers.ToList();
+        public static List<Mapper> GetMappers() => context.Mappers.ToList();
 
-        public static List<Database.Nominator> GetNominators() => context.Nominators.ToList();
+        public static List<Nominator> GetNominators() => context.Nominators.ToList();
+
+        public static List<Map> GetFullMaps()
+        {
+            return context.Maps
+                .Include(i => i.Mapper)
+                .Include(i => i.Nominators)
+                .DefaultIfEmpty().ToList();
+        }
+
+        public static List<Mapper> GetFullMappers() => context.Mappers.ToList();
+
+        public static List<Nominator> GetFullNominators() => context.Nominators.ToList();
 
 
         public static void Update(object obj)
