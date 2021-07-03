@@ -12,20 +12,34 @@ namespace Test
             Beatmap osuMap = null;
             try
             {
-                osuMap = Osu.GetMap(1193846); // 1193846 good | 1393811 std | 1369976 7k
-            } catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            User osuUser = null;
-            try
-            {
-                osuUser = Osu.GetUser(10948555); // 10948555
+                osuMap = Osu.GetMap(1343787); // 1193846 BorW | 1343787 Lalabai | 1393811 std | 1369976 7k
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+            PrintProperties(osuMap);
+
+
+            User osuUser = null;
+            try
+            {
+                osuUser = Osu.GetUser(4815717); // 10948555 KBot | 4815717 Feerum
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            PrintProperties(osuUser);
+        }
+
+
+
+        private static void PrintProperties(object obj)
+        {
+            foreach (var prop in obj.GetType().GetProperties())
+            {
+                Console.WriteLine("{0} = {1}", prop.Name, prop.GetValue(obj, null));
             }
         }
     }

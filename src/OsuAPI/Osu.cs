@@ -27,6 +27,9 @@ namespace OsuAPI
             if (map == null)
                 throw new ArgumentException("The beatmapset does not have a 10K difficulty");
 
+            if (map.DownloadUnavailable || map.AudioUnavailable)
+                throw new ArgumentException("The beatmapset is corrupted");
+
             return map;
         }
 

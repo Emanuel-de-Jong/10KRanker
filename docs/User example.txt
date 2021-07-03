@@ -1,0 +1,36 @@
+UserId = 4815717
+
+Username = Feerum
+Country = DE
+GameMode = Mania
+
+PerformancePoints = 5086.63
+Rank = 10612
+CountryRank = 150
+Accuracy = 96.28292083740234
+
+JoinDate = 8/19/2014 6:22:43 PM +02:00
+
+RankedScore = 1767779599
+Score = 13461541413
+Level = 98.1853
+
+PlayCount = 27181
+Count50 = 149136
+Count100 = 2619118
+Count300 = 16753114
+
+CountSS = 90
+CountSSH = 0
+CountS = 1484
+CountSH = 2
+CountA = 312
+
+TimePlayed = 24.18:37:06
+
+Events = System.Collections.ObjectModel.ReadOnlyCollection`1[OsuSharp.UserEvents]
+
+Client = OsuSharp.OsuClient
+
+SpectateUri = osu://spectate/Feerum
+ProfileUri = https://osu.ppy.sh/users/4815717

@@ -1,56 +1,56 @@
-BeatmapsetId = 1193846
-BeatmapId = 2488937
-FileMd5 = 0f483549bd19f933b55508d2bb5d1c28
+S: BeatmapsetId = 1193846
+B: BeatmapId = 2488937
+B: FileMd5 = 0f483549bd19f933b55508d2bb5d1c28
 
-Title = BLACK or WHITE?
-Difficulty = ADVANCED
-Artist = BlackYooh vs. siromaru
-Author = XDerbyX
-AuthorId = 7326238
-Source = SOUND VOLTEX II -infinite infection-
-Genre = VideoGame
-Language = Instrumental
-Tags = System.String[]
+S: Title = BLACK or WHITE?
+B: Difficulty = ADVANCED
+S: Artist = BlackYooh vs. siromaru
+S: Author = XDerbyX
+S: AuthorId = 7326238
+S: Source = SOUND VOLTEX II -infinite infection-
+S: Genre = VideoGame
+S: Language = Instrumental
+S: Tags = System.String[]
 
-GameMode = Mania
-State = Ranked
-Bpm = 185
-StarRating = 3.29298
-SpeedDifficulty =
-AimDifficulty =
-MaxCombo =
+B: GameMode = Mania
+S: State = Ranked
+S: Bpm = 185
+B: StarRating = 3.29298
+B: SpeedDifficulty =
+B: AimDifficulty =
+B: MaxCombo =
 
-TotalLength = 00:01:56
-HitLength = 00:01:55
+B: TotalLength = 00:01:56
+B: HitLength = 00:01:55
 
-CircleSize = 10
-OverallDifficulty = 7.5
-ApproachRate = 5
-HpDrain = 7.5
+B: CircleSize = 10
+B: OverallDifficulty = 7.5
+B: ApproachRate = 5
+B: HpDrain = 7.5
 
-CircleCount = 1333
-SliderCount = 42
-SpinnerCount = 0
+B: CircleCount = 1333
+B: SliderCount = 42
+B: SpinnerCount = 0
 
-SubmitDate = 6/16/2020 8:06:28 AM +02:00
-ApprovedDate = 3/30/2021 10:42:50 PM +02:00
-LastUpdate = 3/29/2021 10:06:21 AM +02:00
+S: SubmitDate = 6/16/2020 8:06:28 AM +02:00
+S: ApprovedDate = 3/30/2021 10:42:50 PM +02:00
+S: LastUpdate = 3/29/2021 10:06:21 AM +02:00
 
-FavoriteCount = 138
-PlayCount = 839
-PassCount = 267
-FailCount = 572
-Rating = 9.42308
+S: FavoriteCount = 138
+B: PlayCount = 839
+B: PassCount = 267
+B: FailCount = 572
+B: Rating = 9.42308
 
-DownloadUnavailable = False
-AudioUnavailable = False
+S: DownloadUnavailable = False
+S: AudioUnavailable = False
 
-Packs = System.String[]
+B: Packs = System.String[]
 
-Client = OsuSharp.OsuClient
+A: Client = OsuSharp.OsuClient
 
-ThumbnailUri = https://b.ppy.sh/thumb/1193846l.jpg
-CoverUri = https://assets.ppy.sh/beatmaps/1193846/covers/cover.jpg
-SoundPreviewUri = https://b.ppy.sh/preview/1193846.mp3
-OsuDirectDownloadUri = osu://dl/1193846
-BeatmapUri = https://osu.ppy.sh/beatmaps/2488937
+B: ThumbnailUri = https://b.ppy.sh/thumb/1193846l.jpg
+B: CoverUri = https://assets.ppy.sh/beatmaps/1193846/covers/cover.jpg
+B: SoundPreviewUri = https://b.ppy.sh/preview/1193846.mp3
+S: OsuDirectDownloadUri = osu://dl/1193846
+B: BeatmapUri = https://osu.ppy.sh/beatmaps/2488937
