@@ -55,7 +55,7 @@ namespace _10KRanker
             //addbn <id>1 <wrong id>		99999999
             //addbn1 <id>1 <id>				4815717
             //addbn1 <id>1 <same id>		4815717
-            //addbn1 <id>1 <name same bn>	Feerum
+            //addbn1 <id>1 <name same bn>	feerum
             //addbn2 <id>1 <name>			Unpredictable
             //addbn3 <id>2 <link with />	osu.ppy.sh/users/259972/fruits
             //addbn4 <id>3 <id>				2225008
@@ -87,7 +87,7 @@ error: Exception: The id is not a number
 !add osu.ppy.sh/bla
 error: Exception: The map link is not valid
 !add test
-error: Exception: The key value at position 0 of the call to 'DbSet<Map>.Find' was of type 'string', which does not match the property type of 'long'.
+error: Exception: Map names can only be used for existing maps. Try the map link or beatmapsetid instead
 !add 99999999
 error: Exception: A beatmapset with that id does not exist
 !add 1393811
@@ -99,7 +99,7 @@ error: Exception: The map already exists
 !add 1193846
 error: Exception: The map already exists
 !add ""BLACK or WHITE?""
-error: Exception: The key value at position 0 of the call to 'DbSet<Map>.Find' was of type 'string', which does not match the property type of 'long'.
+error: Exception: Map names can only be used for existing maps.Try the map link or beatmapsetid instead
 !add https://osu.ppy.sh/beatmapsets/1466367#mania/3011461
 error: Exception: An error occurred while updating the entries.See the inner exception for details.
 !add 1343787 map3 status
@@ -107,5 +107,6 @@ error: Exception: An error occurred while updating the entries.See the inner exc
 !add 1095022
 error: Exception: An error occurred while updating the entries.See the inner exception for details.
 ";
+
     }
 }

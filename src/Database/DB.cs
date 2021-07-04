@@ -48,9 +48,19 @@ namespace Database
             return Get<T>(objId) != null;
         }
 
-        public static bool Exists<T>(string objName) where T : class
+        public static bool MapExists(string mapName)
         {
-            return Get<T>(objName) != null;
+            return GetMap(mapName) != null;
+        }
+
+        public static bool MapperExists(string mapperName)
+        {
+            return GetMapper(mapperName) != null;
+        }
+
+        public static bool NominatorExists(string nominatorName)
+        {
+            return GetNominator(nominatorName) != null;
         }
 
 
@@ -59,9 +69,28 @@ namespace Database
             return context.Find<T>(new object[] { objId });
         }
 
-        public static T Get<T>(string objNames) where T : class
+        public static Map GetMap(string mapName)
         {
-            return context.Find<T>(new object[] { objNames });
+            foreach (Map map in context.Maps)
+                if (map.Name.ToLower() == mapName.ToLower())
+                    return map;
+            return null;
+        }
+
+        public static Mapper GetMapper(string mapperName)
+        {
+            foreach (Mapper mapper in context.Mappers)
+                if (mapper.Name.ToLower() == mapperName.ToLower())
+                    return mapper;
+            return null;
+        }
+
+        public static Nominator GetNominator(string nominatorName)
+        {
+            foreach (Nominator nominator in context.Nominators)
+                if (nominator.Name.ToLower() == nominatorName.ToLower())
+                    return nominator;
+            return null;
         }
 
         public static List<T> Get<T>(List<long> objIds) where T : class
@@ -70,16 +99,6 @@ namespace Database
             foreach (long objId in objIds)
             {
                 objs.Add(Get<T>(objId));
-            }
-            return objs;
-        }
-
-        public static List<T> Get<T>(List<string> objNames) where T : class
-        {
-            List<T> objs = new List<T>();
-            foreach (string objName in objNames)
-            {
-                objs.Add(Get<T>(objName));
             }
             return objs;
         }
@@ -115,9 +134,19 @@ namespace Database
             Remove(Get<T>(objId));
         }
 
-        public static void Remove<T>(string objName) where T : class
+        public static void RemoveMap(string mapName)
         {
-            Remove(Get<T>(objName));
+            Remove(GetMap(mapName));
+        }
+
+        public static void RemoveMapper(string mapperName)
+        {
+            Remove(GetMapper(mapperName));
+        }
+
+        public static void RemoveNominator(string nominatorName)
+        {
+            Remove(GetNominator(nominatorName));
         }
 
         public static void Remove(List<object> objs)
@@ -129,11 +158,6 @@ namespace Database
         public static void Remove<T>(List<long> objIds) where T : class
         {
             Remove(Get<T>(objIds));
-        }
-
-        public static void Remove<T>(List<string> objNames) where T : class
-        {
-            Remove(Get<T>(objNames));
         }
     }
 }

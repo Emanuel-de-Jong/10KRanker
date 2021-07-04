@@ -45,7 +45,7 @@ namespace _10KRanker.Modules
                     map = DB.Get<Map>(Validator.StringToId(mapAlias));
                     break;
                 case InputType.Name:
-                    map = DB.Get<Map>(mapAlias);
+                    map = DB.GetMap(mapAlias);
                     break;
             }
 
@@ -76,7 +76,7 @@ namespace _10KRanker.Modules
                     mapExists = DB.Exists<Map>(mapId);
                     break;
                 case InputType.Name:
-                    mapExists = DB.Exists<Map>(mapAlias);
+                    mapExists = DB.MapExists(mapAlias);
                     break;
             }
 
@@ -126,7 +126,7 @@ namespace _10KRanker.Modules
                     nominator = DB.Get<Nominator>(nominatorId);
                     break;
                 case InputType.Name:
-                    nominator = DB.Get<Nominator>(userAlias);
+                    nominator = DB.GetNominator(userAlias);
                     break;
             }
 
@@ -167,7 +167,7 @@ namespace _10KRanker.Modules
                     nominator = DB.Get<Nominator>(Validator.StringToId(userAlias));
                     break;
                 case InputType.Name:
-                    nominator = DB.Get<Nominator>(userAlias);
+                    nominator = DB.GetNominator(userAlias);
                     break;
             }
 
@@ -239,7 +239,7 @@ namespace _10KRanker.Modules
         public async Task InfoAsync()
         {
             await ReplyAsync(
-@"```
+@"
 <> = required
 () = optional
 |  = or
@@ -253,7 +253,7 @@ Remove a map.
 
 Assign a BN to a map. A map can have multiple BNs.
 !addbn   <map link|beatmapsetid|map title>   <bn link|userid|bn name>
-```");
+");
         }
     }
 }
