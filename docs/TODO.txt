@@ -1,10 +1,7 @@
 Move category enum to map model
-input validation
 sync db objects with osu on get
 db different path
 db backups
 logger for db calls, user commands and api calls
-mapnominators status
-more info on show command
-validator returns input type enum
-mapnominators status command
+mapnominators status and command
+more info on show command (show links)

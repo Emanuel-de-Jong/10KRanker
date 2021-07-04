@@ -237,11 +237,11 @@ namespace _10KRanker.Modules
 Add a map and describe in what stage of the ranking/mapping proces it is.
 !add   <map link|beatmapsetid>   (status)
 
-Remove a previously added map.
-!rm/rmmap   <map link|beatmapsetid|map title>
+Remove a map.
+!rm   <map link|beatmapsetid|map title>
 
 Assign a BN to a map. A map can have multiple BNs.
-!addbn/addnominator   <map link|beatmapsetid|map title>   <bn link|userid|bn name>
+!addbn   <map link|beatmapsetid|map title>   <bn link|userid|bn name>
 ```");
         }
     }

@@ -22,7 +22,7 @@ namespace _10KRanker
             if (input.Contains("osu.ppy.sh"))
                 return InputType.Link;
 
-            if (!long.TryParse(input, out long _))
+            if (long.TryParse(input, out long _))
                 return InputType.Id;
 
             return InputType.Name;

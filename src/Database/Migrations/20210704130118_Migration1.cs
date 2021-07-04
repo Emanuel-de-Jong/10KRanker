@@ -91,9 +91,26 @@ namespace Database.Migrations
                 column: "NominatorsNominatorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Mappers_Name",
+                table: "Mappers",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Maps_MapperId",
                 table: "Maps",
                 column: "MapperId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Maps_Name",
+                table: "Maps",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Nominators_Name",
+                table: "Nominators",
+                column: "Name",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

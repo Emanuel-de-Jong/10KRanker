@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Database
 {
+    [Index(nameof(Name), IsUnique = true)]
     public class Nominator
     {
         public long NominatorId { get; set; }

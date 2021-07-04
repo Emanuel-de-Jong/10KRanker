@@ -14,7 +14,7 @@ namespace Database
         public DbSet<Mapper> Mappers { get; set; }
         public DbSet<Nominator> Nominators { get; set; }
 
-        public Context()
+        public Context() : base()
         {
             Maps
                 .Include(i => i.Mapper)
@@ -24,5 +24,21 @@ namespace Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite(@"Data Source=E:\Coding\Repos\10KRanker\src\Database\10KRanked.db");
+
+
+
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    builder.Entity<Map>()
+        //        .HasIndex(i => i.Name);
+
+        //    builder.Entity<Mapper>()
+        //        .HasIndex(i => i.Name)
+        //        .IsUnique();
+
+        //    builder.Entity<Nominator>()
+        //        .HasIndex(i => i.Name)
+        //        .IsUnique();
+        //}
     }
 }

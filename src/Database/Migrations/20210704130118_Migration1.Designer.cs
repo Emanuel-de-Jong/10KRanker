@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210703095929_Migration1")]
+    [Migration("20210704130118_Migration1")]
     partial class Migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,6 +58,8 @@ namespace Database.Migrations
 
                     b.HasIndex("MapperId");
 
+                    b.HasIndex("Name");
+
                     b.ToTable("Maps");
                 });
 
@@ -72,6 +74,9 @@ namespace Database.Migrations
 
                     b.HasKey("MapperId");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Mappers");
                 });
 
@@ -85,6 +90,9 @@ namespace Database.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("NominatorId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Nominators");
                 });

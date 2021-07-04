@@ -56,6 +56,8 @@ namespace Database.Migrations
 
                     b.HasIndex("MapperId");
 
+                    b.HasIndex("Name");
+
                     b.ToTable("Maps");
                 });
 
@@ -70,6 +72,9 @@ namespace Database.Migrations
 
                     b.HasKey("MapperId");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Mappers");
                 });
 
@@ -83,6 +88,9 @@ namespace Database.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("NominatorId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Nominators");
                 });
