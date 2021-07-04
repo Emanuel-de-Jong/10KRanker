@@ -29,8 +29,16 @@ namespace _10KRanker
 
                 await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
 
+                //AddTestdata();
+
                 await Task.Delay(-1);
             }
+        }
+
+        private static void AddTestdata()
+        {
+            DB.ClearDatabase();
+
         }
 
         private Task LogAsync(LogMessage log)

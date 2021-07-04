@@ -1,3 +1,4 @@
+Move category enum to map model
 input validation
 sync db objects with osu on get
 db different path

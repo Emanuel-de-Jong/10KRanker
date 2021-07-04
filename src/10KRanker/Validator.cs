@@ -7,62 +7,30 @@ using System.Threading.Tasks;
 
 namespace _10KRanker
 {
+    public enum InputType
+    {
+        Link,
+        Id,
+        Name
+    }
+
+
     public static class Validator
     {
-        public static Map InputToFullMap(string input, out bool mapExists)
+        public static InputType GetMapInputType(string input)
         {
-            mapExists = true;
-
-            Map map;
-            long id;
             if (input.Contains("osu.ppy.sh"))
-            {
-                id = MapLinkToId(input);
-            }
-            else if (!long.TryParse(input, out id))
-            {
-                map = DB.GetFullMap(input);
-                if (map == null)
-                    throw new ArgumentException("Map names can only be used for existing maps. Try the map link or beatmapsetid instead.");
-                return map;
-            }
+                return InputType.Link;
 
-            map = DB.GetFullMap(id);
-            if (map == null)
-            {
-                mapExists = false;
-                map = OsuToDB.CreateFullMap(id);
-            }
+            if (!long.TryParse(input, out long _))
+                return InputType.Id;
 
-            return map;
+            return InputType.Name;
         }
 
-        public static Map InputToMap(string input, out bool mapExists)
+        public static InputType GetUserInputType(string input)
         {
-            mapExists = true;
-
-            Map map;
-            long id;
-            if (input.Contains("osu.ppy.sh"))
-            {
-                id = MapLinkToId(input);
-            }
-            else if (!long.TryParse(input, out id))
-            {
-                map = DB.Get<Map>(input);
-                if (map == null)
-                    throw new ArgumentException("Map names can only be used for existing maps. Try the map link or beatmapsetid instead.");
-                return map;
-            }
-
-            map = DB.Get<Map>(id);
-            if (map == null)
-            {
-                mapExists = false;
-                map = OsuToDB.CreateMap(id);
-            }
-
-            return map;
+            return GetMapInputType(input);
         }
 
         public static long MapLinkToId(string link)

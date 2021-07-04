@@ -16,12 +16,6 @@ namespace Test
             List<Nominator> nominators = DB.GetNominators();
 
             Console.WriteLine("before");
-            DB.Context.Init();
-
-            maps = DB.GetMaps();
-            mappers = DB.GetMappers();
-            nominators = DB.GetNominators();
-            Console.WriteLine("after");
         }
 
         private static void ValidatorTest()

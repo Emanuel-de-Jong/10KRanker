@@ -12,158 +12,6 @@ namespace _10KRanker.Modules
 {
     public class MainModule : ModuleBase<SocketCommandContext>
     {
-        [Command("add")]
-        [Alias("addmap", "create", "createmap")]
-        public async Task AddMapAsync(string mapIndicator, [Remainder] string status = null)
-        {
-            bool mapExists = false;
-            Map map = null;
-            try
-            {
-                map = Validator.InputToMap(mapIndicator, out mapExists);
-            }
-            catch (Exception ex)
-            {
-                await ReplyAsync(ex.Message);
-            }
-
-            if (mapExists)
-            {
-                await ReplyAsync("The map already exists");
-                return;
-            }
-
-            map.Status = status;
-            DB.Add(map);
-
-            await ReplyAsync("Map added");
-        }
-
-
-        [Command("rm")]
-        [Alias("rmmap", "remove", "removemap", "delete", "deletemap")]
-        public async Task RemoveMapAsync(string mapIndicator)
-        {
-            bool mapExists = false;
-            Map map = null;
-            try
-            {
-                map = Validator.InputToMap(mapIndicator, out mapExists);
-            }
-            catch (Exception ex)
-            {
-                await ReplyAsync(ex.Message);
-            }
-
-            if (!mapExists)
-            {
-                await ReplyAsync("The map doesn't exist");
-                return;
-            }
-
-            DB.Remove(map);
-
-            await ReplyAsync("Map removed");
-        }
-
-
-
-
-        [Command("addbn")]
-        [Alias("addnominator", "createbn", "createnominator")]
-        public async Task AddNominatorAsync(string mapId, string userId)
-        {
-            Map map = DB.GetFullMap(long.Parse(mapId));
-            if (map == null)
-            {
-                await ReplyAsync("A beatmapset with that id doesn't exist");
-                return;
-            }
-
-            Nominator nominator = DB.Get<Nominator>(long.Parse(userId));
-            if (nominator == null)
-            {
-                nominator = OsuToDB.CreateNominator(long.Parse(userId));
-                DB.Add(nominator);
-            }
-
-            map.Nominators.Add(nominator);
-            DB.Update(map);
-
-            await ReplyAsync("BN added to map");
-        }
-
-
-        [Command("rmbn")]
-        [Alias("rmnominator", "removebn", "removenominator", "deletebn", "deletenominator")]
-        public async Task RemoveNominatorAsync(string mapId, string userId)
-        {
-            Map map = DB.GetFullMap(long.Parse(mapId));
-            if (map == null)
-            {
-                await ReplyAsync("A beatmapset with that id doesn't exist");
-                return;
-            }
-
-            Nominator nominator = DB.Get<Nominator>(long.Parse(userId));
-            if (nominator == null)
-            {
-                await ReplyAsync("A BN with that id doesn't exist");
-                return;
-            }
-
-            map.Nominators.Remove(nominator);
-            DB.Update(map);
-
-            await ReplyAsync("BN removed from map");
-        }
-
-
-
-
-        [Command("changestatus")]
-        [Alias("cs", "updatestatus", "changedescription", "updatedescription")]
-        public async Task UpdateMapStatusAsync(string mapId, [Remainder] string status)
-        {
-            Map map = DB.GetFullMap(long.Parse(mapId));
-            if (map == null)
-            {
-                await ReplyAsync("A beatmapset with that id doesn't exist");
-                return;
-            }
-
-            map.Status = status;
-            DB.Update(map);
-
-            await ReplyAsync("Map status updated");
-        }
-
-
-
-
-        [Command("list")]
-        [Alias("l", "all", "maps")]
-        public async Task ListAsync()
-        {
-            List<Map> maps = DB.GetFullMaps();
-
-            string reply = "";
-            foreach (Map map in maps)
-                reply += ShowMap(map) + "\n";
-
-            await ReplyAsync(reply);
-        }
-
-
-        [Command("show")]
-        [Alias("s", "map", "display")]
-        public async Task ShowAsync(string mapId)
-        {
-            Map map = DB.GetFullMap(long.Parse(mapId));
-            await ReplyAsync(ShowMap(map));
-        }
-
-
         private string ShowMap(Map map)
         {
             string reply = "";
@@ -181,6 +29,196 @@ namespace _10KRanker.Modules
                     reply += $"\t\t{ n.Name }\n";
             }
             return reply;
+        }
+
+
+        private Map MapAliasToMap(string mapAlias)
+        {
+            Map map = null;
+            InputType mapAliasType = Validator.GetMapInputType(mapAlias);
+            switch (mapAliasType)
+            {
+                case InputType.Link:
+                    map = DB.Get<Map>(Validator.MapLinkToId(mapAlias));
+                    break;
+                case InputType.Id:
+                    map = DB.Get<Map>(Validator.StringToId(mapAlias));
+                    break;
+                case InputType.Name:
+                    map = DB.Get<Map>(mapAlias);
+                    break;
+            }
+
+            if (map == null)
+                throw new ArgumentException("The map doesn't exist");
+
+            return map;
+        }
+
+
+
+
+        [Command("add")]
+        [Alias("addmap", "create", "createmap")]
+        public async Task AddMapAsync(string mapAlias, [Remainder] string status = null)
+        {
+            long mapId = 0;
+            bool mapExists = false;
+            InputType mapAliasType = Validator.GetMapInputType(mapAlias);
+            switch (mapAliasType)
+            {
+                case InputType.Link:
+                    mapId = Validator.MapLinkToId(mapAlias);
+                    mapExists = DB.Exists<Map>(mapId);
+                    break;
+                case InputType.Id:
+                    mapId = Validator.StringToId(mapAlias);
+                    mapExists = DB.Exists<Map>(mapId);
+                    break;
+                case InputType.Name:
+                    mapExists = DB.Exists<Map>(mapAlias);
+                    break;
+            }
+
+            if (mapExists)
+                throw new ArgumentException("The map already exists");
+
+            if (mapAliasType == InputType.Name)
+                throw new ArgumentException("Map names can only be used for existing maps. Try the map link or beatmapsetid instead");
+
+            DB.Add(OsuToDB.CreateMap(mapId));
+
+            await ReplyAsync("Map added");
+        }
+
+
+        [Command("rm")]
+        [Alias("rmmap", "remove", "removemap", "delete", "deletemap")]
+        public async Task RemoveMapAsync(string mapAlias)
+        {
+            Map map = MapAliasToMap(mapAlias);
+
+            DB.Remove(map);
+
+            await ReplyAsync("Map removed");
+        }
+
+
+
+
+        [Command("addbn")]
+        [Alias("addnominator", "createbn", "createnominator")]
+        public async Task AddNominatorAsync(string mapAlias, string userAlias)
+        {
+            Map map = MapAliasToMap(mapAlias);
+
+            long nominatorId = 0;
+            Nominator nominator = null;
+            InputType userAliasType = Validator.GetUserInputType(userAlias);
+            switch (userAliasType)
+            {
+                case InputType.Link:
+                    nominatorId = Validator.UserLinkToId(userAlias);
+                    nominator = DB.Get<Nominator>(nominatorId);
+                    break;
+                case InputType.Id:
+                    nominatorId = Validator.StringToId(userAlias);
+                    nominator = DB.Get<Nominator>(nominatorId);
+                    break;
+                case InputType.Name:
+                    nominator = DB.Get<Nominator>(userAlias);
+                    break;
+            }
+
+            if (nominator == null)
+            {
+                if (userAliasType == InputType.Name)
+                {
+                    nominator = OsuToDB.CreateNominator(userAlias);
+                }
+                else
+                {
+                    nominator = OsuToDB.CreateNominator(nominatorId);
+                }
+                DB.Add(nominator);
+            }
+
+            map.Nominators.Add(nominator);
+            DB.Update(map);
+
+            await ReplyAsync("BN added to map");
+        }
+
+
+        [Command("rmbn")]
+        [Alias("rmnominator", "removebn", "removenominator", "deletebn", "deletenominator")]
+        public async Task RemoveNominatorAsync(string mapAlias, string userAlias)
+        {
+            Map map = MapAliasToMap(mapAlias);
+
+            Nominator nominator = null;
+            InputType userAliasType = Validator.GetUserInputType(userAlias);
+            switch (userAliasType)
+            {
+                case InputType.Link:
+                    nominator = DB.Get<Nominator>(Validator.UserLinkToId(userAlias));
+                    break;
+                case InputType.Id:
+                    nominator = DB.Get<Nominator>(Validator.StringToId(userAlias));
+                    break;
+                case InputType.Name:
+                    nominator = DB.Get<Nominator>(userAlias);
+                    break;
+            }
+
+            if (nominator == null)
+                throw new ArgumentException("The BN doesn't exist");
+
+            map.Nominators.Remove(nominator);
+            DB.Update(map);
+
+            await ReplyAsync("BN removed from map");
+        }
+
+
+
+
+        [Command("changestatus")]
+        [Alias("cs", "updatestatus", "changedescription", "updatedescription")]
+        public async Task UpdateMapStatusAsync(string mapAlias, [Remainder] string status)
+        {
+            Map map = MapAliasToMap(mapAlias);
+
+            map.Status = status;
+            DB.Update(map);
+
+            await ReplyAsync("Map status updated");
+        }
+
+
+
+
+        [Command("list")]
+        [Alias("l", "all", "maps")]
+        public async Task ListAsync()
+        {
+            List<Map> maps = DB.GetMaps();
+
+            string reply = "";
+            foreach (Map map in maps)
+                reply += ShowMap(map) + "\n";
+
+            await ReplyAsync(reply);
+        }
+
+
+        [Command("show")]
+        [Alias("s", "map", "display")]
+        public async Task ShowAsync(string mapAlias)
+        {
+            Map map = MapAliasToMap(mapAlias);
+
+            await ReplyAsync(ShowMap(map));
         }
 
 

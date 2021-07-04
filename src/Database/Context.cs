@@ -14,32 +14,15 @@ namespace Database
         public DbSet<Mapper> Mappers { get; set; }
         public DbSet<Nominator> Nominators { get; set; }
 
-        public void Init()
+        public Context()
         {
-            Database.ExecuteSqlRaw(
-@"
-SELECT * FROM Maps m
-INNER JOIN Mappers mr ON m.MapperId = mr.MapperId
-");
-
-            Database.ExecuteSqlRaw(
-@"
-SELECT * FROM Maps m
-INNER JOIN MapNominator mn ON m.MapId = mn.MapsMapId
-INNER JOIN Nominators n ON mn.NominatorsNominatorId = n.NominatorId
-");
-
-            //Maps
-            //    .Include(i => i.Mapper)
-            //    .Include(i => i.Nominators)
-            //    .DefaultIfEmpty();
-
-            //Nominators
-            //    .Include(i => i.Maps)
-            //    .DefaultIfEmpty();
+            Maps
+                .Include(i => i.Mapper)
+                .Include(i => i.Nominators)
+                .DefaultIfEmpty().ToList();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite(@"Data Source=D:\Coding\Repos\10KRanker\src\Database\10KRanked.db");
+            => options.UseSqlite(@"Data Source=E:\Coding\Repos\10KRanker\src\Database\10KRanked.db");
     }
 }

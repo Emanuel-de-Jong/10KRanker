@@ -28,34 +28,39 @@ namespace _10KRanker
         }
 
 
-        public static Map CreateMap(long mapId)
-        {
-            return ParseMap(Osu.GetMap(mapId));
-        }
-
-        public static Map CreateFullMap(long mapId)
+        public static Map CreateMap(long mapId, string status=null)
         {
             Beatmap osuMap = Osu.GetMap(mapId);
-
-            Map dbMap = ParseMap(osuMap);
 
             Mapper dbMapper = DB.Get<Mapper>(osuMap.AuthorId);
             if (dbMapper == null)
                 dbMapper = CreateMapper(osuMap.AuthorId);
 
+            Map dbMap = ParseMap(osuMap);
             dbMap.Mapper = dbMapper;
+            dbMap.Status = status;
 
             return dbMap;
         }
 
-        public static Mapper CreateMapper(long userId)
+        public static Mapper CreateMapper(long mapperId)
         {
-            return ParseMapper(Osu.GetUser(userId));
+            return ParseMapper(Osu.GetUser(mapperId));
         }
 
-        public static Nominator CreateNominator(long userId)
+        public static Mapper CreateMapper(string mapperName)
         {
-            return ParseNominator(Osu.GetUser(userId));
+            return ParseMapper(Osu.GetUser(mapperName));
+        }
+
+        public static Nominator CreateNominator(long nominatorId)
+        {
+            return ParseNominator(Osu.GetUser(nominatorId));
+        }
+
+        public static Nominator CreateNominator(string nominatorName)
+        {
+            return ParseNominator(Osu.GetUser(nominatorName));
         }
     }
 }

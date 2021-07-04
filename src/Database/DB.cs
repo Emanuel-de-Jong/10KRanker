@@ -53,9 +53,15 @@ namespace Database
             return Get<T>(objName) != null;
         }
 
+
         public static T Get<T>(long objId) where T : class
         {
             return context.Find<T>(new object[] { objId });
+        }
+
+        public static T Get<T>(string objNames) where T : class
+        {
+            return context.Find<T>(new object[] { objNames });
         }
 
         public static List<T> Get<T>(List<long> objIds) where T : class
@@ -68,11 +74,6 @@ namespace Database
             return objs;
         }
 
-        public static T Get<T>(string objNames) where T : class
-        {
-            return context.Find<T>(new object[] { objNames });
-        }
-
         public static List<T> Get<T>(List<string> objNames) where T : class
         {
             List<T> objs = new List<T>();
@@ -83,73 +84,11 @@ namespace Database
             return objs;
         }
 
-        public static Map GetFullMap(long mapId)
-        {
-            return context.Maps
-                .Include(i => i.Mapper)
-                .Include(i => i.Nominators)
-                .FirstOrDefault(x => x.MapId == mapId);
-        }
-
-        public static Map GetFullMap(string mapName)
-        {
-            return context.Maps
-                .Include(i => i.Mapper)
-                .Include(i => i.Nominators)
-                .FirstOrDefault(x => x.Name == mapName);
-        }
-
-        public static Mapper GetFullMapper(long mapperId)
-        {
-            return Get<Mapper>(mapperId);
-        }
-
-        public static Mapper GetFullMapper(string mapperName)
-        {
-            return Get<Mapper>(mapperName);
-        }
-
-        public static Nominator GetFullNominator(long nominatorId)
-        {
-            return context.Nominators
-                .Include(i => i.Maps)
-                .FirstOrDefault(x => x.NominatorId == nominatorId);
-        }
-        public static Nominator GetFullNominator(string nominatorName)
-        {
-            return context.Nominators
-                .Include(i => i.Maps)
-                .FirstOrDefault(x => x.Name == nominatorName);
-        }
-
-
         public static List<Map> GetMaps() => context.Maps.ToList();
 
         public static List<Mapper> GetMappers() => context.Mappers.ToList();
 
         public static List<Nominator> GetNominators() => context.Nominators.ToList();
-
-        public static List<Map> GetFullMaps()
-        {
-            return context.Maps
-                .Include(i => i.Mapper)
-                .Include(i => i.Nominators)
-                .DefaultIfEmpty().ToList();
-        }
-
-        public static List<Mapper> GetFullMappers()
-        {
-            return context.Mappers
-                .Include(i => i.Maps)
-                .DefaultIfEmpty().ToList();
-        }
-
-        public static List<Nominator> GetFullNominators()
-        {
-            return context.Nominators
-                .Include(i => i.Maps)
-                .DefaultIfEmpty().ToList();
-        }
 
 
         public static void Update(object obj)
@@ -165,6 +104,12 @@ namespace Database
         }
 
 
+        public static void Remove(object obj)
+        {
+            context.Remove(obj);
+            context.SaveChanges();
+        }
+
         public static void Remove<T>(long objId) where T : class
         {
             Remove(Get<T>(objId));
@@ -175,9 +120,9 @@ namespace Database
             Remove(Get<T>(objName));
         }
 
-        public static void Remove(object obj)
+        public static void Remove(List<object> objs)
         {
-            context.Remove(obj);
+            context.RemoveRange(objs);
             context.SaveChanges();
         }
 
@@ -189,12 +134,6 @@ namespace Database
         public static void Remove<T>(List<string> objNames) where T : class
         {
             Remove(Get<T>(objNames));
-        }
-
-        public static void Remove(List<object> objs)
-        {
-            context.RemoveRange(objs);
-            context.SaveChanges();
         }
     }
 }

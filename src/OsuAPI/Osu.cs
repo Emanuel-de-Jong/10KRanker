@@ -41,5 +41,14 @@ namespace OsuAPI
 
             return user;
         }
+
+        public static User GetUser(string userName)
+        {
+            User user = client.GetUserByUsernameAsync(userName, GameMode.Mania).Result;
+            if (user == null)
+                throw new ArgumentException("A user with that name does not exist");
+
+            return user;
+        }
     }
 }
