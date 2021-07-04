@@ -3,6 +3,7 @@ using Database;
 using OsuAPI;
 using OsuSharp;
 using System;
+using System.Collections.Generic;
 
 namespace Test
 {
@@ -10,12 +11,25 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            List<Map> maps = DB.GetMaps();
+            List<Mapper> mappers = DB.GetMappers();
+            List<Nominator> nominators = DB.GetNominators();
+
+            Console.WriteLine("before");
+            DB.Context.Init();
+
+            maps = DB.GetMaps();
+            mappers = DB.GetMappers();
+            nominators = DB.GetNominators();
+            Console.WriteLine("after");
+        }
+
+        private static void ValidatorTest()
+        {
             Validator.MapLinkToId("https://osu.ppy.sh/beatmapsets/1488095#mania/3050710");
             Validator.MapLinkToId("https://osu.ppy.sh/beatmapsets/1488095");
             Validator.UserLinkToId("https://osu.ppy.sh/users/10948555/mania");
             Validator.UserLinkToId("https://osu.ppy.sh/users/10948555");
-            //while (true)
-            //    Validator.MapLinkToId(Console.ReadLine());
         }
 
         private static void OsuTest()

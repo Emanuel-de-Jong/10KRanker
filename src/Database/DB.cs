@@ -48,6 +48,11 @@ namespace Database
             return Get<T>(objId) != null;
         }
 
+        public static bool Exists<T>(string objName) where T : class
+        {
+            return Get<T>(objName) != null;
+        }
+
         public static T Get<T>(long objId) where T : class
         {
             return context.Find<T>(new object[] { objId });
@@ -66,6 +71,16 @@ namespace Database
         public static T Get<T>(string objNames) where T : class
         {
             return context.Find<T>(new object[] { objNames });
+        }
+
+        public static List<T> Get<T>(List<string> objNames) where T : class
+        {
+            List<T> objs = new List<T>();
+            foreach (string objName in objNames)
+            {
+                objs.Add(Get<T>(objName));
+            }
+            return objs;
         }
 
         public static Map GetFullMap(long mapId)
@@ -122,9 +137,19 @@ namespace Database
                 .DefaultIfEmpty().ToList();
         }
 
-        public static List<Mapper> GetFullMappers() => context.Mappers.ToList();
+        public static List<Mapper> GetFullMappers()
+        {
+            return context.Mappers
+                .Include(i => i.Maps)
+                .DefaultIfEmpty().ToList();
+        }
 
-        public static List<Nominator> GetFullNominators() => context.Nominators.ToList();
+        public static List<Nominator> GetFullNominators()
+        {
+            return context.Nominators
+                .Include(i => i.Maps)
+                .DefaultIfEmpty().ToList();
+        }
 
 
         public static void Update(object obj)
@@ -145,6 +170,11 @@ namespace Database
             Remove(Get<T>(objId));
         }
 
+        public static void Remove<T>(string objName) where T : class
+        {
+            Remove(Get<T>(objName));
+        }
+
         public static void Remove(object obj)
         {
             context.Remove(obj);
@@ -154,6 +184,11 @@ namespace Database
         public static void Remove<T>(List<long> objIds) where T : class
         {
             Remove(Get<T>(objIds));
+        }
+
+        public static void Remove<T>(List<string> objNames) where T : class
+        {
+            Remove(Get<T>(objNames));
         }
 
         public static void Remove(List<object> objs)

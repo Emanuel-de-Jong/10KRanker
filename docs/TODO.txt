@@ -1,6 +1,9 @@
 input validation
-more command parameters
 sync db objects with osu on get
-info command
 db different path
 db backups
+logger for db calls, user commands and api calls
+mapnominators status
+more info on show command
+validator returns input type enum
+mapnominators status command
