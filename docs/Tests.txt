@@ -1,7 +1,7 @@
 //add
 //add <link id no digit>		osu.ppy.sh/beatmapsets/11X3846
 //add <invalid link>			osu.ppy.sh/bla
-//add <wrong name>				test
+//add <wrong name>				abc123test321cba
 //add <wrong id>				99999999
 //add <id of std>				1393811
 //add <id of other k>			1369976
@@ -15,15 +15,15 @@
 //rm4 <id>						1095022
 //rm4 <same id>					1095022
 
-//addbn <id>1 <invalid link>	osu.ppy.sh/bla
-//addbn <id>1 <wrong name>		test
-//addbn <id>1 <wrong id>		99999999
-//addbn1 <id>1 <id>				4815717
-//addbn1 <id>1 <same id>		4815717
-//addbn1 <id>1 <name same bn>	feerum
-//addbn2 <id>1 <name>			Unpredictable
-//addbn3 <id>2 <link with />	osu.ppy.sh/users/259972/fruits
-//addbn4 <id>3 <id>				2225008
+//addbn <id>1 <invalid link>	1193846 osu.ppy.sh/bla
+//addbn <id>1 <wrong name>		1193846 abc123test321cba
+//addbn <id>1 <wrong id>		1193846 99999999
+//addbn1 <id>1 <id>				1193846 4815717
+//addbn1 <id>1 <same id>		1193846 4815717
+//addbn1 <id>1 <name same bn>	1193846 feerum
+//addbn2 <id>1 <name>			1193846 Unpredictable
+//addbn3 <id>2 <link with />	1466367 osu.ppy.sh/users/259972/fruits
+//addbn4 <id>3 <id>				1343787
 
 //rmbn4 <name>3 <id>			"lalabai call me" 2225008
 //rmbn4 <name>3 <same id>		"lalabai call me" 2225008
@@ -31,5 +31,3 @@
 //cs <id>2 <status>				1466367 map2 status
 //cs <id>3 <status>				1343787 map3 status edit1
 //cs <id>3 <other status>		1343787 map3 status edit2
-
-//list

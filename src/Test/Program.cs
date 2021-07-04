@@ -11,11 +11,15 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            List<Map> maps = DB.GetMaps();
-            List<Mapper> mappers = DB.GetMappers();
-            List<Nominator> nominators = DB.GetNominators();
+            DB.ClearDatabase();
+        }
 
-            Console.WriteLine("before");
+        private static void DBTest()
+        {
+            var maps = DB.GetMaps();
+            var mappers = DB.GetMappers();
+            var nominators = DB.GetNominators();
+            Console.WriteLine();
         }
 
         private static void ValidatorTest()

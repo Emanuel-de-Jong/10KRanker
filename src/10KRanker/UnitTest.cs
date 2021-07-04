@@ -1,5 +1,7 @@
 ﻿using Database;
+using Discord;
 using Discord.WebSocket;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace _10KRanker
 {
     public class UnitTest
     {
-        public static bool Testing { get; } = true;
+        public static bool Testing { get; } = false;
         private const string newline = "‎\n";
 
         private SocketTextChannel channel;
@@ -23,22 +25,23 @@ namespace _10KRanker
 
         private async Task SendTitle(string message, bool withNewline=false)
         {
-            await channel.SendMessageAsync((withNewline ? newline : "") + message);
+            await channel.SendMessageAsync((withNewline ? newline : "") + $"=={ message }==");
         }
 
         public async Task Test(DiscordSocketClient client)
         {
-            DB.ClearDatabase();
-
             channel = client.GetGuild(Secrets.TestServerId).GetTextChannel(Secrets.TestChannelId);
 
-            await TestAddMap(false);
-            //await TestRemoveMap(true);
-            //await TestAddNominator(true);
-            //await TestRemoveNominator(true);
-            //await TestUpdateMapStatus(true);
+            await Task.Delay(3000);
 
-            //await Send("list");
+            await TestAddMap(true);
+            await TestRemoveMap(true);
+            await TestAddNominator(true);
+            await TestRemoveNominator(true);
+            await TestUpdateMapStatus(true);
+
+            await channel.SendMessageAsync(newline + newline);
+            await Send("list");
         }
 
         private async Task TestAddMap(bool testBadWeather)
@@ -65,7 +68,7 @@ namespace _10KRanker
                 //add <invalid link>
                 await Send("add osu.ppy.sh/bla");
                 //add <wrong name>
-                await Send("add test");
+                await Send("add abc123test321cba");
                 //add <wrong id>
                 await Send("add 99999999");
                 //add <id of std>
@@ -101,29 +104,29 @@ namespace _10KRanker
             await SendTitle("ADD NOMINATOR", true);
 
             //addbn1 <id>1 <id>
-            await Send("addbn 4815717");
+            await Send("addbn 1193846 4815717");
             //addbn2 <id>1 <name>
-            await Send("addbn Unpredictable");
+            await Send("addbn 1193846 Unpredictable");
             //addbn3 <id>2 <link with />
-            await Send("addbn osu.ppy.sh/users/259972/fruits");
+            await Send("addbn 1466367 osu.ppy.sh/users/259972/fruits");
             //addbn4 <id>3 <id>
-            await Send("addbn 2225008");
+            await Send("addbn 1343787 2225008");
 
             if (testBadWeather)
             {
                 await SendTitle("BAD WEATHER");
 
                 //addbn <id>1 <invalid link>
-                await Send("addbn osu.ppy.sh/bla");
+                await Send("addbn 1193846 osu.ppy.sh/bla");
                 //addbn <id>1 <wrong name>
-                await Send("addbn test");
+                await Send("addbn 1193846 abc123test321cba");
                 //addbn <id>1 <wrong id>
-                await Send("addbn 99999999");
+                await Send("addbn 1193846 99999999");
 
                 //addbn1 <id>1 <same id>
-                await Send("addbn 4815717");
+                await Send("addbn 1193846 4815717");
                 //addbn1 <id>1 <name same bn>
-                await Send("addbn feerum");
+                await Send("addbn 1193846 feerum");
             }
         }
 
@@ -156,41 +159,8 @@ namespace _10KRanker
 
             if (testBadWeather)
             {
-                await SendTitle("BAD WEATHER");
+                //await SendTitle("BAD WEATHER");
             }
         }
-
-
-
-        private string expectedResult =
-@"
-!add
-error: BadArgCount: The input text has too few parameters.
-!add osu.ppy.sh/beatmapsets/11X3846
-error: Exception: The id is not a number
-!add osu.ppy.sh/bla
-error: Exception: The map link is not valid
-!add test
-error: Exception: Map names can only be used for existing maps. Try the map link or beatmapsetid instead
-!add 99999999
-error: Exception: A beatmapset with that id does not exist
-!add 1393811
-error: Exception: The beatmapset does not have a 10K difficulty
-!add 1369976
-error: Exception: The beatmapset does not have a 10K difficulty
-!add 1193846
-Map added
-!add 1193846
-error: Exception: The map already exists
-!add ""BLACK or WHITE?""
-error: Exception: Map names can only be used for existing maps.Try the map link or beatmapsetid instead
-!add https://osu.ppy.sh/beatmapsets/1466367#mania/3011461
-Map added
-!add 1343787 map3 status
-Map added
-!add 1095022
-Map added
-";
-
     }
 }

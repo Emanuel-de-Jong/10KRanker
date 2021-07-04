@@ -2,6 +2,7 @@
 using OsuAPI;
 using OsuSharp;
 using System;
+using System.Collections.Generic;
 
 namespace _10KRanker
 {
@@ -12,19 +13,26 @@ namespace _10KRanker
             DateTime? osuUpdateDate = osuMap.LastUpdate.HasValue ? osuMap.LastUpdate.Value.DateTime : null;
             DateTime? osuAprovedDate = osuMap.ApprovedDate.HasValue ? osuMap.ApprovedDate.Value.DateTime : null;
 
-            return new Map(osuMap.BeatmapsetId, osuMap.Title, osuMap.Artist, (Database.Category)osuMap.State,
+            Map map = new(osuMap.BeatmapsetId, osuMap.Title, osuMap.Artist, (Database.Category)osuMap.State,
                 osuMap.SubmitDate.Value.DateTime, osuUpdateDate, osuAprovedDate,
                 DateTime.Now, DateTime.Now);
+
+            map.Nominators = new List<Nominator>();
+            return map;
         }
 
         public static Mapper ParseMapper(User osuUser)
         {
-            return new Mapper(osuUser.UserId, osuUser.Username);
+            Mapper mapper = new(osuUser.UserId, osuUser.Username);
+            mapper.Maps = new List<Map>();
+            return mapper;
         }
 
         public static Nominator ParseNominator(User osuUser)
         {
-            return new Nominator(osuUser.UserId, osuUser.Username);
+            Nominator nominator = new(osuUser.UserId, osuUser.Username);
+            nominator.Maps = new List<Map>();
+            return nominator;
         }
 
 

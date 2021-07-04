@@ -143,8 +143,11 @@ namespace _10KRanker.Modules
                 DB.Add(nominator);
             }
 
+            if (map.Nominators.Contains(nominator))
+                throw new ArgumentException("The BN is already assigned to this map");
+
             map.Nominators.Add(nominator);
-            DB.Update(map);
+            DB.Save();
 
             await ReplyAsync("BN added to map");
         }
@@ -175,7 +178,7 @@ namespace _10KRanker.Modules
                 throw new ArgumentException("The BN doesn't exist");
 
             map.Nominators.Remove(nominator);
-            DB.Update(map);
+            DB.Save();
 
             await ReplyAsync("BN removed from map");
         }

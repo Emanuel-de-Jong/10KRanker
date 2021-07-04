@@ -25,7 +25,7 @@ namespace Database
         public static void ClearDatabase()
         {
             foreach (string table in context.TableNames)
-                context.Database.ExecuteSqlRawAsync($"DELETE FROM { table };");
+                context.Database.ExecuteSqlRaw($"DELETE FROM { table };");
             context.SaveChanges();
         }
 

@@ -1,0 +1,89 @@
+	==ADD MAP==
+	!add 1193846
+	Map added
+	!add https://osu.ppy.sh/beatmapsets/1466367#mania/3011461
+	Map added
+	!add 1343787 map3 status
+	Map added
+	!add 1095022
+	Map added
+	==BAD WEATHER==
+	!add
+	The input text has too few parameters.
+	!add osu.ppy.sh/beatmapsets/11X3846
+	The id is not a number
+	!add osu.ppy.sh/bla
+	The map link is not valid
+	!add abc123test321cba
+	Map names can only be used for existing maps. Try the map link or beatmapsetid instead
+	!add 99999999
+	A beatmapset with that id does not exist
+	!add 1393811
+	The beatmapset does not have a 10K difficulty
+	!add 1369976
+	The beatmapset does not have a 10K difficulty
+	!add 1193846
+	The map already exists
+	!add "BLACK or WHITE?"
+	The map already exists
+	‎
+	==REMOVE MAP==
+	!rm 1095022
+	Map removed
+	==BAD WEATHER==
+	!rm 1095022
+	The map doesn't exist
+	‎
+	==ADD NOMINATOR==
+	!addbn 1193846 4815717
+	BN added to map
+	!addbn 1193846 Unpredictable
+	BN added to map
+	!addbn 1466367 osu.ppy.sh/users/259972/fruits
+	BN added to map
+	!addbn 1343787 2225008
+	BN added to map
+	==BAD WEATHER==
+	!addbn 1193846 osu.ppy.sh/bla
+	The user link is not valid
+	!addbn 1193846 abc123test321cba
+	A user with that name does not exist
+	!addbn 1193846 99999999
+	A user with that id does not exist
+	!addbn 1193846 4815717
+	The BN is already assigned to this map
+	!addbn 1193846 feerum
+	The BN is already assigned to this map
+	‎
+	==REMOVE NOMINATOR==
+	!rmbn "lalabai call me" 2225008
+	BN removed from map
+	==BAD WEATHER==
+	!rmbn "lalabai call me" 2225008
+-	BN removed from map
+	‎
+	==UPDATE MAP STATUS==
+	!cs 1466367 map2 status
+	Map status updated
+	!cs 1343787 map3 status edit1
+	Map status updated
+	!cs 1343787 map3 status edit2
+	Map status updated
+	‎
+	‎
+	!list
+	BlackYooh vs. siromaru - BLACK or WHITE? (Ranked)
+		Mapper: XDerbyX
+		BNs:
+			Feerum
+			Unpredictable
+
+	linear ring - lalabai call me (Pending)
+		Mapper: [Sick]Catcat
+		Status: map3 status edit2
+
+	Lunatic Sounds - DataErr0r (Graveyard)
+		Mapper: XDerbyX
+		Status: map2 status
+		BNs:
+			Jakads
