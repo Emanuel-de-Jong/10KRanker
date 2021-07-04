@@ -94,7 +94,7 @@ namespace _10KRanker.Modules
 
         [Command("rm")]
         [Alias("rmmap", "remove", "removemap", "delete", "deletemap")]
-        public async Task RemoveMapAsync(string mapAlias)
+        public async Task RemoveMapAsync([Remainder] string mapAlias)
         {
             Map map = MapAliasToMap(mapAlias);
 
@@ -198,6 +198,26 @@ namespace _10KRanker.Modules
 
 
 
+        [Command("show")]
+        [Alias("s", "map", "display")]
+        public async Task ShowAsync(string type, [Remainder] string mapAlias)
+        {
+            if (type == "map")
+            {
+                Map map = MapAliasToMap(mapAlias);
+                await ReplyAsync(ShowMap(map));
+            }
+            else if (type == "mapper")
+            {
+
+            }
+            else if (type == "bn")
+            {
+
+            }
+        }
+
+
         [Command("list")]
         [Alias("l", "all", "maps")]
         public async Task ListAsync()
@@ -212,16 +232,6 @@ namespace _10KRanker.Modules
         }
 
 
-        [Command("show")]
-        [Alias("s", "map", "display")]
-        public async Task ShowAsync(string mapAlias)
-        {
-            Map map = MapAliasToMap(mapAlias);
-
-            await ReplyAsync(ShowMap(map));
-        }
-
-
 
 
         [Command("info")]
@@ -233,6 +243,7 @@ namespace _10KRanker.Modules
 <> = required
 () = optional
 |  = or
+"""" = read name with spaces as 1 value
 ----------
 Add a map and describe in what stage of the ranking/mapping proces it is.
 !add   <map link|beatmapsetid>   (status)

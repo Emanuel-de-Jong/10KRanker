@@ -8,18 +8,21 @@ using Discord.Commands;
 using _10KRanker.Services;
 using OsuAPI;
 using Database;
+using System.Timers;
 
 namespace _10KRanker
 {
     public class Program
     {
+        private DiscordSocketClient client;
+
         static void Main(string[] args)  => new Program().MainAsync().GetAwaiter().GetResult();
 
         public async Task MainAsync()
         {
             using (var services = ConfigureServices())
             {
-                var client = services.GetRequiredService<DiscordSocketClient>();
+                client = services.GetRequiredService<DiscordSocketClient>();
 
                 client.Log += LogAsync;
                 services.GetRequiredService<CommandService>().Log += LogAsync;
@@ -29,16 +32,16 @@ namespace _10KRanker
 
                 await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
 
-                //AddTestdata();
+                client.Ready += OnClientReady;
 
                 await Task.Delay(-1);
             }
         }
 
-        private static void AddTestdata()
+        private async Task OnClientReady()
         {
-            DB.ClearDatabase();
-
+            if (UnitTest.Testing)
+                await new UnitTest().Test(client);
         }
 
         private Task LogAsync(LogMessage log)

@@ -5,3 +5,4 @@ db backups
 logger for db calls, user commands and api calls
 mapnominators status and command
 more info on show command (show links)
+remove from db if map/user was deleted on osu

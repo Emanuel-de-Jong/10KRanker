@@ -32,7 +32,9 @@ namespace _10KRanker.Services
         public async Task MessageReceivedAsync(SocketMessage rawMessage)
         {
             if (!(rawMessage is SocketUserMessage message)) return;
-            if (message.Source != MessageSource.User) return;
+
+            if (!UnitTest.Testing)
+                if (message.Source != MessageSource.User) return;
 
             var argPos = 0;
             if (!message.HasCharPrefix('!', ref argPos)) return;
