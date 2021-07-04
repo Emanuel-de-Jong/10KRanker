@@ -41,7 +41,7 @@ namespace _10KRanker
         private async Task OnClientReady()
         {
             if (UnitTest.Testing)
-                await new UnitTest().Test(client);
+                new UnitTest().Test(client);
         }
 
         private Task LogAsync(LogMessage log)

@@ -51,7 +51,7 @@ namespace _10KRanker.Services
             if (result.IsSuccess)
                 return;
 
-            await context.Channel.SendMessageAsync($"error: {result}");
+            await context.Channel.SendMessageAsync(result.ErrorReason);
         }
     }
 }

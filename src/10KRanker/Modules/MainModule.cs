@@ -188,9 +188,8 @@ namespace _10KRanker.Modules
         public async Task UpdateMapStatusAsync(string mapAlias, [Remainder] string status)
         {
             Map map = MapAliasToMap(mapAlias);
-
             map.Status = status;
-            DB.Update(map);
+            DB.Save();
 
             await ReplyAsync("Map status updated");
         }

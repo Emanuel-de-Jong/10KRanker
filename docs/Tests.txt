@@ -33,5 +33,3 @@
 //cs <id>3 <other status>		1343787 map3 status edit2
 
 //list
-
-//help
