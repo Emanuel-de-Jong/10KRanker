@@ -191,7 +191,7 @@ namespace _10KRanker.Modules
                 long mapId = 0;
                 Map map = MapAliasToMap(mapAlias, false, out mapId);
 
-                if (map == null)
+                if (map != null)
                     throw new ArgumentException("The map is already in the bot's system.");
 
                 if (mapId == -1)
@@ -199,7 +199,7 @@ namespace _10KRanker.Modules
 
                 DB.Add(OsuToDB.CreateMap(mapId));
 
-                await ReplyAsync("Map added");
+                await ReplyAsync("The map has been added.");
             }
             catch (ArgumentException ae)
             {
@@ -218,7 +218,7 @@ namespace _10KRanker.Modules
 
                 DB.Remove(map);
 
-                await ReplyAsync("Map removed");
+                await ReplyAsync("The map has been removed.");
             }
             catch (ArgumentException ae)
             {
@@ -259,7 +259,7 @@ namespace _10KRanker.Modules
                 map.Nominators.Add(nominator);
                 DB.Save();
 
-                await ReplyAsync("BN added to map");
+                await ReplyAsync("The BN has been linked to the map.");
             }
             catch (ArgumentException ae)
             {
@@ -283,7 +283,7 @@ namespace _10KRanker.Modules
                 map.Nominators.Remove(nominator);
                 DB.Save();
 
-                await ReplyAsync("BN removed from map");
+                await ReplyAsync("The BN has been removed from the map.");
             }
             catch (ArgumentException ae)
             {
@@ -304,7 +304,7 @@ namespace _10KRanker.Modules
                 map.Status = status;
                 DB.Save();
 
-                await ReplyAsync("Map status updated");
+                await ReplyAsync("The map status has been changed.");
             }
             catch (ArgumentException ae)
             {
