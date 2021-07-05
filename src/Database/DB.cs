@@ -112,13 +112,25 @@ namespace Database
 
         public static void Update(object obj)
         {
-            context.Update(obj);
+            if (obj is Map)
+            {
+                Map map = obj as Map;
+                map.UpdateDate = DateTime.Now;
+            }
+
             context.SaveChanges();
         }
 
         public static void Update(List<object> objs)
         {
-            context.UpdateRange(objs);
+            if (objs.Count > 0 && objs[0] is Map)
+            {
+                foreach (Map map in objs)
+                {
+                    map.UpdateDate = DateTime.Now;
+                }
+            }
+
             context.SaveChanges();
         }
 

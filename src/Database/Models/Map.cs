@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Database
 {
@@ -34,6 +35,9 @@ namespace Database
         public Mapper Mapper { get; set; }
 
         public List<Nominator> Nominators { get; set; }
+
+        [NotMapped]
+        public DateTime LastUpdateCheck { get; set; } = DateTime.Now;
 
         public Map(long mapId, string name, string artist, Category category,
             DateTime osuSubmitDate, DateTime? osuUpdateDate, DateTime? osuAprovedDate,

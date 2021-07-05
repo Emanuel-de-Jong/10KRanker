@@ -12,7 +12,7 @@ namespace _10KRanker
 {
     public class UnitTest
     {
-        public static bool Testing { get; } = false;
+        public static bool Testing { get; } = true;
         private const string newline = "‎\n";
 
         private SocketTextChannel channel;
@@ -34,11 +34,11 @@ namespace _10KRanker
 
             await Task.Delay(3000);
 
-            await TestAddMap(true);
-            await TestRemoveMap(true);
-            await TestAddNominator(true);
-            await TestRemoveNominator(true);
-            await TestUpdateMapStatus(true);
+            await TestAddMap(false);
+            await TestRemoveMap(false);
+            await TestAddNominator(false);
+            await TestRemoveNominator(false);
+            await TestUpdateMapStatus(false);
 
             await channel.SendMessageAsync(newline + newline);
             await Send("list");

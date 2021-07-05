@@ -1,8 +1,5 @@
 sync db objects with osu on get
+remove from db if map/user was deleted or ranked on osu
 db different path
 db backups
 logger for db calls, user commands and api calls
-remove from db if map/user was deleted or ranked on osu
-support old website
-unittest change BLACK or WHITE? and test for ranked map
-improve responses

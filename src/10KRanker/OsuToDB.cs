@@ -3,17 +3,112 @@ using OsuAPI;
 using OsuSharp;
 using System;
 using System.Collections.Generic;
+using System.Timers;
 
 namespace _10KRanker
 {
     public static class OsuToDB
     {
+        public static void OnUpdateUsersTimerElapsed(object source, ElapsedEventArgs e)
+        {
+            UpdateMappers(DB.GetMappers());
+            UpdateNominators(DB.GetNominators());
+        }
+
+        public static void UpdateMap(Map dbMap)
+        {
+            if (dbMap.LastUpdateCheck > DateTime.Now.AddHours(-3))
+                return;
+            dbMap.LastUpdateCheck = DateTime.Now;
+
+            Beatmap osuMap = Osu.GetMap(dbMap.MapId);
+
+            if (osuMap.State == BeatmapState.Ranked)
+            {
+                DB.Remove(dbMap);
+                return;
+            }
+
+            bool changed = false;
+
+            if (dbMap.Name != osuMap.Title)
+            {
+                changed = true;
+                dbMap.Name = osuMap.Title;
+            }
+            if (dbMap.Artist != osuMap.Artist)
+            {
+                changed = true;
+                dbMap.Artist = osuMap.Artist;
+            }
+            if (dbMap.Category != (Category)osuMap.State)
+            {
+                changed = true;
+                dbMap.Category = (Category)osuMap.State;
+            }
+            DateTime? osuUpdateDate = osuMap.LastUpdate.HasValue ? osuMap.LastUpdate.Value.DateTime : null;
+            if (dbMap.OsuUpdateDate != osuUpdateDate)
+            {
+                changed = true;
+                dbMap.OsuUpdateDate = osuUpdateDate;
+            }
+            DateTime? osuAprovedDate = osuMap.ApprovedDate.HasValue ? osuMap.ApprovedDate.Value.DateTime : null;
+            if (dbMap.OsuAprovedDate != osuAprovedDate)
+            {
+                changed = true;
+                dbMap.OsuAprovedDate = osuAprovedDate;
+            }
+
+            if (changed)
+                DB.Update(dbMap);
+        }
+
+        public static void UpdateMaps(List<Map> dbMaps)
+        {
+            foreach (Map map in dbMaps)
+                UpdateMap(map);
+        }
+
+        public static void UpdateMapper(Mapper dbMapper)
+        {
+            User osuUser = Osu.GetUser(dbMapper.MapperId);
+
+            if (dbMapper.Name != osuUser.Username)
+            {
+                dbMapper.Name = osuUser.Username;
+                DB.Update(dbMapper);
+            }
+        }
+
+        public static void UpdateMappers(List<Mapper> dbMappers)
+        {
+            foreach (Mapper mapper in dbMappers)
+                UpdateMapper(mapper);
+        }
+
+        public static void UpdateNominator(Nominator dbNominator)
+        {
+            User osuUser = Osu.GetUser(dbNominator.NominatorId);
+
+            if (dbNominator.Name != osuUser.Username)
+            {
+                dbNominator.Name = osuUser.Username;
+                DB.Update(dbNominator);
+            }
+        }
+
+        public static void UpdateNominators(List<Nominator> dbNominators)
+        {
+            foreach (Nominator nominator in dbNominators)
+                UpdateNominator(nominator);
+        }
+
         public static Map ParseMap(Beatmap osuMap)
         {
             DateTime? osuUpdateDate = osuMap.LastUpdate.HasValue ? osuMap.LastUpdate.Value.DateTime : null;
             DateTime? osuAprovedDate = osuMap.ApprovedDate.HasValue ? osuMap.ApprovedDate.Value.DateTime : null;
 
-            Map map = new(osuMap.BeatmapsetId, osuMap.Title, osuMap.Artist, (Database.Category)osuMap.State,
+            Map map = new(osuMap.BeatmapsetId, osuMap.Title, osuMap.Artist, (Category)osuMap.State,
                 osuMap.SubmitDate.Value.DateTime, osuUpdateDate, osuAprovedDate,
                 DateTime.Now, DateTime.Now);
 
