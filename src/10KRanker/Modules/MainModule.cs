@@ -95,71 +95,86 @@ namespace _10KRanker.Modules
             return reply;
         }
 
-        private Map MapAliasToMap(string mapAlias)
+        private Map MapAliasToMap(string mapAlias, bool throwIfNotExists=true)
+            => MapAliasToMap(mapAlias, throwIfNotExists, out long _);
+        private Map MapAliasToMap(string mapAlias, bool throwIfNotExists, out long mapId)
         {
+            mapId = -1;
             Map map = null;
             InputType mapAliasType = Validator.GetMapInputType(mapAlias);
             switch (mapAliasType)
             {
                 case InputType.Link:
-                    map = DB.Get<Map>(Validator.MapLinkToId(mapAlias));
+                    mapId = Validator.MapLinkToId(mapAlias);
+                    map = DB.Get<Map>(mapId);
                     break;
                 case InputType.Id:
-                    map = DB.Get<Map>(Validator.StringToId(mapAlias));
+                    mapId = Validator.StringToId(mapAlias);
+                    map = DB.Get<Map>(mapId);
                     break;
                 case InputType.Name:
                     map = DB.GetMap(mapAlias);
                     break;
             }
 
-            if (map == null)
-                throw new ArgumentException("The map doesn't exist");
+            if (throwIfNotExists && map == null)
+                throw new ArgumentException("The map is not in the bot's system.");
 
             return map;
         }
 
-        private Mapper MapperAliasToMapper(string mapperAlias)
+        private Mapper MapperAliasToMapper(string mapperAlias, bool throwIfNotExists=true)
+            => MapperAliasToMapper(mapperAlias, throwIfNotExists, out long _);
+        private Mapper MapperAliasToMapper(string mapperAlias, bool throwIfNotExists, out long mapperId)
         {
+            mapperId = -1;
             Mapper mapper = null;
             InputType userAliasType = Validator.GetUserInputType(mapperAlias);
             switch (userAliasType)
             {
                 case InputType.Link:
-                    mapper = DB.Get<Mapper>(Validator.UserLinkToId(mapperAlias));
+                    mapperId = Validator.UserLinkToId(mapperAlias);
+                    mapper = DB.Get<Mapper>(mapperId);
                     break;
                 case InputType.Id:
-                    mapper = DB.Get<Mapper>(Validator.StringToId(mapperAlias));
+                    mapperId = Validator.StringToId(mapperAlias);
+                    mapper = DB.Get<Mapper>(mapperId);
                     break;
                 case InputType.Name:
                     mapper = DB.GetMapper(mapperAlias);
                     break;
             }
 
-            if (mapper == null)
-                throw new ArgumentException("The mapper doesn't exist");
+            if (throwIfNotExists && mapper == null)
+                throw new ArgumentException("The mapper is not in the bot's system.");
 
             return mapper;
         }
 
-        private Nominator NominatorAliasToNominator(string nominatorAlias)
+        private Nominator NominatorAliasToNominator(string nominatorAlias, bool throwIfNotExists=true)
+            => NominatorAliasToNominator(nominatorAlias, throwIfNotExists, out long _);
+        private Nominator NominatorAliasToNominator(string nominatorAlias, bool throwIfNotExists, out long nominatorId)
         {
+            nominatorId = -1;
             Nominator nominator = null;
             InputType userAliasType = Validator.GetUserInputType(nominatorAlias);
             switch (userAliasType)
             {
                 case InputType.Link:
-                    nominator = DB.Get<Nominator>(Validator.UserLinkToId(nominatorAlias));
+                    nominatorId = Validator.UserLinkToId(nominatorAlias);
+                    nominator = DB.Get<Nominator>(nominatorId);
                     break;
                 case InputType.Id:
-                    nominator = DB.Get<Nominator>(Validator.StringToId(nominatorAlias));
+                    nominatorId = Validator.StringToId(nominatorAlias);
+                    nominator = DB.Get<Nominator>(nominatorId);
                     break;
                 case InputType.Name:
                     nominator = DB.GetNominator(nominatorAlias);
                     break;
             }
 
-            if (nominator == null)
-                throw new ArgumentException("The BN doesn't exist");
+            if (throwIfNotExists && nominator == null)
+                throw new ArgumentException("The BN is not in the bot's system.");
 
             return nominator;
         }
@@ -174,28 +189,13 @@ namespace _10KRanker.Modules
             try
             {
                 long mapId = 0;
-                bool mapExists = false;
-                InputType mapAliasType = Validator.GetMapInputType(mapAlias);
-                switch (mapAliasType)
-                {
-                    case InputType.Link:
-                        mapId = Validator.MapLinkToId(mapAlias);
-                        mapExists = DB.Exists<Map>(mapId);
-                        break;
-                    case InputType.Id:
-                        mapId = Validator.StringToId(mapAlias);
-                        mapExists = DB.Exists<Map>(mapId);
-                        break;
-                    case InputType.Name:
-                        mapExists = DB.MapExists(mapAlias);
-                        break;
-                }
+                Map map = MapAliasToMap(mapAlias, false, out mapId);
 
-                if (mapExists)
-                    throw new ArgumentException("The map already exists");
+                if (map == null)
+                    throw new ArgumentException("The map is already in the bot's system.");
 
-                if (mapAliasType == InputType.Name)
-                    throw new ArgumentException("Map names can only be used for existing maps. Try the map link or beatmapsetid instead");
+                if (mapId == -1)
+                    throw new ArgumentException("Map names can only be used for maps in the bot's system. Try the map link or beatmapsetid instead.");
 
                 DB.Add(OsuToDB.CreateMap(mapId));
 
@@ -238,26 +238,11 @@ namespace _10KRanker.Modules
                 Map map = MapAliasToMap(mapAlias);
 
                 long nominatorId = 0;
-                Nominator nominator = null;
-                InputType userAliasType = Validator.GetUserInputType(nominatorAlias);
-                switch (userAliasType)
-                {
-                    case InputType.Link:
-                        nominatorId = Validator.UserLinkToId(nominatorAlias);
-                        nominator = DB.Get<Nominator>(nominatorId);
-                        break;
-                    case InputType.Id:
-                        nominatorId = Validator.StringToId(nominatorAlias);
-                        nominator = DB.Get<Nominator>(nominatorId);
-                        break;
-                    case InputType.Name:
-                        nominator = DB.GetNominator(nominatorAlias);
-                        break;
-                }
+                Nominator nominator = NominatorAliasToNominator(nominatorAlias, false, out nominatorId);
 
                 if (nominator == null)
                 {
-                    if (userAliasType == InputType.Name)
+                    if (nominatorId == -1)
                     {
                         nominator = OsuToDB.CreateNominator(nominatorAlias);
                     }
@@ -269,7 +254,7 @@ namespace _10KRanker.Modules
                 }
 
                 if (map.Nominators.Contains(nominator))
-                    throw new ArgumentException("The BN is already assigned to this map");
+                    throw new ArgumentException("The BN is already linked to the map.");
 
                 map.Nominators.Add(nominator);
                 DB.Save();
@@ -293,7 +278,7 @@ namespace _10KRanker.Modules
                 Nominator nominator = NominatorAliasToNominator(nominatorAlias);
 
                 if (!map.Nominators.Contains(nominator))
-                    throw new ArgumentException("The BN is not linked to the map already");
+                    throw new ArgumentException("The BN already wasn't linked to the map.");
 
                 map.Nominators.Remove(nominator);
                 DB.Save();
@@ -332,37 +317,12 @@ namespace _10KRanker.Modules
 
         [Command("show")]
         [Alias("s", "map", "display")]
-        public async Task ShowAsync(string type, [Remainder] string typeAlias)
+        public async Task ShowAsync([Remainder] string mapAlias)
         {
             try
             {
-                if (type == "map")
-                {
-                    Map map = MapAliasToMap(typeAlias);
-                    await ReplyAsync(MapToString(map));
-                }
-                else if (type == "mapper")
-                {
-                    Mapper mapper = MapperAliasToMapper(typeAlias);
-
-                    if (mapper.Maps.Count == 0)
-                        throw new ArgumentException("The mapper doesn't have any maps");
-
-                    await ReplyAsync(MapsToString(mapper.Maps));
-                }
-                else if (type == "bn")
-                {
-                    Nominator nominator = NominatorAliasToNominator(typeAlias);
-
-                    if (nominator.Maps.Count == 0)
-                        throw new ArgumentException("The BN isn't linked to any maps");
-
-                    await ReplyAsync(MapsToString(nominator.Maps));
-                }
-                else
-                {
-                    throw new ArgumentException("The type format is wrong. Try map, mapper or bn instead.");
-                }
+                Map map = MapAliasToMap(mapAlias);
+                await ReplyAsync(MapToString(map));
             }
             catch (ArgumentException ae)
             {
@@ -373,16 +333,40 @@ namespace _10KRanker.Modules
 
         [Command("list")]
         [Alias("l", "all", "maps")]
-        public async Task ListAsync()
+        public async Task ListAsync([Remainder] string userAlias=null)
         {
             try
             {
-                List<Map> maps = DB.GetMaps();
+                if (userAlias == null)
+                {
+                    List<Map> maps = DB.GetMaps();
 
-                if (maps.Count == 0)
-                    throw new ArgumentException("There are no maps at the moment");
+                    if (maps.Count == 0)
+                        throw new ArgumentException("There are no maps at the moment.");
 
-                await ReplyAsync(MapsToString(maps));
+                    await ReplyAsync(MapsToString(maps));
+                    return;
+                }
+
+                Mapper mapper;
+                Nominator nominator;
+                if ((mapper = MapperAliasToMapper(userAlias, false)) != null)
+                {
+                    if (mapper.Maps.Count == 0)
+                        throw new ArgumentException("The mapper doesn't have any maps in the bot's system.");
+
+                    await ReplyAsync(MapsToString(mapper.Maps));
+                }
+                else if ((nominator = NominatorAliasToNominator(userAlias, false)) != null){
+                    if (nominator.Maps.Count == 0)
+                        throw new ArgumentException("The BN isn't linked to any maps in the bot's system.");
+
+                    await ReplyAsync(MapsToString(nominator.Maps));
+                }
+                else
+                {
+                    throw new ArgumentException("The user is not in the bot's system.");
+                }
             }
             catch (ArgumentException ae)
             {
@@ -399,19 +383,34 @@ namespace _10KRanker.Modules
         {
             await ReplyAsync(
 @"```
-<> = required
-() = optional
-|  = or
-"""" = read name with spaces as 1 value
-----------
-Add a map and describe in what stage of the ranking/mapping proces it is.
+<> = Required
+() = Optional
+|  = Or
+"""" = Send a name/title with spaces as 1 value
+
+Add a map and describe in what stage of the mapping/ranking/modding proces it is.
 !add   <map link|beatmapsetid>   (status)
 
 Remove a map.
 !rm   <map link|beatmapsetid|map title>
 
-Assign a BN to a map. A map can have multiple BNs.
+Link a BN to a map. A map can have multiple BNs.
 !addbn   <map link|beatmapsetid|map title>   <bn link|userid|bn name>
+
+Remove a BN from a map.
+!rmbn   <map link|beatmapsetid|map title>   <bn link|userid|bn name>
+
+Change the status of a map. The status describes how the mapping/ranking/modding of a map is going.
+!changestatus   <map link|beatmapsetid|map title>   <status>
+
+Show the detials of a map.
+!show   <map link|beatmapsetid|map title>
+
+List all maps, the maps of a mapper or the maps linked to a BN.
+!list   (user link|userid|user name)
+
+Show this message.
+!info
 ```");
         }
     }

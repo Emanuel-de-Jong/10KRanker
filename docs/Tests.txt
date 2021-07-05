@@ -1,5 +1,5 @@
 ==ADD MAP==
-//add1 <id>						1193846
+//add1 <id>						1509186
 //add2 <link>					https://osu.ppy.sh/beatmapsets/1466367#mania/3011461
 //add3 <id> <status>			1343787 map3 status
 //add4 <id>						1095022
@@ -11,8 +11,9 @@
 //add <wrong id>				99999999
 //add <id of std>				1393811
 //add <id of other k>			1369976
-//add1 <same id>				1193846
-//add1 <name same map>			"BLACK or WHITE?"
+//add <id of ranked>			1193846
+//add1 <same id>				1509186
+//add1 <name same map>			"10K Indo Pack #2"
 
 ==REMOVE MAP==
 //rm4 <id>						1095022
@@ -20,16 +21,16 @@
 //rm4 <same id>					1095022
 
 ==ADD NOMINATOR==
-//addbn1 <id>1 <id>				1193846 4815717
-//addbn2 <id>1 <name>			1193846 Unpredictable
+//addbn1 <id>1 <id>				1509186 4815717
+//addbn2 <id>1 <name>			1509186 Unpredictable
 //addbn3 <id>2 <link with />	1466367 osu.ppy.sh/users/259972/fruits
 //addbn4 <id>3 <id>				1343787
 ==BAD WEATHER==
-//addbn <id>1 <invalid link>	1193846 osu.ppy.sh/bla
-//addbn <id>1 <wrong name>		1193846 abc123test321cba
-//addbn <id>1 <wrong id>		1193846 99999999
-//addbn1 <id>1 <same id>		1193846 4815717
-//addbn1 <id>1 <name same bn>	1193846 feerum
+//addbn <id>1 <invalid link>	1509186 osu.ppy.sh/bla
+//addbn <id>1 <wrong name>		1509186 abc123test321cba
+//addbn <id>1 <wrong id>		1509186 99999999
+//addbn1 <id>1 <same id>		1509186 4815717
+//addbn1 <id>1 <name same bn>	1509186 feerum
 
 ==REMOVE NOMINATOR==
 //rmbn4 <name>3 <id>			"lalabai call me" 2225008

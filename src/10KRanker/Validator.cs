@@ -38,7 +38,7 @@ namespace _10KRanker
             string before = "sets/";
             int i = link.IndexOf(before);
             if (i == -1)
-                throw new ArgumentException("The map link is not valid");
+                throw new ArgumentException("The map link is not valid.");
 
             link = link.Substring(i + before.Length);
 
@@ -54,7 +54,7 @@ namespace _10KRanker
             string before = "users/";
             int i = link.IndexOf(before);
             if (i == -1)
-                throw new ArgumentException("The user link is not valid");
+                throw new ArgumentException("The user link is not valid.");
 
             link = link.Substring(i + before.Length);
 
@@ -70,7 +70,7 @@ namespace _10KRanker
             if (long.TryParse(str, out long id))
                 return id;
 
-            throw new ArgumentException("The id is not a number");
+            throw new ArgumentException("The id in the link has other characters than just numbers.");
         }
     }
 }

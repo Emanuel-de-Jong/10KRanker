@@ -49,7 +49,7 @@ namespace _10KRanker
             await SendTitle("ADD MAP", true);
 
             //add1 <id>
-            await Send("add 1193846");
+            await Send("add 1509186");
             //add2 <link>
             await Send("add https://osu.ppy.sh/beatmapsets/1466367#mania/3011461");
             //add3 <id> <status>
@@ -75,11 +75,13 @@ namespace _10KRanker
                 await Send("add 1393811");
                 //add <id of other k>
                 await Send("add 1369976");
+                //add <id of ranked>
+                await Send("add 1193846");
 
                 //add1 <same id>
-                await Send("add 1193846");
+                await Send("add 1509186");
                 //add1 <name same map>
-                await Send("add \"BLACK or WHITE?\"");
+                await Send("add \"10K Indo Pack #2\"");
             }
         }
 
@@ -104,9 +106,9 @@ namespace _10KRanker
             await SendTitle("ADD NOMINATOR", true);
 
             //addbn1 <id>1 <id>
-            await Send("addbn 1193846 4815717");
+            await Send("addbn 1509186 4815717");
             //addbn2 <id>1 <name>
-            await Send("addbn 1193846 Unpredictable");
+            await Send("addbn 1509186 Unpredictable");
             //addbn3 <id>2 <link with />
             await Send("addbn 1466367 osu.ppy.sh/users/259972/fruits");
             //addbn4 <id>3 <id>
@@ -117,16 +119,16 @@ namespace _10KRanker
                 await SendTitle("BAD WEATHER");
 
                 //addbn <id>1 <invalid link>
-                await Send("addbn 1193846 osu.ppy.sh/bla");
+                await Send("addbn 1509186 osu.ppy.sh/bla");
                 //addbn <id>1 <wrong name>
-                await Send("addbn 1193846 abc123test321cba");
+                await Send("addbn 1509186 abc123test321cba");
                 //addbn <id>1 <wrong id>
-                await Send("addbn 1193846 99999999");
+                await Send("addbn 1509186 99999999");
 
                 //addbn1 <id>1 <same id>
-                await Send("addbn 1193846 4815717");
+                await Send("addbn 1509186 4815717");
                 //addbn1 <id>1 <name same bn>
-                await Send("addbn 1193846 feerum");
+                await Send("addbn 1509186 feerum");
             }
         }
 

@@ -12,7 +12,7 @@ namespace OsuAPI
         {
             var maps = client.GetBeatmapsetAsync(beatmapsetId).Result;
             if (maps.Count == 0)
-                throw new ArgumentException("A beatmapset with that id does not exist");
+                throw new ArgumentException("A map with that id does not exist.");
 
             Beatmap map = null;
             foreach (Beatmap m in maps)
@@ -25,13 +25,13 @@ namespace OsuAPI
             }
 
             if (map == null)
-                throw new ArgumentException("The beatmapset does not have a 10K difficulty");
+                throw new ArgumentException("The map doesn't have a 10K difficulty.");
 
             if (map.State == BeatmapState.Ranked)
-                throw new ArgumentException("The beatmapset is already ranked");
+                throw new ArgumentException("The map is already ranked.");
 
             if (map.DownloadUnavailable || map.AudioUnavailable)
-                throw new ArgumentException("The beatmapset is corrupted");
+                throw new ArgumentException("The map is corrupted.");
 
             return map;
         }
@@ -40,7 +40,7 @@ namespace OsuAPI
         {
             User user = client.GetUserByUserIdAsync(userId, GameMode.Mania).Result;
             if (user == null)
-                throw new ArgumentException("A user with that id does not exist");
+                throw new ArgumentException("A user with that id doesn't exist.");
 
             return user;
         }
@@ -49,7 +49,7 @@ namespace OsuAPI
         {
             User user = client.GetUserByUsernameAsync(userName, GameMode.Mania).Result;
             if (user == null)
-                throw new ArgumentException("A user with that name does not exist");
+                throw new ArgumentException("A user with that name doesn't exist.");
 
             return user;
         }
