@@ -16,5 +16,10 @@ namespace Database
             this.NominatorId = nominatorId;
             this.Name = name;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

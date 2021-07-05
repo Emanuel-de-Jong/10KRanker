@@ -1,8 +1,7 @@
-Move category enum to map model
 sync db objects with osu on get
 db different path
 db backups
 logger for db calls, user commands and api calls
-mapnominators status and command
-more info on show command (show links)
-remove from db if map/user was deleted on osu
+remove from db if map/user was deleted or ranked on osu
+support old website
+unittest change BLACK or WHITE? and test for ranked map
