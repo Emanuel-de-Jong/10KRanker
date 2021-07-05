@@ -1,3 +1,2 @@
-db different path
-db backups
 logger for db calls, user commands and api calls
+db backups

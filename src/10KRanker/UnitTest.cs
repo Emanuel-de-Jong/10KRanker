@@ -12,7 +12,7 @@ namespace _10KRanker
 {
     public class UnitTest
     {
-        public static bool Testing { get; } = true;
+        public static bool Testing { get; } = false;
         private const string newline = "‎\n";
 
         private SocketTextChannel channel;

@@ -33,17 +33,19 @@ namespace _10KRanker
 
                 await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
 
-                client.Ready += OnClientReady;
+                client.Ready += StartTestOnClientReady;
 
                 updateDBTablesTimer = new Timer(1 * 24 * 60 * 60 * 1000);
+                updateDBTablesTimer.AutoReset = true;
                 updateDBTablesTimer.Elapsed += new ElapsedEventHandler(OsuToDB.OnUpdateDBTablesTimerElapsed);
                 updateDBTablesTimer.Start();
+                //OsuToDB.OnUpdateDBTablesTimerElapsed(null, null);
 
                 await Task.Delay(-1);
             }
         }
 
-        private async Task OnClientReady()
+        private async Task StartTestOnClientReady()
         {
             if (UnitTest.Testing)
                 new UnitTest().Test(client);

@@ -14,6 +14,7 @@ namespace _10KRanker
         public static void OnUpdateDBTablesTimerElapsed(object source, ElapsedEventArgs e)
         {
             lastOnUpdateTable = (DBTable)(((int)lastOnUpdateTable + 1) % 3);
+            Console.WriteLine("Sheduled update of " + lastOnUpdateTable);
 
             if (lastOnUpdateTable == DBTable.Map)
             {

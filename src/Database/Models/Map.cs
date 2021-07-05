@@ -37,7 +37,7 @@ namespace Database
         public List<Nominator> Nominators { get; set; }
 
         [NotMapped]
-        public DateTime LastUpdateCheck { get; set; } = DateTime.Now;
+        public DateTime LastUpdateCheck { get; set; } = DateTime.MinValue;
 
         public Map(long mapId, string name, string artist, Category category,
             DateTime osuSubmitDate, DateTime? osuUpdateDate, DateTime? osuAprovedDate,

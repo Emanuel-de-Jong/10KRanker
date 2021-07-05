@@ -7,7 +7,7 @@ namespace Database
 {
     public static class DB
     {
-        private static Context context = new();
+        private static Context context = new Context().Init();
         public static Context Context { get; } = context;
 
 
