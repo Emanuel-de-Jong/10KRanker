@@ -10,6 +10,7 @@ namespace Database
 {
     public class Context : DbContext
     {
+        public static string DBDirPath { get; set; }
         public static string DBPath { get; set; }
 
         public string[] TableNames { get; set; } = new string[] { "Maps", "Mappers", "Nominators", "MapNominator" };
@@ -29,7 +30,10 @@ namespace Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            DBPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\10KRanked.db";
+            DBDirPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\10KRanked";
+            Directory.CreateDirectory(DBDirPath);
+
+            DBPath = DBDirPath + @"\10KRanked.db";
             options.UseSqlite(@"Data Source=" + DBPath);
         }
 

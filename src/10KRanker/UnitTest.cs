@@ -34,11 +34,11 @@ namespace _10KRanker
 
             await Task.Delay(3000);
 
-            await TestAddMap(false);
-            await TestRemoveMap(false);
-            await TestAddNominator(false);
-            await TestRemoveNominator(false);
-            await TestUpdateMapStatus(false);
+            await TestAddMap(true);
+            await TestRemoveMap(true);
+            await TestAddNominator(true);
+            await TestRemoveNominator(true);
+            await TestUpdateMapStatus(true);
 
             await channel.SendMessageAsync(newline + newline);
             await Send("list");
