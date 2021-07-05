@@ -9,11 +9,26 @@ namespace _10KRanker
 {
     public static class OsuToDB
     {
-        public static void OnUpdateUsersTimerElapsed(object source, ElapsedEventArgs e)
+        private static DBTable lastOnUpdateTable = DBTable.Map;
+
+        public static void OnUpdateDBTablesTimerElapsed(object source, ElapsedEventArgs e)
         {
-            UpdateMappers(DB.GetMappers());
-            UpdateNominators(DB.GetNominators());
+            lastOnUpdateTable = (DBTable)(((int)lastOnUpdateTable + 1) % 3);
+
+            if (lastOnUpdateTable == DBTable.Map)
+            {
+                UpdateMaps(DB.GetMaps());
+            }
+            else if (lastOnUpdateTable == DBTable.Mapper)
+            {
+                UpdateMappers(DB.GetMappers());
+            }
+            else if (lastOnUpdateTable == DBTable.Nominator)
+            {
+                UpdateNominators(DB.GetNominators());
+            }
         }
+
 
         public static void UpdateMap(Map dbMap)
         {
@@ -21,9 +36,12 @@ namespace _10KRanker
                 return;
             dbMap.LastUpdateCheck = DateTime.Now;
 
-            Beatmap osuMap = Osu.GetMap(dbMap.MapId);
-
-            if (osuMap.State == BeatmapState.Ranked)
+            Beatmap osuMap = null;
+            try
+            {
+                osuMap = Osu.GetMap(dbMap.MapId);
+            }
+            catch (ArgumentException ae)
             {
                 DB.Remove(dbMap);
                 return;
@@ -71,7 +89,16 @@ namespace _10KRanker
 
         public static void UpdateMapper(Mapper dbMapper)
         {
-            User osuUser = Osu.GetUser(dbMapper.MapperId);
+            User osuUser = null;
+            try
+            {
+                osuUser = Osu.GetUser(dbMapper.MapperId);
+            }
+            catch (ArgumentException ae)
+            {
+                DB.Remove(dbMapper);
+                return;
+            }
 
             if (dbMapper.Name != osuUser.Username)
             {
@@ -88,7 +115,16 @@ namespace _10KRanker
 
         public static void UpdateNominator(Nominator dbNominator)
         {
-            User osuUser = Osu.GetUser(dbNominator.NominatorId);
+            User osuUser = null;
+            try
+            {
+                osuUser = Osu.GetUser(dbNominator.NominatorId);
+            }
+            catch (ArgumentException ae)
+            {
+                DB.Remove(dbNominator);
+                return;
+            }
 
             if (dbNominator.Name != osuUser.Username)
             {

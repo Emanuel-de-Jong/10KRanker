@@ -1,5 +1,3 @@
-sync db objects with osu on get
-remove from db if map/user was deleted or ranked on osu
 db different path
 db backups
 logger for db calls, user commands and api calls

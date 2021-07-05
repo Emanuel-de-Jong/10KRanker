@@ -14,7 +14,7 @@ namespace _10KRanker
 {
     public class Program
     {
-        private Timer updateUsersTimer;
+        private Timer updateDBTablesTimer;
         private DiscordSocketClient client;
 
         static void Main(string[] args)  => new Program().MainAsync().GetAwaiter().GetResult();
@@ -35,9 +35,9 @@ namespace _10KRanker
 
                 client.Ready += OnClientReady;
 
-                updateUsersTimer = new Timer(2 * 24 * 60 * 60 * 1000);
-                updateUsersTimer.Elapsed += new ElapsedEventHandler(OsuToDB.OnUpdateUsersTimerElapsed);
-                updateUsersTimer.Start();
+                updateDBTablesTimer = new Timer(1 * 24 * 60 * 60 * 1000);
+                updateDBTablesTimer.Elapsed += new ElapsedEventHandler(OsuToDB.OnUpdateDBTablesTimerElapsed);
+                updateDBTablesTimer.Start();
 
                 await Task.Delay(-1);
             }

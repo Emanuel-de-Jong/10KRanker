@@ -152,6 +152,9 @@ namespace _10KRanker.Modules
             try
             {
                 Map map = MapAliasToMap(mapAlias);
+
+                OsuToDB.UpdateMap(map);
+
                 await ReplyAsync(MapToString(map));
             }
             catch (ArgumentException ae)
@@ -174,6 +177,8 @@ namespace _10KRanker.Modules
                     if (maps.Count == 0)
                         throw new ArgumentException("There are no maps at the moment.");
 
+                    OsuToDB.UpdateMaps(maps);
+
                     await ReplyAsync(MapsToString(maps));
                     return;
                 }
@@ -185,11 +190,15 @@ namespace _10KRanker.Modules
                     if (mapper.Maps.Count == 0)
                         throw new ArgumentException("The mapper doesn't have any maps in the bot's system.");
 
+                    OsuToDB.UpdateMaps(mapper.Maps);
+
                     await ReplyAsync(MapsToString(mapper.Maps));
                 }
                 else if ((nominator = NominatorAliasToNominator(userAlias, false)) != null){
                     if (nominator.Maps.Count == 0)
                         throw new ArgumentException("The BN isn't linked to any maps in the bot's system.");
+
+                    OsuToDB.UpdateMaps(nominator.Maps);
 
                     await ReplyAsync(MapsToString(nominator.Maps));
                 }
