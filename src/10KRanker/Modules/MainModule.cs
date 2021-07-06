@@ -59,6 +59,27 @@ namespace _10KRanker.Modules
 
 
 
+        [Command("changestatus")]
+        [Alias("cs", "updatestatus", "changedescription", "updatedescription")]
+        public async Task UpdateMapStatusAsync(string mapAlias, [Remainder] string status)
+        {
+            try
+            {
+                Map map = MapAliasToMap(mapAlias);
+                map.Status = status;
+                DB.Update(map);
+
+                await ReplyAsync("The map status has been changed.");
+            }
+            catch (ArgumentException ae)
+            {
+                await ReplyAsync(ae.Message);
+            }
+        }
+
+
+
+
         [Command("addbn")]
         [Alias("addnominator", "createbn", "createnominator")]
         public async Task AddNominatorAsync(string mapAlias, string nominatorAlias)
@@ -124,27 +145,6 @@ namespace _10KRanker.Modules
 
 
 
-        [Command("changestatus")]
-        [Alias("cs", "updatestatus", "changedescription", "updatedescription")]
-        public async Task UpdateMapStatusAsync(string mapAlias, [Remainder] string status)
-        {
-            try
-            {
-                Map map = MapAliasToMap(mapAlias);
-                map.Status = status;
-                DB.Update(map);
-
-                await ReplyAsync("The map status has been changed.");
-            }
-            catch (ArgumentException ae)
-            {
-                await ReplyAsync(ae.Message);
-            }
-        }
-
-
-
-
         [Command("show")]
         [Alias("s", "map", "display")]
         public async Task ShowAsync([Remainder] string mapAlias)
@@ -179,7 +179,7 @@ namespace _10KRanker.Modules
 
                     OsuToDB.UpdateMaps(maps);
 
-                    await ReplyAsync(MapsToString(maps));
+                    await ReplyAsync("== **Maps** ==\n" + MapsToString(maps));
                     return;
                 }
 
@@ -192,7 +192,7 @@ namespace _10KRanker.Modules
 
                     OsuToDB.UpdateMaps(mapper.Maps);
 
-                    await ReplyAsync(MapsToString(mapper.Maps));
+                    await ReplyAsync($"== **{mapper.Name}'s Maps** ==\n" + MapsToString(mapper.Maps));
                 }
                 else if ((nominator = NominatorAliasToNominator(userAlias, false)) != null){
                     if (nominator.Maps.Count == 0)
@@ -200,7 +200,7 @@ namespace _10KRanker.Modules
 
                     OsuToDB.UpdateMaps(nominator.Maps);
 
-                    await ReplyAsync(MapsToString(nominator.Maps));
+                    await ReplyAsync($"== **Maps Linked to {nominator.Name}** ==\n" + MapsToString(nominator.Maps));
                 }
                 else
                 {
@@ -219,36 +219,38 @@ namespace _10KRanker.Modules
         public async Task InfoAsync()
         {
             await ReplyAsync(
-@"```
-<> = Required
-() = Optional
-|  = Or
-"""" = Send a name/title with spaces as 1 value
+@"
+== **Commands** ==
+`<>` = Required
+`()` = Optional
+`|`   = Or
+`""""` = Send a name/title with spaces as 1 value
 
+**Maps**
+> `!add`   `<map link|beatmapsetid>`   `(status)`
 Add a map and describe in what stage of the mapping/ranking/modding proces it is.
-!add   <map link|beatmapsetid>   (status)
-
+> `!rm`   `<map link|beatmapsetid|map title>`
 Remove a map.
-!rm   <map link|beatmapsetid|map title>
-
-Link a BN to a map. A map can have multiple BNs.
-!addbn   <map link|beatmapsetid|map title>   <bn link|userid|bn name>
-
-Remove a BN from a map.
-!rmbn   <map link|beatmapsetid|map title>   <bn link|userid|bn name>
-
+> `!changestatus`   `<map link|beatmapsetid|map title>`   `<status>`
 Change the status of a map. The status describes how the mapping/ranking/modding of a map is going.
-!changestatus   <map link|beatmapsetid|map title>   <status>
 
+**Beatmap Nominators**
+> `!addbn`   `<map link|beatmapsetid|map title>`   `<bn link|userid|bn name>`
+Link a BN to a map. A map can have multiple BNs.
+> `!rmbn`   `<map link|beatmapsetid|map title>`   `<bn link|userid|bn name>`
+Remove a BN from a map.
+
+**Show maps**
+> `!show`   `<map link|beatmapsetid|map title>`
 Show the detials of a map.
-!show   <map link|beatmapsetid|map title>
-
+> `!list`   `(user link|userid|user name)`
 List all maps, the maps of a mapper or the maps linked to a BN.
-!list   (user link|userid|user name)
 
+**Other**
+> `!info`
 Show this message.
-!info
-```");
+----------
+");
         }
 
 

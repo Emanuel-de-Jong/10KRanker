@@ -1,2 +1,3 @@
 logger for db calls, user commands and api calls
 db backups
+Update to OsuSharp 5.5.0
