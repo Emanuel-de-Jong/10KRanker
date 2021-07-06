@@ -37,8 +37,19 @@ List all maps, the maps of a mapper or the maps linked to a BN.<br/>
 Show this message.<br/>
 
 
+## Known problems
+**The bot doesn't react to commands after a while**<br/>
+The bot goes offline on discord after roughly 45 minutes. It keeps running on the server without any errors.<br/>
+It makes the bot nearly unusable for real use and I have no idea what causes it.<br/>
+I will fix this when I have time for the project again.
+
+**I get the error: "The type initializer for 'Database.DB' threw an exception." for every command.**<br/>
+The Database project can't connect to the db file. Probably because the data source configuration has changed.<br/>
+A new migration has to be generated:
+
+
 ## Code structure
-There are 3 Visual Studio projects
+There are 4 Visual Studio projects
 
 ### 10KRanked
 **Type:** C# .NET 5 Console Application<br/>
@@ -70,5 +81,22 @@ Has a static wrapper for easy communication with a SQLite db file located in the
 It uses auto generated migrations to speed up database design changes.
 10KRanked uses it to save and retrieve the maps/users.
 
+### Test
+**Type:** C# .NET 5 Console Application<br/>
+
+Used to test
+
+
+## Testing
+The 10KRanked project has a UnitTest class that goes through most of the parameters of the commands. It takes the role of a discord user.<br/>
+Before testing, make sure that the database is empty or doesn't have the tested maps and users.<br/>
+To start the test, set the bool "Testing" to true, and run the bot.
+
 
 ## Running your own version
+I'm asuming you are using Visual Studio 2019.
+
+1. Fill in the secret templates and rename their file and class name to "Secret".
+  - [10KRanked template](https://github.com/Emanuel-de-Jong/10KRanker/blob/7950235b3674a0618c2475c4ce9c88a4d7d1e8dc/src/10KRanker/SecretsTemplate.cs)
+  - [OsuAPI template](https://github.com/Emanuel-de-Jong/10KRanker/blob/7950235b3674a0618c2475c4ce9c88a4d7d1e8dc/src/OsuAPI/SecretsTemplate.cs)
+2. That is it for now.
