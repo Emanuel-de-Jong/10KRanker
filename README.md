@@ -46,6 +46,13 @@ I will fix this when I have time for the project again.
 **I get the error: "The type initializer for 'Database.DB' threw an exception." for every command.**<br/>
 The Database project can't connect to the db file. Probably because the data source configuration has changed.<br/>
 A new migration has to be generated:
+1. Delete the "Migrations" folder.
+2. Set the startup project to the Database project.
+3. Open the Package Manager Console (PMC) in VS.
+4. Give in the following commands:
+    - `Add-Migration YourMigrationName`
+    - `Update-Database`
+5. Set the startup project back to the 10KRanker project.
 
 
 ## Code structure
