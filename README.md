@@ -1,4 +1,4 @@
-# 10KRanker
+# 10KRanker (WIP)
 A [discord bot](https://discord.com/developers/docs/intro#bots-and-apps) that keeps track of 10 key [mania](https://osu.ppy.sh/wiki/en/Game_mode#-osu!mania) maps that their mappers want to get [ranked](https://osu.ppy.sh/wiki/en/Beatmap/Category#ranked).
 I will be used in the [10+ Key Rhythm Games](https://discord.gg/PwzcUzk) discord server.
 It's good enough for what it will be used for. But for bigger projects, it would need some optimalizations. Especially in asynchronous programming.
