@@ -4,9 +4,11 @@ I will be used in the [10+ Key Rhythm Games](https://discord.gg/PwzcUzk) discord
 It's good enough for what it will be used for. But for bigger projects, it would need some optimalizations. Especially in asynchronous programming.
 
 
+
 ## Commands
-Discord users use commands to interact with the bot. All commands for this bot need to be prefixed with the symbol: '!'.<br/>
-The commands are as follows:<br/>
+Discord users use commands to interact with the bot. All commands for this bot need to be prefixed with the symbol: `!`<br/>
+The commands are as follows:
+
 `<>` = Required<br/>
 `()` = Optional<br/>
 `|` = Or<br/>
@@ -37,22 +39,24 @@ List all maps, the maps of a mapper or the maps linked to a BN.<br/>
 Show this message.<br/>
 
 
+
 ## Known problems
 **The bot doesn't react to commands after a while**<br/>
 The bot goes offline on discord after roughly 45 minutes. It keeps running on the server without any errors.<br/>
 It makes the bot nearly unusable for real use and I have no idea what causes it.<br/>
 I will fix this when I have time for the project again.
 
-**I get the error: "The type initializer for 'Database.DB' threw an exception." for every command.**<br/>
-The Database project can't connect to the db file. Probably because the data source configuration has changed.<br/>
+**I get the error: `The type initializer for 'Database.DB' threw an exception.` for every command.**<br/>
+The Database project (Entity Framework Core) can't connect to the db file. Probably because the data source configuration has changed.<br/>
 A new migration has to be generated:
-1. Delete the "Migrations" folder.
+1. Delete the Migrations folder.
 2. Set the startup project to the Database project.
 3. Open the Package Manager Console (PMC) in VS.
 4. Give in the following commands:
     - `Add-Migration YourMigrationName`
     - `Update-Database`
 5. Set the startup project back to the 10KRanker project.
+
 
 
 ## Code structure
@@ -91,19 +95,21 @@ It uses auto generated migrations to speed up database design changes.
 ### Test
 **Type:** C# .NET 5 Console Application<br/>
 
-Used to test
+Used to test individual features without the overhead and complexity of the discord bot.
 
-
-## Testing
-The 10KRanked project has a UnitTest class that goes through most of the parameters of the commands. It takes the role of a discord user.<br/>
-Before testing, make sure that the database is empty or doesn't have the tested maps and users.<br/>
-To start the test, set the bool "Testing" to true, and run the bot.
 
 
 ## Running your own version
 I'm asuming you are using Visual Studio 2019.
 
 1. Fill in the secret templates and rename their file and class name to "Secret".
-  - [10KRanked template](https://github.com/Emanuel-de-Jong/10KRanker/blob/7950235b3674a0618c2475c4ce9c88a4d7d1e8dc/src/10KRanker/SecretsTemplate.cs)
-  - [OsuAPI template](https://github.com/Emanuel-de-Jong/10KRanker/blob/7950235b3674a0618c2475c4ce9c88a4d7d1e8dc/src/OsuAPI/SecretsTemplate.cs)
+    - [10KRanked template](https://github.com/Emanuel-de-Jong/10KRanker/blob/7950235b3674a0618c2475c4ce9c88a4d7d1e8dc/src/10KRanker/SecretsTemplate.cs)
+    - [OsuAPI template](https://github.com/Emanuel-de-Jong/10KRanker/blob/7950235b3674a0618c2475c4ce9c88a4d7d1e8dc/src/OsuAPI/SecretsTemplate.cs)
 2. That is it for now.
+
+
+
+## Testing
+The 10KRanked project has a UnitTest class that acts as a discord user and calls commands. It goes through most of the possible and invalid parameters of the commands.<br/>
+Before testing, make a backup of your db file and put an empty db file in its place.<br/>
+To start the test, set the UnitTest Testing bool to true, and run the bot.
