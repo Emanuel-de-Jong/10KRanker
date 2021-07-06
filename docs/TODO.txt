@@ -1,3 +1,4 @@
+fix bug where bot goes offline
+update to OsuSharp 5.5.0
+automatic db backups
 logger for db calls, user commands and api calls
-db backups
-Update to OsuSharp 5.5.0
