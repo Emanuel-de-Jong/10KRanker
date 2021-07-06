@@ -46,10 +46,14 @@ There are 3 Visual Studio projects
 
 The discord bot itself. It uses Discord.Net so we don't have to worry about the connection to discord, reading and filtering command calls and parsing command parameters.
 It uses the next 2 projects to retrieve and save all the data it needs.<br/>
-There are 3 classes that have most of the logic:
+There are 3 classes that have most of the logic:<br/>
 **Modules/MainModule:** Handles the commands.<br/>
 **Validator:** Most command parameters can be in multiple formats. This class gets the format type and converts the input accordingly.<br/>
 **OsuToDB:** Combines the user input and info from OsuAPI to create and update Database entries.<br/>
+
+E.g adding a map would look like this (pseudo naming):<br/>
+Validator.GetMapType(Input) -> Validator.MapTypeXToId(MapType)<br/>
+-> (OsuToDB.CreateMap(MapId) -> Osu.GetMap(MapId)) -> DB.Add(Map)
 
 ### OsuAPI
 **Type:** C# .NET 5 Library<br/>
@@ -66,6 +70,5 @@ Has a static wrapper for easy communication with a SQLite db file located in the
 It uses auto generated migrations to speed up database design changes.
 10KRanked uses it to save and retrieve the maps/users.
 
-- 10KRanked (C# .NET 5 Console Application)
-- OsuAPI (C# .NET 5 Library)
-- Database (C# .NET 5 Library)
+
+## Running your own version
