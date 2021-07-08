@@ -20,7 +20,7 @@ namespace _10KRanker.Modules
         public async Task CatAsync()
         {
             // Get a stream containing an image of a cat
-            var stream = await PictureService.GetCatPictureAsync();
+            Stream stream = await PictureService.GetCatPictureAsync();
             // Streams must be seeked to their beginning before being uploaded!
             stream.Seek(0, SeekOrigin.Begin);
             await Context.Channel.SendFileAsync(stream, "cat.png");

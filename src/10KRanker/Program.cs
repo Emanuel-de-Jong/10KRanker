@@ -15,32 +15,32 @@ namespace _10KRanker
         private Timer updateDBTablesTimer;
         private DiscordSocketClient client;
 
-        static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
+        private static void Main(string[] args)
+            => new Program().MainAsync().GetAwaiter().GetResult();
 
         public async Task MainAsync()
         {
-            using (var services = ConfigureServices())
-            {
-                client = services.GetRequiredService<DiscordSocketClient>();
+            using ServiceProvider services = ConfigureServices();
 
-                client.Log += LogAsync;
-                services.GetRequiredService<CommandService>().Log += LogAsync;
+            client = services.GetRequiredService<DiscordSocketClient>();
 
-                await client.LoginAsync(TokenType.Bot, Secrets.DiscordToken);
-                await client.StartAsync();
+            client.Log += LogAsync;
+            services.GetRequiredService<CommandService>().Log += LogAsync;
 
-                await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
+            await client.LoginAsync(TokenType.Bot, Secrets.DiscordToken);
+            await client.StartAsync();
 
-                client.Ready += StartTestOnClientReady;
+            await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
 
-                updateDBTablesTimer = new Timer(1 * 24 * 60 * 60 * 1000);
-                updateDBTablesTimer.AutoReset = true;
-                updateDBTablesTimer.Elapsed += new ElapsedEventHandler(OsuToDB.OnUpdateDBTablesTimerElapsed);
-                updateDBTablesTimer.Start();
-                //OsuToDB.OnUpdateDBTablesTimerElapsed(null, null);
+            client.Ready += StartTestOnClientReady;
 
-                await Task.Delay(-1);
-            }
+            updateDBTablesTimer = new Timer(1 * 24 * 60 * 60 * 1000);
+            updateDBTablesTimer.AutoReset = true;
+            updateDBTablesTimer.Elapsed += new ElapsedEventHandler(OsuToDB.OnUpdateDBTablesTimerElapsed);
+            updateDBTablesTimer.Start();
+            //OsuToDB.OnUpdateDBTablesTimerElapsed(null, null);
+
+            await Task.Delay(-1);
         }
 
         private async Task StartTestOnClientReady()
@@ -56,7 +56,7 @@ namespace _10KRanker
             return Task.CompletedTask;
         }
 
-        private ServiceProvider ConfigureServices()
+        private static ServiceProvider ConfigureServices()
         {
             return new ServiceCollection()
                 .AddSingleton<DiscordSocketClient>()

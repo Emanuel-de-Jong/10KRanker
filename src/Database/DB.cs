@@ -95,7 +95,7 @@ namespace Database
 
         public static List<T> Get<T>(List<long> objIds) where T : class
         {
-            List<T> objs = new List<T>();
+            List<T> objs = new();
             foreach (long objId in objIds)
             {
                 objs.Add(Get<T>(objId));
@@ -103,11 +103,14 @@ namespace Database
             return objs;
         }
 
-        public static List<Map> GetMaps() => context.Maps.ToList();
+        public static List<Map> GetMaps()
+            => context.Maps.ToList();
 
-        public static List<Mapper> GetMappers() => context.Mappers.ToList();
+        public static List<Mapper> GetMappers()
+            => context.Mappers.ToList();
 
-        public static List<Nominator> GetNominators() => context.Nominators.ToList();
+        public static List<Nominator> GetNominators()
+            => context.Nominators.ToList();
 
 
         public static void Update(object obj)

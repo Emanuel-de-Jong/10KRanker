@@ -35,14 +35,15 @@ namespace _10KRanker
         {
             if (dbMap.LastUpdateCheck > DateTime.Now.AddHours(-3))
                 return;
+
             dbMap.LastUpdateCheck = DateTime.Now;
 
-            Beatmap osuMap = null;
+            Beatmap osuMap;
             try
             {
                 osuMap = Osu.GetMap(dbMap.MapId);
             }
-            catch (ArgumentException ae)
+            catch (ArgumentException)
             {
                 DB.Remove(dbMap);
                 return;
@@ -90,12 +91,12 @@ namespace _10KRanker
 
         public static void UpdateMapper(Mapper dbMapper)
         {
-            User osuUser = null;
+            User osuUser;
             try
             {
                 osuUser = Osu.GetUser(dbMapper.MapperId);
             }
-            catch (ArgumentException ae)
+            catch (ArgumentException)
             {
                 DB.Remove(dbMapper);
                 return;
@@ -116,12 +117,12 @@ namespace _10KRanker
 
         public static void UpdateNominator(Nominator dbNominator)
         {
-            User osuUser = null;
+            User osuUser;
             try
             {
                 osuUser = Osu.GetUser(dbNominator.NominatorId);
             }
-            catch (ArgumentException ae)
+            catch (ArgumentException)
             {
                 DB.Remove(dbNominator);
                 return;

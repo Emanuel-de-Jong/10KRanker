@@ -31,19 +31,22 @@ namespace _10KRanker.Services
 
         public async Task MessageReceivedAsync(SocketMessage rawMessage)
         {
-            if (!(rawMessage is SocketUserMessage message)) return;
+            if (!(rawMessage is SocketUserMessage message))
+                return;
 
             if (!UnitTest.Testing)
-                if (message.Source != MessageSource.User) return;
+                if (message.Source != MessageSource.User)
+                    return;
 
-            var argPos = 0;
-            if (!message.HasCharPrefix('!', ref argPos)) return;
+            int argPos = 0;
+            if (!message.HasCharPrefix('!', ref argPos))
+                return;
 
-            var context = new SocketCommandContext(_discord, message);
+            SocketCommandContext context = new(_discord, message);
             await _commands.ExecuteAsync(context, argPos, _services);
         }
 
-        public async Task CommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context, IResult result)
+        public static async Task CommandExecutedAsync(Optional<CommandInfo> command, ICommandContext context, IResult result)
         {
             if (!command.IsSpecified)
                 return;

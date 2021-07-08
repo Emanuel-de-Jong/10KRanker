@@ -253,13 +253,13 @@ Show this message.
 
 
 
-        private string MapIdToLink(long mapId)
+        private static string MapIdToLink(long mapId)
         {
             return $"<https://osu.ppy.sh/beatmapsets/{ mapId }>";
         }
 
 
-        private string UserIdToLink(long userId)
+        private static string UserIdToLink(long userId)
         {
             return $"<https://osu.ppy.sh/users/{ userId }>";
         }
@@ -267,7 +267,7 @@ Show this message.
 
 
 
-        private string MapsToString(List<Map> maps)
+        private static string MapsToString(List<Map> maps)
         {
             string reply = "";
             foreach (Map m in maps)
@@ -284,7 +284,7 @@ Show this message.
                 reply += $"\tCategory: { m.Category }\tMapper: { m.Mapper.Name }";
 
                 if (m.Nominators.Count != 0)
-                    reply += $"\tBN(s): { String.Join(", ", m.Nominators) }";
+                    reply += $"\tBN(s): { string.Join(", ", m.Nominators) }";
 
                 reply += "\n";
 
@@ -296,7 +296,7 @@ Show this message.
             return reply;
         }
 
-        private string MapToString(Map m)
+        private static string MapToString(Map m)
         {
             string reply = $"**{ m.Artist } - { m.Name }** ({ MapIdToLink(m.MapId) })\n";
             if (m.OsuUpdateDate == null)
@@ -341,9 +341,9 @@ Show this message.
         }
 
 
-        private Map MapAliasToMap(string mapAlias, bool throwIfNotExists = true)
+        private static Map MapAliasToMap(string mapAlias, bool throwIfNotExists = true)
             => MapAliasToMap(mapAlias, throwIfNotExists, out long _);
-        private Map MapAliasToMap(string mapAlias, bool throwIfNotExists, out long mapId)
+        private static Map MapAliasToMap(string mapAlias, bool throwIfNotExists, out long mapId)
         {
             mapId = -1;
             Map map = null;
@@ -370,9 +370,9 @@ Show this message.
         }
 
 
-        private Mapper MapperAliasToMapper(string mapperAlias, bool throwIfNotExists = true)
+        private static Mapper MapperAliasToMapper(string mapperAlias, bool throwIfNotExists = true)
             => MapperAliasToMapper(mapperAlias, throwIfNotExists, out long _);
-        private Mapper MapperAliasToMapper(string mapperAlias, bool throwIfNotExists, out long mapperId)
+        private static Mapper MapperAliasToMapper(string mapperAlias, bool throwIfNotExists, out long mapperId)
         {
             mapperId = -1;
             Mapper mapper = null;
@@ -399,9 +399,9 @@ Show this message.
         }
 
 
-        private Nominator NominatorAliasToNominator(string nominatorAlias, bool throwIfNotExists = true)
+        private static Nominator NominatorAliasToNominator(string nominatorAlias, bool throwIfNotExists = true)
             => NominatorAliasToNominator(nominatorAlias, throwIfNotExists, out long _);
-        private Nominator NominatorAliasToNominator(string nominatorAlias, bool throwIfNotExists, out long nominatorId)
+        private static Nominator NominatorAliasToNominator(string nominatorAlias, bool throwIfNotExists, out long nominatorId)
         {
             nominatorId = -1;
             Nominator nominator = null;

@@ -5,7 +5,7 @@ namespace OsuAPI
 {
     public static class Osu
     {
-        private static OsuClient client = new(new OsuSharpConfiguration() { ApiKey = Secrets.ApiKey });
+        private static readonly OsuClient client = new(new OsuSharpConfiguration() { ApiKey = Secrets.ApiKey });
         public static OsuClient Client { get; }
 
         public static Beatmap GetMap(long beatmapsetId)
