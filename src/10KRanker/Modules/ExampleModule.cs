@@ -1,8 +1,8 @@
-﻿using System.IO;
-using System.Threading.Tasks;
+﻿using _10KRanker.Services;
 using Discord;
 using Discord.Commands;
-using _10KRanker.Services;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace _10KRanker.Modules
 {

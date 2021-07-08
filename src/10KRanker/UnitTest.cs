@@ -1,11 +1,4 @@
-﻿using Database;
-using Discord;
-using Discord.WebSocket;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Discord.WebSocket;
 using System.Threading.Tasks;
 
 namespace _10KRanker
@@ -23,7 +16,7 @@ namespace _10KRanker
             await Task.Delay(2000);
         }
 
-        private async Task SendTitle(string message, bool withNewline=false)
+        private async Task SendTitle(string message, bool withNewline = false)
         {
             await channel.SendMessageAsync((withNewline ? newline : "") + $"=={ message }==");
         }

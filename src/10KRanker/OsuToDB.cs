@@ -168,7 +168,7 @@ namespace _10KRanker
         }
 
 
-        public static Map CreateMap(long mapId, string status=null)
+        public static Map CreateMap(long mapId, string status = null)
         {
             Beatmap osuMap = Osu.GetMap(mapId);
 

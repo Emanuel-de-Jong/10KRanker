@@ -3,7 +3,6 @@ using Database;
 using OsuAPI;
 using OsuSharp;
 using System;
-using System.Collections.Generic;
 
 namespace Test
 {
@@ -13,7 +12,7 @@ namespace Test
         {
             DBTable table = DBTable.Map;
 
-            for (int i=0; i<20; i++)
+            for (int i = 0; i < 20; i++)
             {
                 table = (DBTable)(((int)table + 1) % 3);
                 Console.WriteLine(table);

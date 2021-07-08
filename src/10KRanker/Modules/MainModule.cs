@@ -1,12 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Discord;
+﻿using Database;
 using Discord.Commands;
-using _10KRanker.Services;
-using OsuAPI;
-using OsuSharp;
-using Database;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace _10KRanker.Modules
 {
@@ -166,7 +162,7 @@ namespace _10KRanker.Modules
 
         [Command("list")]
         [Alias("l", "all", "maps")]
-        public async Task ListAsync([Remainder] string userAlias=null)
+        public async Task ListAsync([Remainder] string userAlias = null)
         {
             try
             {
@@ -194,7 +190,8 @@ namespace _10KRanker.Modules
 
                     await ReplyAsync($"== **{mapper.Name}'s Maps** ==\n" + MapsToString(mapper.Maps));
                 }
-                else if ((nominator = NominatorAliasToNominator(userAlias, false)) != null){
+                else if ((nominator = NominatorAliasToNominator(userAlias, false)) != null)
+                {
                     if (nominator.Maps.Count == 0)
                         throw new ArgumentException("The BN isn't linked to any maps in the bot's system.");
 

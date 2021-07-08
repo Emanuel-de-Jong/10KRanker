@@ -1,13 +1,11 @@
-﻿using System;
+﻿using _10KRanker.Services;
+using Discord;
+using Discord.Commands;
+using Discord.WebSocket;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Discord;
-using Discord.WebSocket;
-using Discord.Commands;
-using _10KRanker.Services;
-using OsuAPI;
-using Database;
 using System.Timers;
 
 namespace _10KRanker
@@ -17,7 +15,7 @@ namespace _10KRanker
         private Timer updateDBTablesTimer;
         private DiscordSocketClient client;
 
-        static void Main(string[] args)  => new Program().MainAsync().GetAwaiter().GetResult();
+        static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
 
         public async Task MainAsync()
         {
