@@ -40,12 +40,7 @@ Show this message.<br/>
 
 
 
-## Known problems
-***The bot doesn't react to commands after a while***<br/>
-The bot goes offline on discord after roughly 45 minutes. It keeps running on the server without any errors.<br/>
-It makes the bot nearly unusable for real use and I have no idea what causes it.<br/>
-I will fix this when I have time for the project again.
-
+## Issues
 ***I get the error: `The type initializer for 'Database.DB' threw an exception.` for every command.***<br/>
 The Database project (Entity Framework Core) can't connect to the db file. Probably because the data source configuration has changed.<br/>
 A new migration has to be generated:

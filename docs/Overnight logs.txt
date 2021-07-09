@@ -1,0 +1,38 @@
+22:53:14 Discord     Discord.Net v2.4.0 (API v6)
+22:53:15 Gateway     Connecting
+22:53:15 Gateway     Connected
+22:53:16 Gateway     Ready
+23:55:40 Gateway     System.Exception: WebSocket connection was closed
+ ---> System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowIfEOFUnexpected(Boolean throwOnPrematureClosure)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken, Boolean throwOnPrematureClosure)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TWebSocketReceiveResultGetter,TWebSocketReceiveResult](Memory`1 payloadBuffer, CancellationToken cancellationToken, TWebSocketReceiveResultGetter resultGetter)
+   at Discord.Net.WebSockets.DefaultWebSocketClient.RunAsync(CancellationToken cancelToken)
+   --- End of inner exception stack trace ---
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+23:55:40 Gateway     Disconnecting
+23:55:40 Gateway     Disconnected
+23:55:41 Gateway     Connecting
+23:55:42 Gateway     Connected
+23:55:42 Gateway     Resumed previous session
+03:38:46 Gateway     Discord.WebSocket.GatewayReconnectException: Server requested a reconnect
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+03:38:46 Gateway     Disconnecting
+03:38:46 Gateway     Disconnected
+03:38:47 Gateway     Connecting
+03:38:48 Gateway     Resumed previous session
+03:38:48 Gateway     Connected
+06:27:48 Gateway     Discord.WebSocket.GatewayReconnectException: Server requested a reconnect
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+06:27:48 Gateway     Disconnecting
+06:27:48 Gateway     Disconnected
+06:27:49 Gateway     Connecting
+06:27:50 Gateway     Resumed previous session
+06:27:50 Gateway     Connected
+09:36:27 Gateway     Discord.WebSocket.GatewayReconnectException: Server requested a reconnect
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+09:36:27 Gateway     Disconnecting
+09:36:27 Gateway     Disconnected
+09:36:28 Gateway     Connecting
+09:36:28 Gateway     Resumed previous session
+09:36:28 Gateway     Connected

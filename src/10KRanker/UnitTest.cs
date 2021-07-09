@@ -25,8 +25,6 @@ namespace _10KRanker
         {
             channel = client.GetGuild(Secrets.TestServerId).GetTextChannel(Secrets.TestChannelId);
 
-            await Task.Delay(3000);
-
             await TestAddMap(true);
             await TestRemoveMap(true);
             await TestAddNominator(true);
@@ -49,6 +47,8 @@ namespace _10KRanker
             await Send("add 1343787 map3 status");
             //add4 <id>
             await Send("add 1095022");
+            //add5 <id> <status>
+            await Send("add 1509353 map5 %$#@test");
 
             if (testBadWeather)
             {

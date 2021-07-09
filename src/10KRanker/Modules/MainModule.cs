@@ -23,7 +23,7 @@ namespace _10KRanker.Modules
                 if (mapId == -1)
                     throw new ArgumentException("Map names can only be used for maps in the bot's system. Try the map link or beatmapsetid instead.");
 
-                DB.Add(OsuToDB.CreateMap(mapId));
+                DB.Add(OsuToDB.CreateMap(mapId, status));
 
                 await ReplyAsync("The map has been added.");
             }

@@ -5,6 +5,7 @@ using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 
@@ -12,7 +13,7 @@ namespace _10KRanker
 {
     public class Program
     {
-        private Timer updateDBTablesTimer;
+        private System.Timers.Timer updateDBTablesTimer;
         private DiscordSocketClient client;
 
         private static void Main(string[] args)
@@ -32,21 +33,28 @@ namespace _10KRanker
 
             await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
 
-            client.Ready += StartTestOnClientReady;
-
-            updateDBTablesTimer = new Timer(1 * 24 * 60 * 60 * 1000);
-            updateDBTablesTimer.AutoReset = true;
-            updateDBTablesTimer.Elapsed += new ElapsedEventHandler(OsuToDB.OnUpdateDBTablesTimerElapsed);
-            updateDBTablesTimer.Start();
-            //OsuToDB.OnUpdateDBTablesTimerElapsed(null, null);
+            client.Ready += OnClientReady;
 
             await Task.Delay(-1);
         }
 
-        private async Task StartTestOnClientReady()
+        private async Task OnClientReady()
         {
-            if (UnitTest.Testing)
-                new UnitTest().Test(client);
+            _ = Task.Run(() =>
+            {
+                Thread.Sleep(3000);
+
+                updateDBTablesTimer = new System.Timers.Timer(1 * 24 * 60 * 60 * 1000);
+                updateDBTablesTimer.AutoReset = true;
+                updateDBTablesTimer.Elapsed += new ElapsedEventHandler(OsuToDB.OnUpdateDBTablesTimerElapsed);
+                updateDBTablesTimer.Start();
+
+                //OsuToDB.OnUpdateDBTablesTimerElapsed(null, null);
+
+                if (UnitTest.Testing)
+                    _ = new UnitTest().Test(client);
+            });
+
         }
 
         private Task LogAsync(LogMessage log)

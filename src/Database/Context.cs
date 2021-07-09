@@ -17,7 +17,7 @@ namespace Database
 
         public Context Init()
         {
-            Maps
+            _ = Maps
                 .Include(i => i.Mapper)
                 .Include(i => i.Nominators)
                 .DefaultIfEmpty().ToList();
