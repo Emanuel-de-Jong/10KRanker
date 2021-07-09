@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\Logger\Logger.csproj" />
     <ProjectReference Include="..\OsuAPI\OsuAPI.csproj" />
   </ItemGroup>
 

@@ -6,7 +6,7 @@ namespace Logger
 {
     public class Log
     {
-        public static string LogDirPath { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\10KRanked\logs";
+        public static string LogDirPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\10KRanked\logs";
 
         private string logName;
         private string logPath;
@@ -26,7 +26,7 @@ namespace Logger
             disposeWriterTimer.Elapsed += OnDisposeWriterTimerElapsed;
         }
 
-        public void Write(string message)
+        public void Write(string message, string comment = null)
         {
             if (writer == null)
             {
@@ -38,7 +38,11 @@ namespace Logger
             }
             disposeWriterTimer.Start();
 
-            writer.WriteLine($"{ DateTime.Now }: { message }");
+            string line = $"{ DateTime.Now.ToString("MM-dd-y HH:mm:ss") }: { message }";
+            if (comment != null)
+                line += $" // { comment }";
+
+            writer.WriteLine(line);
             writer.Flush();
         }
 

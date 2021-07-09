@@ -7,11 +7,11 @@ namespace Database
 {
     public class Context : DbContext
     {
-        public static string DBDirPath { get; set; }
+        public static string DBDirPath { get; }
             = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\10KRanked";
-        public static string DBPath { get; set; } = DBDirPath + @"\10KRanked.db";
+        public static string DBPath { get; } = DBDirPath + @"\10KRanked.db";
 
-        public string[] TableNames { get; set; } = new string[] { "Maps", "Mappers", "Nominators", "MapNominator" };
+        public string[] TableNames { get; } = new string[] { "Maps", "Mappers", "Nominators", "MapNominator" };
         public DbSet<Map> Maps { get; set; }
         public DbSet<Mapper> Mappers { get; set; }
         public DbSet<Nominator> Nominators { get; set; }
