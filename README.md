@@ -90,7 +90,7 @@ It uses auto generated migrations to speed up database design changes.
 ### Logger
 ***Type:*** C# .NET 5 Library<br/>
 
-Its Log class can be instanced with a log name. The Write function is used to append the `.log` file.
+Its Log class can be instanced with a filename. The Write function appends a string to the `.log` file.
 It is used to log the user commands, osu api calls and database changes.
 
 ### Test

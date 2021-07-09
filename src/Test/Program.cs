@@ -4,6 +4,7 @@ using Logger;
 using OsuAPI;
 using OsuSharp;
 using System;
+using System.IO;
 
 namespace Test
 {
@@ -11,13 +12,20 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            Log log = new("test");
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\10KRanked\10KRanked";
 
-            while (true)
-            {
-                string message = Console.ReadLine();
-                log.Write(message);
-            }
+            var maps1 = DB.GetMaps();
+            var map = maps1[0];
+            Console.WriteLine($"{map.Name} - {map.Status}");
+
+            Console.ReadKey();
+            File.Copy(path + ".db", path + "2.db", true);
+
+            map.Status = map.Status + "!";
+            DB.Update(map);
+            
+            var maps2 = DB.GetMaps();
+            Console.WriteLine($"{maps2[0].Name} - {maps2[0].Status}");
 
             Console.ReadKey();
         }

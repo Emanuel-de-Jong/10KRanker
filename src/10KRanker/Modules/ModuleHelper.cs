@@ -9,6 +9,7 @@ namespace _10KRanker.Modules
     public static class ModuleHelper
     {
         public static Log Log { get; } = new Log("commands");
+        public static string DateFormat { get; } = "MM-dd-y HH:mm:ss";
 
 
         public static string SocketUserToString(SocketUser user)
@@ -38,11 +39,11 @@ namespace _10KRanker.Modules
                 reply += $"**{ m.Artist } - { m.Name }** ({ MapIdToLink(m.MapId) })\n";
                 if (m.OsuUpdateDate == null)
                 {
-                    reply += $"\tSubmitted to osu: { m.OsuSubmitDate }\n";
+                    reply += $"\tSubmitted to osu: { m.OsuSubmitDate.ToString(DateFormat) }\n";
                 }
                 else
                 {
-                    reply += $"\tLast updated on osu: { m.OsuUpdateDate }\n";
+                    reply += $"\tLast updated on osu: { m.OsuUpdateDate.Value.ToString(DateFormat) }\n";
                 }
                 reply += $"\tCategory: { m.Category }\tMapper: { m.Mapper.Name }";
 
@@ -64,18 +65,18 @@ namespace _10KRanker.Modules
             string reply = $"**{ m.Artist } - { m.Name }** ({ MapIdToLink(m.MapId) })\n";
             if (m.OsuUpdateDate == null)
             {
-                reply += $"Submitted to osu: { m.OsuSubmitDate }\n";
+                reply += $"Submitted to osu: { m.OsuSubmitDate.ToString(DateFormat) }\n";
             }
             else
             {
-                reply += $"Last updated on osu: { m.OsuUpdateDate }\n";
+                reply += $"Last updated on osu: { m.OsuUpdateDate.Value.ToString(DateFormat) }\n";
             }
 
             if (m.OsuAprovedDate != null)
-                reply += $"Aproved on osu: { m.OsuAprovedDate }\n";
+                reply += $"Aproved on osu: { m.OsuAprovedDate.Value.ToString(DateFormat) }\n";
 
-            reply += $"Submmitted here: { m.SubmitDate }\n" +
-            $"Last updated here: { m.UpdateDate }\n" +
+            reply += $"Submmitted here: { m.SubmitDate.ToString(DateFormat) }\n" +
+            $"Last updated here: { m.UpdateDate.ToString(DateFormat) }\n" +
             $"Mapper: { m.Mapper.Name } ({ UserIdToLink(m.MapperId) })\n" +
             $"Category: { m.Category }\n" +
             "Status: ";
