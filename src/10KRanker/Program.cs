@@ -46,7 +46,7 @@ namespace _10KRanker
 
                 updateDBTablesTimer = new System.Timers.Timer(1 * 24 * 60 * 60 * 1000);
                 updateDBTablesTimer.AutoReset = true;
-                updateDBTablesTimer.Elapsed += new ElapsedEventHandler(OsuToDB.OnUpdateDBTablesTimerElapsed);
+                updateDBTablesTimer.Elapsed += OsuToDB.OnUpdateDBTablesTimerElapsed;
                 updateDBTablesTimer.Start();
 
                 //OsuToDB.OnUpdateDBTablesTimerElapsed(null, null);

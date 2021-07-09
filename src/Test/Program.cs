@@ -1,5 +1,6 @@
 ﻿using _10KRanker;
 using Database;
+using Logger;
 using OsuAPI;
 using OsuSharp;
 using System;
@@ -10,13 +11,15 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            DBTable table = DBTable.Map;
+            Log log = new("test");
 
-            for (int i = 0; i < 20; i++)
+            while (true)
             {
-                table = (DBTable)(((int)table + 1) % 3);
-                Console.WriteLine(table);
+                string message = Console.ReadLine();
+                log.Write(message);
             }
+
+            Console.ReadKey();
         }
 
         private static void DBTest()

@@ -11,7 +11,7 @@ namespace _10KRanker
     {
         private static DBTable onUpdateTable = DBTable.Map;
 
-        public static void OnUpdateDBTablesTimerElapsed(object source, ElapsedEventArgs e)
+        public static void OnUpdateDBTablesTimerElapsed(object s, ElapsedEventArgs e)
         {
             Console.WriteLine("Sheduled update of " + onUpdateTable);
 
