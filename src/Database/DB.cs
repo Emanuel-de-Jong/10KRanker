@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Logger;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ namespace Database
 {
     public static class DB
     {
+        private static Log log = new Log("database");
         private static Context context = new Context().Init();
         public static Context Context { get; } = context;
 
@@ -34,6 +36,8 @@ namespace Database
         {
             context.Add(obj);
             context.SaveChanges();
+
+            log.Write($"Add({ obj.ToString() });");
         }
 
         public static void Add(List<object> objs)
@@ -122,6 +126,10 @@ namespace Database
             }
 
             context.SaveChanges();
+
+            IDBModel model = obj as IDBModel;
+
+            log.Write($"Update({ model.GetId() });", "Update(object obj)");
         }
 
         public static void Update(List<object> objs)
@@ -142,6 +150,10 @@ namespace Database
         {
             context.Remove(obj);
             context.SaveChanges();
+
+            IDBModel model = obj as IDBModel;
+
+            log.Write($"Remove({ model.GetId() });", "Remove(object obj)");
         }
 
         public static void Remove<T>(long objId) where T : class

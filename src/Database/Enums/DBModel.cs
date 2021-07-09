@@ -1,6 +1,6 @@
 ﻿namespace Database
 {
-    public enum DBTable
+    public enum DBModel
     {
         Map,
         Mapper,

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Database
 {
     [Index(nameof(Name), IsUnique = true)]
-    public class Nominator
+    public class Nominator : IDBModel
     {
         public long NominatorId { get; set; }
         public string Name { get; set; }
@@ -17,9 +17,14 @@ namespace Database
             this.Name = name;
         }
 
+        public long GetId()
+        {
+            return NominatorId;
+        }
+
         public override string ToString()
         {
-            return Name;
+            return $"new Nominator({NominatorId}, \"{Name}\");";
         }
     }
 }

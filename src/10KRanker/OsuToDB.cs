@@ -9,26 +9,26 @@ namespace _10KRanker
 {
     public static class OsuToDB
     {
-        private static DBTable onUpdateTable = DBTable.Map;
+        private static DBModel onUpdateTable = DBModel.Map;
 
         public static void OnUpdateDBTablesTimerElapsed(object s, ElapsedEventArgs e)
         {
             Console.WriteLine("Sheduled update of " + onUpdateTable);
 
-            if (onUpdateTable == DBTable.Map)
+            if (onUpdateTable == DBModel.Map)
             {
                 UpdateMaps(DB.GetMaps());
             }
-            else if (onUpdateTable == DBTable.Mapper)
+            else if (onUpdateTable == DBModel.Mapper)
             {
                 UpdateMappers(DB.GetMappers());
             }
-            else if (onUpdateTable == DBTable.Nominator)
+            else if (onUpdateTable == DBModel.Nominator)
             {
                 UpdateNominators(DB.GetNominators());
             }
 
-            onUpdateTable = (DBTable)(((int)onUpdateTable + 1) % 3);
+            onUpdateTable = (DBModel)(((int)onUpdateTable + 1) % 3);
         }
 
 

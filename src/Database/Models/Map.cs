@@ -18,7 +18,7 @@ namespace Database
 
 
     [Index(nameof(Name))]
-    public class Map
+    public class Map : IDBModel
     {
         public long MapId { get; set; }
         public string Name { get; set; }
@@ -52,6 +52,24 @@ namespace Database
             this.OsuAprovedDate = osuAprovedDate;
             this.SubmitDate = submitDate;
             this.UpdateDate = updateDate;
+        }
+
+        public long GetId()
+        {
+            return MapId;
+        }
+
+        public override string ToString()
+        {
+            string str = $"new Map({MapId}, \"{Name}\", \"{Artist}\", Category.\"{Category}\", DateTime.Parse(\"{OsuSubmitDate.ToString()}\")";
+
+            str += OsuUpdateDate != null ? $", DateTime.Parse(\"{OsuUpdateDate.ToString()}\")" : ", null";
+
+            str += OsuAprovedDate != null ? $", DateTime.Parse(\"{OsuAprovedDate.ToString()}\")" : ", null";
+
+            str += $", DateTime.Parse(\"{SubmitDate.ToString()}\"), DateTime.Parse(\"{UpdateDate.ToString()}\"));";
+
+            return str;
         }
     }
 }
