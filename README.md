@@ -55,7 +55,7 @@ A new migration has to be generated:
 
 
 ## Code structure
-There are 4 Visual Studio projects
+There are 5 Visual Studio projects
 
 ### 10KRanked
 ***Type:*** C# .NET 5 Console Application<br/>
@@ -86,6 +86,12 @@ It throws exceptions when a map/user doesn't exist and if a map is incompatible 
 Has a static wrapper for easy communication with a SQLite db file located in the OS's ApplicationData.
 It uses auto generated migrations to speed up database design changes.
 10KRanked uses it to save and retrieve the maps/users.
+
+### Logger
+***Type:*** C# .NET 5 Library<br/>
+
+Its Log class can be instanced with a log name. The Write function is used to append the `.log` file.
+It is used to log the user commands, osu api calls and database changes.
 
 ### Test
 ***Type:*** C# .NET 5 Console Application<br/>

@@ -67,7 +67,7 @@ namespace Database
 
             str += OsuAprovedDate != null ? $", DateTime.Parse(\"{OsuAprovedDate.ToString()}\")" : ", null";
 
-            str += $", DateTime.Parse(\"{SubmitDate.ToString()}\"), DateTime.Parse(\"{UpdateDate.ToString()}\"));";
+            str += $", DateTime.Parse(\"{SubmitDate.ToString()}\"), DateTime.Parse(\"{UpdateDate.ToString()}\"))";
 
             return str;
         }

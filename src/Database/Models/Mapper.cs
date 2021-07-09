@@ -24,7 +24,7 @@ namespace Database
 
         public override string ToString()
         {
-            return $"new Mapper({MapperId}, \"{Name}\");";
+            return $"new Mapper({MapperId}, \"{Name}\")";
         }
     }
 }

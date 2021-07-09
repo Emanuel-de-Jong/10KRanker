@@ -24,7 +24,7 @@ namespace Database
 
         public override string ToString()
         {
-            return $"new Nominator({NominatorId}, \"{Name}\");";
+            return $"new Nominator({NominatorId}, \"{Name}\")";
         }
     }
 }
