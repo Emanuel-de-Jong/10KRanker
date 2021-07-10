@@ -82,7 +82,6 @@ namespace _10KRanker
                 .AddSingleton<CommandService>(commandService)
                 .AddSingleton<CommandHandlingService>()
                 .AddSingleton<HttpClient>()
-                .AddSingleton<PictureService>()
                 .BuildServiceProvider();
         }
     }
