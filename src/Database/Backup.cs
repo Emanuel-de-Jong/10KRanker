@@ -61,5 +61,13 @@ namespace Database
 
             File.Delete(oldestFilePath);
         }
+
+        public static void ClearBackups()
+        {
+            string[] filePaths = Directory.GetFiles(BackupDirPath, "*.db");
+
+            foreach (string filePath in filePaths)
+                File.Delete(filePath);
+        }
     }
 }

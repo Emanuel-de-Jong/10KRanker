@@ -48,7 +48,22 @@ namespace _10KRanker.Modules
                 reply += $"\tCategory: { m.Category }\tMapper: { m.Mapper.Name }";
 
                 if (m.Nominators.Count != 0)
-                    reply += $"\tBN(s): { string.Join(", ", m.Nominators) }";
+                {
+                    reply += "\tBN(s): ";
+
+                    bool firstLoop = true;
+                    foreach (Nominator n in m.Nominators)
+                    {
+                        if (firstLoop)
+                        {
+                            firstLoop = false;
+                            reply += n.Name;
+                            continue;
+                        }
+
+                        reply += $", {n.Name}";
+                    }
+                }
 
                 reply += "\n";
 

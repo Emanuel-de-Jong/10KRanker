@@ -60,8 +60,6 @@ namespace _10KRanker
                 DB.Init();
                 OsuToDB.Init();
 
-                Thread.Sleep(3000);
-
                 if (UnitTest.Testing)
                     _ = new UnitTest().Test(client);
             });

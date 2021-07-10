@@ -7,6 +7,8 @@
 	The map has been added.
 	!add 1095022
 	The map has been added.
+	!add 1509353 map5 %$#@test
+	The map has been added.
 	==BAD WEATHER==
 	!add
 	The input text has too few parameters.
@@ -71,19 +73,25 @@
 	The map status has been changed.
 	!cs 1343787 map3 status edit2
 	The map status has been changed.
-	‎
-	‎
+	
+	
 	!list
+	== Maps ==
 	linear ring - lalabai call me (https://osu.ppy.sh/beatmapsets/1343787)
-		Last updated on osu: 6/29/2021 3:16:22 PM
+		Last updated on osu: 7/9/2021 12:24 PM
 		Category: Pending    Mapper: [Sick]Catcat
 		Status: map3 status edit2
 
 	Lunatic Sounds - DataErr0r (https://osu.ppy.sh/beatmapsets/1466367)
-		Last updated on osu: 5/19/2021 2:35:00 AM
+		Last updated on osu: 5/19/2021 02:35 AM
 		Category: Graveyard    Mapper: XDerbyX    BN(s): Jakads
 		Status: map2 status
 
 	Various Artist - 10K Indo Pack #2 (https://osu.ppy.sh/beatmapsets/1509186)
-		Last updated on osu: 7/3/2021 10:49:46 AM
+		Last updated on osu: 7/3/2021 10:49 AM
 		Category: Pending    Mapper: XDerbyX    BN(s): Feerum, Unpredictable
+
+	Frums - Wavetapper (https://osu.ppy.sh/beatmapsets/1509353)
+		Last updated on osu: 7/3/2021 02:33 PM
+		Category: WIP    Mapper: Friedchicken
+		Status: map5 %$#@test
