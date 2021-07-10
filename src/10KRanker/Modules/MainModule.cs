@@ -12,7 +12,7 @@ namespace _10KRanker.Modules
         private Log log = ModuleHelper.Log;
 
 
-        [Command("unittest")]
+        //[Command("unittest")]
         public async Task TestAsync()
         {
             if (true) // ADD MAP
@@ -96,6 +96,11 @@ namespace _10KRanker.Modules
         [Alias("addmap", "create", "createmap")]
         public async Task AddMapAsync(string mapAlias, [Remainder] string status = null)
         {
+            string message = $"AddMapAsync(\"{ mapAlias }\"";
+            if (status != null)
+                message += $", \"{ status }\"";
+            message += ");";
+
             try
             {
                 long mapId = 0;
@@ -110,17 +115,12 @@ namespace _10KRanker.Modules
                 DB.Add(OsuToDB.CreateMap(mapId, status));
 
                 await ReplyAsync("The map has been added.");
-
-                // Log command call
-                string message = $"AddMapAsync(\"{ mapAlias }\"";
-                if (status != null)
-                    message += $", \"{ status }\"";
-                message += ");";
                 log.Write(message, ModuleHelper.SocketUserToString(Context.User));
             }
             catch (ArgumentException ae)
             {
                 await ReplyAsync(ae.Message);
+                log.Write(message, $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
             }
         }
 
@@ -136,14 +136,14 @@ namespace _10KRanker.Modules
                 DB.Remove(map);
 
                 await ReplyAsync("The map has been removed.");
-
-                // Log command call
                 log.Write($"RemoveMapAsync(\"{ mapAlias }\");",
                     ModuleHelper.SocketUserToString(Context.User));
             }
             catch (ArgumentException ae)
             {
                 await ReplyAsync(ae.Message);
+                log.Write($"RemoveMapAsync(\"{ mapAlias }\");",
+                    $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
             }
         }
 
@@ -161,14 +161,14 @@ namespace _10KRanker.Modules
                 DB.Update(map);
 
                 await ReplyAsync("The map status has been changed.");
-
-                // Log command call
                 log.Write($"UpdateMapStatusAsync(\"{ mapAlias }\", \"{ status }\");",
                     ModuleHelper.SocketUserToString(Context.User));
             }
             catch (ArgumentException ae)
             {
                 await ReplyAsync(ae.Message);
+                log.Write($"UpdateMapStatusAsync(\"{ mapAlias }\", \"{ status }\");",
+                    $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
             }
         }
 
@@ -206,14 +206,14 @@ namespace _10KRanker.Modules
                 DB.Update(map);
 
                 await ReplyAsync("The BN has been linked to the map.");
-
-                // Log command call
                 log.Write($"AddNominatorAsync(\"{ mapAlias }\", \"{ nominatorAlias }\");",
                     ModuleHelper.SocketUserToString(Context.User));
             }
             catch (ArgumentException ae)
             {
                 await ReplyAsync(ae.Message);
+                log.Write($"AddNominatorAsync(\"{ mapAlias }\", \"{ nominatorAlias }\");",
+                    $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
             }
         }
 
@@ -234,14 +234,14 @@ namespace _10KRanker.Modules
                 DB.Update(map);
 
                 await ReplyAsync("The BN has been removed from the map.");
-
-                // Log command call
                 log.Write($"RemoveNominatorAsync(\"{ mapAlias }\", \"{ nominatorAlias }\");",
                     ModuleHelper.SocketUserToString(Context.User));
             }
             catch (ArgumentException ae)
             {
                 await ReplyAsync(ae.Message);
+                log.Write($"RemoveNominatorAsync(\"{ mapAlias }\", \"{ nominatorAlias }\");",
+                    $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
             }
         }
 
@@ -259,14 +259,14 @@ namespace _10KRanker.Modules
                 OsuToDB.UpdateMap(map);
 
                 await ReplyAsync(ModuleHelper.MapToString(map));
-
-                // Log command call
                 log.Write($"ShowAsync(\"{ mapAlias }\");",
                     ModuleHelper.SocketUserToString(Context.User));
             }
             catch (ArgumentException ae)
             {
                 await ReplyAsync(ae.Message);
+                log.Write($"ShowAsync(\"{ mapAlias }\");",
+                    $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
             }
         }
 
@@ -275,6 +275,11 @@ namespace _10KRanker.Modules
         [Alias("l", "all", "maps")]
         public async Task ListAsync([Remainder] string userAlias = null)
         {
+            string message = $"ListAsync(";
+            if (userAlias != null)
+                message += $"\"{ userAlias }\"";
+            message += ");";
+
             try
             {
                 Mapper mapper;
@@ -313,17 +318,12 @@ namespace _10KRanker.Modules
                     throw new ArgumentException("The user is not in the bot's system.");
                 }
 
-
-                // Log command call
-                string message = $"ListAsync(";
-                if (userAlias != null)
-                    message += $"\"{ userAlias }\"";
-                message += ");";
                 log.Write(message, ModuleHelper.SocketUserToString(Context.User));
             }
             catch (ArgumentException ae)
             {
                 await ReplyAsync(ae.Message);
+                log.Write(message, $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
             }
         }
 
@@ -366,7 +366,6 @@ Show this message.
 ----------
 ");
 
-            // Log command call
             log.Write($"InfoAsync();",
                 ModuleHelper.SocketUserToString(Context.User));
         }

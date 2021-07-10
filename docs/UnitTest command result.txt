@@ -1,0 +1,49 @@
+The map has been added.
+The map has been added.
+The map has been added.
+The map has been added.
+The map has been added.
+The id in the link has other characters than just numbers.
+The map link is not valid.
+Map names can only be used for maps in the bot's system. Try the map link or beatmapsetid instead.
+A map with that id does not exist.
+The map doesn't have a 10K difficulty.
+The map doesn't have a 10K difficulty.
+The map is already ranked.
+The map is already in the bot's system.
+The map is already in the bot's system.
+The map has been removed.
+The map is not in the bot's system.
+The BN has been linked to the map.
+The BN has been linked to the map.
+The BN has been linked to the map.
+The BN has been linked to the map.
+The user link is not valid.
+A user with that name doesn't exist.
+A user with that id doesn't exist.
+The BN is already linked to the map.
+The BN is already linked to the map.
+The BN has been removed from the map.
+The BN already wasn't linked to the map.
+The map status has been changed.
+The map status has been changed.
+The map status has been changed.
+== Maps ==
+linear ring - lalabai call me (https://osu.ppy.sh/beatmapsets/1343787)
+    Last updated on osu: 7/9/2021 12:24 PM
+    Category: Pending    Mapper: [Sick]Catcat
+    Status: map3 status edit2
+
+Lunatic Sounds - DataErr0r (https://osu.ppy.sh/beatmapsets/1466367)
+    Last updated on osu: 5/19/2021 02:35 AM
+    Category: Graveyard    Mapper: XDerbyX    BN(s): Jakads
+    Status: map2 status
+
+Various Artist - 10K Indo Pack #2 (https://osu.ppy.sh/beatmapsets/1509186)
+    Last updated on osu: 7/3/2021 10:49 AM
+    Category: Pending    Mapper: XDerbyX    BN(s): Feerum, Unpredictable
+
+Frums - Wavetapper (https://osu.ppy.sh/beatmapsets/1509353)
+    Last updated on osu: 7/3/2021 02:33 PM
+    Category: WIP    Mapper: Friedchicken
+    Status: map5 %$#@test

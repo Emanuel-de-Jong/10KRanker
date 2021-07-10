@@ -11,7 +11,7 @@ namespace Database
     public static class Backup
     {
         private static Timer makeDBBackupTimer;
-        public static int BackupCount { get; set; } = 3;
+        public static int BackupCount { get; set; } = 5;
         public static string BackupDirPath { get; }
             = Context.DBDirPath + @"\backups";
 
