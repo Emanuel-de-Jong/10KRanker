@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace _10KRanker.Modules
 {
+    [RequireContext(ContextType.Guild)]
     public class MainModule : ModuleBase<SocketCommandContext>
     {
         private Log log = ModuleHelper.Log;
