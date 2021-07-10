@@ -5,12 +5,20 @@ using OsuAPI;
 using OsuSharp;
 using System;
 using System.IO;
+using System.Threading;
 
 namespace Test
 {
     class Program
     {
         static void Main(string[] args)
+        {
+            Log log = new Log("test");
+            log.ClearLog();
+            Thread.Sleep(1500);
+        }
+
+        private static void DBBackupTest()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\10KRanked\10KRanked";
 
@@ -23,7 +31,7 @@ namespace Test
 
             map.Status = map.Status + "!";
             DB.Update(map);
-            
+
             var maps2 = DB.GetMaps();
             Console.WriteLine($"{maps2[0].Name} - {maps2[0].Status}");
 

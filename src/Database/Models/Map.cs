@@ -61,7 +61,7 @@ namespace Database
 
         public override string ToString()
         {
-            string str = $"new Map({MapId}, \"{Name}\", \"{Artist}\", Category.\"{Category}\", DateTime.Parse(\"{OsuSubmitDate.ToString()}\")";
+            string str = $"new Map({MapId}, \"{Name}\", \"{Artist}\", Category.{Category}, DateTime.Parse(\"{OsuSubmitDate.ToString()}\")";
 
             str += OsuUpdateDate != null ? $", DateTime.Parse(\"{OsuUpdateDate.ToString()}\")" : ", null";
 

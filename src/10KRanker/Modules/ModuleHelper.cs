@@ -9,7 +9,7 @@ namespace _10KRanker.Modules
     public static class ModuleHelper
     {
         public static Log Log { get; } = new Log("commands");
-        public static string DateFormat { get; } = "MM-dd-y HH:mm:ss";
+        public static string DateFormat { get; } = "M/d/yyy hh:mm tt";
 
 
         public static string SocketUserToString(SocketUser user)

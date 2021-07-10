@@ -11,17 +11,17 @@ namespace _10KRanker.Services
     public class CommandHandlingService
     {
         private readonly CommandService _commands;
-        private readonly DiscordSocketClient _discord;
+        private readonly DiscordSocketClient _client;
         private readonly IServiceProvider _services;
 
         public CommandHandlingService(IServiceProvider services)
         {
             _commands = services.GetRequiredService<CommandService>();
-            _discord = services.GetRequiredService<DiscordSocketClient>();
+            _client = services.GetRequiredService<DiscordSocketClient>();
             _services = services;
 
             _commands.CommandExecuted += CommandExecutedAsync;
-            _discord.MessageReceived += MessageReceivedAsync;
+            _client.MessageReceived += MessageReceivedAsync;
         }
 
         public async Task InitializeAsync()
@@ -42,7 +42,7 @@ namespace _10KRanker.Services
             if (!message.HasCharPrefix('!', ref argPos))
                 return;
 
-            SocketCommandContext context = new(_discord, message);
+            SocketCommandContext context = new(_client, message);
             await _commands.ExecuteAsync(context, argPos, _services);
         }
 

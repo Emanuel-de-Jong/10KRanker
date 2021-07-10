@@ -2,6 +2,7 @@
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Logger;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
@@ -15,12 +16,15 @@ namespace _10KRanker
     {
         private System.Timers.Timer updateDBTablesTimer;
         private DiscordSocketClient client;
+        private Log log;
 
         private static void Main(string[] args)
             => new Program().MainAsync().GetAwaiter().GetResult();
 
         public async Task MainAsync()
         {
+            log = new Log("console");
+
             using ServiceProvider services = ConfigureServices();
 
             client = services.GetRequiredService<DiscordSocketClient>();
@@ -57,9 +61,11 @@ namespace _10KRanker
 
         }
 
-        private Task LogAsync(LogMessage log)
+        private Task LogAsync(LogMessage message)
         {
-            Console.WriteLine(log.ToString());
+            Console.WriteLine(message.ToString());
+
+            log.Write(message.ToString());
 
             return Task.CompletedTask;
         }

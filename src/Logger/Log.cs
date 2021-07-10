@@ -51,5 +51,33 @@ namespace Logger
             writer.Close();
             writer = null;
         }
+
+        public void ClearLog(bool removeFiles = false)
+        {
+            if (!removeFiles)
+            {
+                File.WriteAllText(logPath, "");
+            }
+            else
+            {
+                File.Delete(logPath);
+            }
+        }
+
+        public static void ClearLogs(bool removeFiles = false)
+        {
+            string[] filePaths = Directory.GetFiles(LogDirPath, "*.log");
+
+            if (!removeFiles)
+            {
+                foreach (string filePath in filePaths)
+                    File.WriteAllText(filePath, "");
+            }
+            else
+            {
+                foreach (string filePath in filePaths)
+                    File.Delete(filePath);
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+=== 06-10 ===
 22:53:14 Discord     Discord.Net v2.4.0 (API v6)
 22:53:15 Gateway     Connecting
 22:53:15 Gateway     Connected
@@ -36,3 +37,49 @@
 09:36:28 Gateway     Connecting
 09:36:28 Gateway     Resumed previous session
 09:36:28 Gateway     Connected
+
+
+
+
+
+=== 07-10 ===
+23:29:08 Discord     Discord.Net v2.4.0 (API v6)
+23:29:09 Gateway     Connecting
+23:29:09 Gateway     Connected
+23:29:10 Gateway     Ready
+23:29:25 Gateway     A bulk delete event has been received, but the event handling behavior has not been set. To suppress this message, set the ExclusiveBulkDelete configuration property. This message will appear only once.
+01:30:36 Gateway     Discord.WebSocket.GatewayReconnectException: Server requested a reconnect
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+01:30:36 Gateway     Disconnecting
+01:30:36 Gateway     Disconnected
+01:30:37 Gateway     Connecting
+01:30:37 Gateway     Connected
+01:30:37 Gateway     Resumed previous session
+02:29:04 Gateway     Discord.WebSocket.GatewayReconnectException: Server requested a reconnect
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+02:29:04 Gateway     Disconnecting
+02:29:04 Gateway     Disconnected
+02:29:05 Gateway     Connecting
+02:29:05 Gateway     Resumed previous session
+02:29:05 Gateway     Connected
+03:02:33 Gateway     Discord.WebSocket.GatewayReconnectException: Server requested a reconnect
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+03:02:33 Gateway     Disconnecting
+03:02:33 Gateway     Disconnected
+03:02:34 Gateway     Connecting
+03:02:34 Gateway     Connected
+03:02:34 Gateway     Resumed previous session
+05:38:59 Gateway     Discord.WebSocket.GatewayReconnectException: Server requested a reconnect
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+05:38:59 Gateway     Disconnecting
+05:38:59 Gateway     Disconnected
+05:39:00 Gateway     Connecting
+05:39:01 Gateway     Resumed previous session
+05:39:01 Gateway     Connected
+06:37:26 Gateway     Discord.WebSocket.GatewayReconnectException: Server requested a reconnect
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+06:37:26 Gateway     Disconnecting
+06:37:26 Gateway     Disconnected
+06:37:27 Gateway     Connecting
+06:37:27 Gateway     Resumed previous session
+06:37:27 Gateway     Connected
