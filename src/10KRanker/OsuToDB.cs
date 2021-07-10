@@ -10,6 +10,17 @@ namespace _10KRanker
     public static class OsuToDB
     {
         private static DBModel onUpdateTable = DBModel.Map;
+        private static Timer updateDBTablesTimer;
+
+        public static void Init()
+        {
+            updateDBTablesTimer = new Timer(1 * 24 * 60 * 60 * 1000);
+            updateDBTablesTimer.AutoReset = true;
+            updateDBTablesTimer.Elapsed += OnUpdateDBTablesTimerElapsed;
+            updateDBTablesTimer.Start();
+
+            //OnUpdateDBTablesTimerElapsed(null, null);
+        }
 
         public static void OnUpdateDBTablesTimerElapsed(object s, ElapsedEventArgs e)
         {

@@ -4,19 +4,38 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Database
 {
-    class Backup
+    public static class Backup
     {
+        private static Timer makeDBBackupTimer;
         public static int BackupCount { get; set; } = 3;
-        public static string BackupDirPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\10KRanked\backups";
+        public static string BackupDirPath { get; }
+            = Context.DBDirPath + @"\backups";
+
+        public static void Init()
+        {
+            if (!Directory.Exists(BackupDirPath))
+                Directory.CreateDirectory(BackupDirPath);
+
+            makeDBBackupTimer = new Timer(1 * 24 * 60 * 60 * 1000);
+            makeDBBackupTimer.AutoReset = true;
+            makeDBBackupTimer.Elapsed += OnMakeDBBackupTimerElapsed;
+            makeDBBackupTimer.Start();
+        }
+
+        public static void OnMakeDBBackupTimerElapsed(object s, ElapsedEventArgs e)
+        {
+            Make();
+        }
 
         public static void Make()
         {
             RemoveOldBackup();
 
-            File.Copy(Context.DBPath, BackupDirPath + @$"\10KRanked { DateTime.Now.ToString("MM-dd-y HH:mm:ss") }.db", true);
+            File.Copy(Context.DBPath, BackupDirPath + @$"\10KRanked { DateTime.Now.ToString("MM-dd-y HH-mm") }.db", true);
         }
 
         private static void RemoveOldBackup()

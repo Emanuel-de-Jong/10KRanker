@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Timers;
 
 namespace Database
 {
@@ -16,14 +17,15 @@ namespace Database
         public DbSet<Mapper> Mappers { get; set; }
         public DbSet<Nominator> Nominators { get; set; }
 
-        public Context Init()
+
+        public void Init()
         {
             _ = Maps
                 .Include(i => i.Mapper)
                 .Include(i => i.Nominators)
                 .DefaultIfEmpty().ToList();
 
-            return this;
+            Backup.Init();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -33,21 +35,5 @@ namespace Database
 
             options.UseSqlite(@"Data Source=" + DBPath);
         }
-
-
-
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    builder.Entity<Map>()
-        //        .HasIndex(i => i.Name);
-
-        //    builder.Entity<Mapper>()
-        //        .HasIndex(i => i.Name)
-        //        .IsUnique();
-
-        //    builder.Entity<Nominator>()
-        //        .HasIndex(i => i.Name)
-        //        .IsUnique();
-        //}
     }
 }

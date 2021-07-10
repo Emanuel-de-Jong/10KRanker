@@ -1,9 +1,11 @@
 ﻿using _10KRanker.Services;
+using Database;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Logger;
 using Microsoft.Extensions.DependencyInjection;
+using OsuAPI;
 using System;
 using System.Net.Http;
 using System.Threading;
@@ -17,7 +19,6 @@ namespace _10KRanker
         private DiscordSocketClient client;
         private CommandService commandService;
 
-        private System.Timers.Timer updateDBTablesTimer;
         private Log log;
 
         private static void Main(string[] args)
@@ -55,14 +56,11 @@ namespace _10KRanker
         {
             _ = Task.Run(() =>
             {
+                Osu.Init();
+                DB.Init();
+                OsuToDB.Init();
+
                 Thread.Sleep(3000);
-
-                updateDBTablesTimer = new System.Timers.Timer(1 * 24 * 60 * 60 * 1000);
-                updateDBTablesTimer.AutoReset = true;
-                updateDBTablesTimer.Elapsed += OsuToDB.OnUpdateDBTablesTimerElapsed;
-                updateDBTablesTimer.Start();
-
-                //OsuToDB.OnUpdateDBTablesTimerElapsed(null, null);
 
                 if (UnitTest.Testing)
                     _ = new UnitTest().Test(client);

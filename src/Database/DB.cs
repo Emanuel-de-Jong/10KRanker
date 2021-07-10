@@ -8,10 +8,16 @@ namespace Database
 {
     public static class DB
     {
-        private static Log log = new Log("database");
-        private static Context context = new Context().Init();
+        private static Log log;
+        private static Context context;
         public static Context Context { get; } = context;
 
+        public static void Init()
+        {
+            log = new Log("database");
+            context = new Context();
+            context.Init();
+        }
 
         public static void Save()
         {

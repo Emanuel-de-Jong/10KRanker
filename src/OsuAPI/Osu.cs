@@ -6,9 +6,19 @@ namespace OsuAPI
 {
     public static class Osu
     {
-        private static Log log = new Log("osu");
-        private static readonly OsuClient client = new(new OsuSharpConfiguration() { ApiKey = Secrets.ApiKey });
+        private static Log log;
+        private static OsuClient client;
         public static OsuClient Client { get; }
+
+        public static void Init()
+        {
+            log = new Log("osu");
+
+            client = new(new OsuSharpConfiguration()
+            {
+                ApiKey = Secrets.ApiKey
+            });
+        }
 
         public static Beatmap GetMap(long beatmapsetId)
         {
