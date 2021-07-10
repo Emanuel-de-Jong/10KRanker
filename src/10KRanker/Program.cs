@@ -14,8 +14,10 @@ namespace _10KRanker
 {
     public class Program
     {
-        private System.Timers.Timer updateDBTablesTimer;
         private DiscordSocketClient client;
+        private CommandService commandService;
+
+        private System.Timers.Timer updateDBTablesTimer;
         private Log log;
 
         private static void Main(string[] args)
@@ -25,19 +27,26 @@ namespace _10KRanker
         {
             log = new Log("console");
 
-            using ServiceProvider services = ConfigureServices();
+            client = new DiscordSocketClient(new DiscordSocketConfig()
+            {
+                ExclusiveBulkDelete = false,
+            });
 
-            client = services.GetRequiredService<DiscordSocketClient>();
+            commandService = new CommandService(new CommandServiceConfig()
+            {
+
+            });
 
             client.Log += LogAsync;
-            services.GetRequiredService<CommandService>().Log += LogAsync;
+            client.Ready += OnClientReady;
+            commandService.Log += LogAsync;
+
+            using ServiceProvider services = ConfigureServices();
 
             await client.LoginAsync(TokenType.Bot, Secrets.DiscordToken);
             await client.StartAsync();
 
             await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
-
-            client.Ready += OnClientReady;
 
             await Task.Delay(-1);
         }
@@ -70,11 +79,11 @@ namespace _10KRanker
             return Task.CompletedTask;
         }
 
-        private static ServiceProvider ConfigureServices()
+        private ServiceProvider ConfigureServices()
         {
             return new ServiceCollection()
-                .AddSingleton<DiscordSocketClient>()
-                .AddSingleton<CommandService>()
+                .AddSingleton<DiscordSocketClient>(client)
+                .AddSingleton<CommandService>(commandService)
                 .AddSingleton<CommandHandlingService>()
                 .AddSingleton<HttpClient>()
                 .AddSingleton<PictureService>()
