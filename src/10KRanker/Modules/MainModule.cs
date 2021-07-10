@@ -11,6 +11,87 @@ namespace _10KRanker.Modules
     {
         private Log log = ModuleHelper.Log;
 
+
+        [Command("unittest")]
+        public async Task TestAsync()
+        {
+            if (true) // ADD MAP
+            {
+                await AddMapAsync("1509186");
+                await AddMapAsync("https://osu.ppy.sh/beatmapsets/1466367#mania/3011461");
+                await AddMapAsync("1343787", "map3 status");
+                await AddMapAsync("1095022");
+                await AddMapAsync("1509353", "map5 %$#@test");
+
+                if (true) // BAD WEATHER
+                {
+                    await AddMapAsync("osu.ppy.sh/beatmapsets/11X3846");
+                    await AddMapAsync("osu.ppy.sh/bla");
+                    await AddMapAsync("abc123test321cba");
+                    await AddMapAsync("99999999");
+                    await AddMapAsync("1393811");
+                    await AddMapAsync("1369976");
+                    await AddMapAsync("1193846");
+                    await AddMapAsync("1509186");
+                    await AddMapAsync("10K Indo Pack #2");
+                }
+            }
+
+
+            if (true) // REMOVE MAP
+            {
+                await RemoveMapAsync("1095022");
+
+                if (true) // BAD WEATHER
+                {
+                    await RemoveMapAsync("1095022");
+                }
+            }
+
+
+            if (true) // ADD NOMINATOR
+            {
+                await AddNominatorAsync("1509186", "4815717");
+                await AddNominatorAsync("1509186", "Unpredictable");
+                await AddNominatorAsync("1466367", "osu.ppy.sh/users/259972/fruits");
+                await AddNominatorAsync("1343787", "2225008");
+
+                if (true) // BAD WEATHER
+                {
+                    await AddNominatorAsync("1509186", "osu.ppy.sh/bla");
+                    await AddNominatorAsync("1509186", "abc123test321cba");
+                    await AddNominatorAsync("1509186", "99999999");
+                    await AddNominatorAsync("1509186", "4815717");
+                    await AddNominatorAsync("1509186", "feerum");
+                }
+            }
+
+
+            if (true) // REMOVE NOMINATOR
+            {
+                await RemoveNominatorAsync("lalabai call me", "2225008");
+
+                if (true) // BAD WEATHER
+                {
+                    await RemoveNominatorAsync("lalabai call me", "2225008");
+                }
+            }
+
+
+            if (true) // UPDATE MAP STATUS
+            {
+                await UpdateMapStatusAsync("1466367", "map2 status");
+                await UpdateMapStatusAsync("1343787", "map3 status edit1");
+                await UpdateMapStatusAsync("1343787", "map3 status edit2");
+            }
+
+
+            await ListAsync();
+        }
+
+
+
+
         [Command("add")]
         [Alias("addmap", "create", "createmap")]
         public async Task AddMapAsync(string mapAlias, [Remainder] string status = null)

@@ -14,9 +14,25 @@ namespace Database
 
         public static void Init()
         {
-            log = new Log("database");
             context = new Context();
             context.Init();
+
+            //log = new Log("database");
+        }
+
+        private static DBModel ObjToDBModel(object obj)
+        {
+            DBModel objType = DBModel.Map;
+            if (obj is Mapper)
+            {
+                objType = DBModel.Mapper;
+            }
+            else if (obj is Nominator)
+            {
+                objType = DBModel.Nominator;
+            }
+
+            return objType;
         }
 
         public static void Save()
@@ -43,7 +59,7 @@ namespace Database
             context.Add(obj);
             context.SaveChanges();
 
-            log.Write($"Add({ obj.ToString() });");
+            //log.Write($"Add({ obj.ToString() });");
         }
 
         public static void Add(List<object> objs)
@@ -133,9 +149,9 @@ namespace Database
 
             context.SaveChanges();
 
-            IDBModel model = obj as IDBModel;
-
-            log.Write($"Update({ model.GetId() });", "Update(object obj)");
+            //IDBModel model = obj as IDBModel;
+            //DBModel type = ObjToDBModel(obj);
+            //log.Write($"Update({ model.GetId() });", $"Update(object obj) { type }");
         }
 
         public static void Update(List<object> objs)
@@ -157,9 +173,9 @@ namespace Database
             context.Remove(obj);
             context.SaveChanges();
 
-            IDBModel model = obj as IDBModel;
-
-            log.Write($"Remove({ model.GetId() });", "Remove(object obj)");
+            //IDBModel model = obj as IDBModel;
+            //DBModel type = ObjToDBModel(obj);
+            //log.Write($"Remove({ model.GetId() });", $"Remove(object obj) { type }");
         }
 
         public static void Remove<T>(long objId) where T : class

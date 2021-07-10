@@ -1,3 +1,4 @@
+log failed command calls
 unittest
 check if log commands work
 automatic db backups

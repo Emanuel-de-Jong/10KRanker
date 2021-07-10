@@ -10,8 +10,6 @@
 	!add 1509353 map5 %$#@test
 	The map has been added.
 	==BAD WEATHER==
-	!add
-	The input text has too few parameters.
 	!add osu.ppy.sh/beatmapsets/11X3846
 	The id in the link has other characters than just numbers.
 	!add osu.ppy.sh/bla

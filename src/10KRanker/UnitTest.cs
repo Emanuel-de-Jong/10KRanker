@@ -54,8 +54,6 @@ namespace _10KRanker
             {
                 await SendTitle("BAD WEATHER");
 
-                //add
-                await Send("add");
                 //add <link id no digit>
                 await Send("add osu.ppy.sh/beatmapsets/11X3846");
                 //add <invalid link>
