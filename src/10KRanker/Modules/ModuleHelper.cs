@@ -1,4 +1,5 @@
 ﻿using Database;
+using Discord.Commands;
 using Discord.WebSocket;
 using Logger;
 using System;
@@ -117,6 +118,40 @@ namespace _10KRanker.Modules
             }
 
             return reply;
+        }
+
+
+        public static string CommandToString(CommandInfo command)
+        {
+            string cmd = "!" + command.Aliases[0];
+
+            string parameters = "";
+            foreach (var parameter in command.Parameters)
+            {
+                parameters += $"   { parameter.Summary }";
+            }
+
+            return $"> **{ command.Name }**\n" +
+                $"> `{ cmd }{ parameters }`\n" +
+                $"> `{ cmd }   {command.Remarks}`";
+        }
+
+        public static string CommandToStringDetailed(CommandInfo command)
+        {
+            string cmd = "!" + command.Aliases[0];
+            string alias = $"`!{ string.Join("`  `!", command.Aliases) }`";
+
+            string parameters = "";
+            foreach (var parameter in command.Parameters)
+            {
+                parameters += $"   { parameter.Summary }";
+            }
+
+            return $"> **== { command.Name } ==**\n" +
+                $"> Description:     { command.Summary }\n" +
+                $"> Aliases:            { alias }\n" +
+                $"> Syntax:             `{ cmd }{ parameters }`\n" +
+                $"> Example:          `{ cmd }   {command.Remarks}`";
         }
 
 

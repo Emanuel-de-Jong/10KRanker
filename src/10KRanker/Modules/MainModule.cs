@@ -4,6 +4,7 @@ using Discord.Commands;
 using Logger;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace _10KRanker.Modules
@@ -12,6 +13,7 @@ namespace _10KRanker.Modules
     public class MainModule : ModuleBase<SocketCommandContext>
     {
         private readonly Log log = ModuleHelper.Log;
+        public CommandService CommandService { get; set; }
 
 
         [Command("a-unittest")]
@@ -104,10 +106,14 @@ namespace _10KRanker.Modules
 
 
 
-
+        [Name("Add map")]
         [Command("add")]
         [Alias("addmap", "create", "createmap")]
-        public async Task AddMapAsync(string mapAlias, [Remainder] string status = null)
+        [Remarks("1234567   \"Almost ready for modding.\"")]
+        [Summary("Add a map to the bot. Optionally you can give a short description about the current state of the map.")]
+        public async Task AddMapAsync(
+            [Summary("<map link|beatmapsetid|map title>")] string mapAlias,
+            [Summary("(state)")] [Remainder] string status = null)
         {
             string message = $"AddMapAsync(\"{ mapAlias }\"";
             if (status != null)
@@ -138,9 +144,13 @@ namespace _10KRanker.Modules
         }
 
 
+        [Name("Remove map")]
         [Command("rm")]
         [Alias("rmmap", "remove", "removemap", "delete", "deletemap")]
-        public async Task RemoveMapAsync([Remainder] string mapAlias)
+        [Remarks("\"Last Resort\"")]
+        [Summary("Remove a map from the bot.")]
+        public async Task RemoveMapAsync(
+            [Summary("<map link|beatmapsetid|map title>")] [Remainder] string mapAlias)
         {
             try
             {
@@ -163,9 +173,14 @@ namespace _10KRanker.Modules
 
 
 
-        [Command("changestatus")]
-        [Alias("cs", "updatestatus", "changedescription", "updatedescription")]
-        public async Task UpdateMapStatusAsync(string mapAlias, [Remainder] string status)
+        [Name("Update map state")]
+        [Command("updatestate")]
+        [Alias("us", "changestate", "cs", "editstate", "es")]
+        [Remarks("\"Last Resort\"   \"Open for modding now.Any help is appreciated!\"")]
+        [Summary("Update the state of a map. This is the same state as the optional value of `!add`.")]
+        public async Task UpdateMapStatusAsync(
+            [Summary("<map link|beatmapsetid|map title>")] string mapAlias,
+            [Summary("<state>")] [Remainder] string status)
         {
             try
             {
@@ -188,9 +203,14 @@ namespace _10KRanker.Modules
 
 
 
+        [Name("Add BN to map")]
         [Command("addbn")]
         [Alias("addnominator", "createbn", "createnominator")]
-        public async Task AddNominatorAsync(string mapAlias, [Remainder] string nominatorAlias)
+        [Remarks("\"Last Resort\"   \"Komirin\"")]
+        [Summary("Link a beatmap nominator to a map. This shows that the BN has helped/will help with the modding/ranking of the map. A map can have multiple BNs.")]
+        public async Task AddNominatorAsync(
+            [Summary("<map link|beatmapsetid|map title>")] string mapAlias,
+            [Summary("<bn link|userid|bn name>")] [Remainder] string nominatorAlias)
         {
             try
             {
@@ -231,9 +251,14 @@ namespace _10KRanker.Modules
         }
 
 
+        [Name("Remove BN from map")]
         [Command("rmbn")]
         [Alias("rmnominator", "removebn", "removenominator", "deletebn", "deletenominator")]
-        public async Task RemoveNominatorAsync(string mapAlias, [Remainder] string nominatorAlias)
+        [Remarks("\"Last Resort\"   \"Komirin\"")]
+        [Summary("Remove a beatmap nominator from a map.")]
+        public async Task RemoveNominatorAsync(
+            [Summary("<map link|beatmapsetid|map title>")] string mapAlias,
+            [Summary("<bn link|userid|bn name>")] [Remainder] string nominatorAlias)
         {
             try
             {
@@ -261,9 +286,13 @@ namespace _10KRanker.Modules
 
 
 
+        [Name("Show map")]
         [Command("show")]
         [Alias("s", "map", "display")]
-        public async Task ShowAsync([Remainder] string mapAlias)
+        [Remarks("\"Last Resort\"")]
+        [Summary("Show a map in full detail.")]
+        public async Task ShowAsync(
+            [Summary("<map link|beatmapsetid|map title>")] [Remainder] string mapAlias)
         {
             try
             {
@@ -284,9 +313,13 @@ namespace _10KRanker.Modules
         }
 
 
+        [Name("List maps")]
         [Command("list")]
         [Alias("l", "all", "maps")]
-        public async Task ListAsync([Remainder] string userAlias = null)
+        [Remarks("\"Komirin\"")]
+        [Summary("List all maps. Optionally you can filter by mapper or beatmap nominator.")]
+        public async Task ListAsync(
+            [Summary("(user link|userid|user name)")] [Remainder] string userAlias = null)
         {
             string message = $"ListAsync(";
             if (userAlias != null)
@@ -341,45 +374,55 @@ namespace _10KRanker.Modules
         }
 
 
-        [Command("info")]
-        [Alias("i", "help", "h", "commands", "c")]
-        public async Task InfoAsync()
+        [Name("Show commands")]
+        [Command("help")]
+        [Alias("h", "info", "i", "commands", "c")]
+        [Remarks("add")]
+        [Summary("Show all commands. Or show more details about a specific command.")]
+        public async Task InfoAsync(
+            [Summary("(command)")] string commandAlias = null)
         {
-            await ReplyAsync(
-@"
-== **Commands** ==
-`<>` = Required
-`()` = Optional
-`|`   = Or
-`""""` = Send a name/title with spaces as 1 value
+            string message = $"InfoAsync(";
+            if (commandAlias != null)
+                message += $"\"{ commandAlias }\"";
+            message += ");";
 
-**Maps**
-> `!add`   `<map link|beatmapsetid>`   `(status)`
-Add a map and describe in what stage of the mapping/ranking/modding proces it is.
-> `!rm`   `<map link|beatmapsetid|map title>`
-Remove a map.
-> `!changestatus`   `<map link|beatmapsetid|map title>`   `<status>`
-Change the status of a map. The status describes how the mapping/ranking/modding of a map is going.
+            try
+            {
+                if (commandAlias != null)
+                {
+                    var result = CommandService.Search(Context, commandAlias);
 
-**Beatmap Nominators**
-> `!addbn`   `<map link|beatmapsetid|map title>`   `<bn link|userid|bn name>`
-Link a BN to a map. A map can have multiple BNs.
-> `!rmbn`   `<map link|beatmapsetid|map title>`   `<bn link|userid|bn name>`
-Remove a BN from a map.
+                    if (!result.IsSuccess)
+                        throw new ArgumentException("There is no command with that name.");
 
-**Show maps**
-> `!show`   `<map link|beatmapsetid|map title>`
-Show the details of a map.
-> `!list`   `(user link|userid|user name)`
-List all maps, the maps of a mapper or the maps linked to a BN.
+                    CommandInfo command = result.Commands[0].Command;
 
-**Other**
-> `!info`
-Show this message.
-");
+                    await ReplyAsync(ModuleHelper.CommandToStringDetailed(command));
+                }
+                else
+                {
+                    List<CommandInfo> commands = CommandService.Commands.ToList();
 
-            log.Write($"InfoAsync();",
-                ModuleHelper.SocketUserToString(Context.User));
+                    string reply = "> **== Commands ==**\n" +
+                        "> `<>` = Required     `\"\"` = Name/Title with spaces as 1 value\n" +
+                        "> `()` = Optional       `|`  = Or\n";
+
+
+                    foreach (CommandInfo command in commands)
+                        if (command.Preconditions.Count == 0)
+                            reply += "> \n" + ModuleHelper.CommandToString(command) + "\n";
+
+                    await ReplyAsync(reply);
+                }
+
+                log.Write(message, ModuleHelper.SocketUserToString(Context.User));
+            }
+            catch (ArgumentException ae)
+            {
+                await ReplyAsync(ae.Message);
+                log.Write(message, $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
+            }
         }
     }
 }
