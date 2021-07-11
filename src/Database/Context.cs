@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GlobalValues;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace Database
     public class Context : DbContext
     {
         public static string DBDirPath { get; }
-            = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\10KRanked";
-        public static string DBPath { get; } = DBDirPath + @"\10KRanked.db";
+            = G.AssetPath + $"{G.DS}10KRanked";
+        public static string DBPath { get; } = DBDirPath + $"{G.DS}10KRanked.db";
 
         public string[] TableNames { get; } = new string[] { "Maps", "Mappers", "Nominators", "MapNominator" };
         public DbSet<Map> Maps { get; set; }

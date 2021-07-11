@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GlobalValues;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Database
         private static Timer makeDBBackupTimer;
         public static int BackupCount { get; set; } = 5;
         public static string BackupDirPath { get; }
-            = Context.DBDirPath + @"\backups";
+            = Context.DBDirPath + $"{G.DS}backups";
 
         public static void Init()
         {
@@ -35,7 +36,7 @@ namespace Database
         {
             RemoveOldBackup();
 
-            File.Copy(Context.DBPath, BackupDirPath + @$"\10KRanked { DateTime.Now.ToString("MM-dd-y HH-mm") }.db", true);
+            File.Copy(Context.DBPath, BackupDirPath + $"{G.DS}10KRanked { DateTime.Now.ToString("MM-dd-y HH-mm") }.db", true);
         }
 
         private static void RemoveOldBackup()

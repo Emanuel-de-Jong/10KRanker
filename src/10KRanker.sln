@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{70D50F13-F3F3-484B-AA2F-37BE7C94A7AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{9A4CB021-65DE-47F0-9821-A64853B4FBAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger", "Logger\Logger.csproj", "{9A4CB021-65DE-47F0-9821-A64853B4FBAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalValues", "GlobalValues\GlobalValues.csproj", "{663F8048-D136-4F75-843C-41CB77A766CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9A4CB021-65DE-47F0-9821-A64853B4FBAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A4CB021-65DE-47F0-9821-A64853B4FBAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A4CB021-65DE-47F0-9821-A64853B4FBAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{663F8048-D136-4F75-843C-41CB77A766CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{663F8048-D136-4F75-843C-41CB77A766CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{663F8048-D136-4F75-843C-41CB77A766CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{663F8048-D136-4F75-843C-41CB77A766CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

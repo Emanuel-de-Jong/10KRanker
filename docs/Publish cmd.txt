@@ -1,5 +1,6 @@
+RID: linux-arm, linux-arm64, linux-x64, win10-x64
 dotnet publish -c Release -r RID -p:PublishSingleFile=true
-linux-arm
-linux-arm64
-linux-x64
-win10-x64
+
+scp E:\Media\Downloads\10KRanker\linux-x64\* killbottt@192.168.56.102:/home/killbottt/10KRanker
+
+chmod u+x 10KRanker

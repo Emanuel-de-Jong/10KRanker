@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GlobalValues;
+using System;
 using System.IO;
 using System.Timers;
 
@@ -6,7 +7,8 @@ namespace Logger
 {
     public class Log
     {
-        public static string LogDirPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\10KRanked\logs";
+        public static string LogDirPath { get; }
+            = G.AssetPath + $"{G.DS}10KRanked{G.DS}logs";
 
         private string logName;
         private string logPath;
@@ -19,7 +21,7 @@ namespace Logger
                 Directory.CreateDirectory(LogDirPath);
 
             this.logName = logName;
-            this.logPath = LogDirPath + @$"\{ logName }.log";
+            this.logPath = LogDirPath + $"{G.DS}{ logName }.log";
 
             disposeWriterTimer = new Timer(5000);
             disposeWriterTimer.AutoReset = false;
