@@ -190,7 +190,7 @@ namespace _10KRanker.Modules
 
         [Command("addbn")]
         [Alias("addnominator", "createbn", "createnominator")]
-        public async Task AddNominatorAsync(string mapAlias, string nominatorAlias)
+        public async Task AddNominatorAsync(string mapAlias, [Remainder] string nominatorAlias)
         {
             try
             {
@@ -233,7 +233,7 @@ namespace _10KRanker.Modules
 
         [Command("rmbn")]
         [Alias("rmnominator", "removebn", "removenominator", "deletebn", "deletenominator")]
-        public async Task RemoveNominatorAsync(string mapAlias, string nominatorAlias)
+        public async Task RemoveNominatorAsync(string mapAlias, [Remainder] string nominatorAlias)
         {
             try
             {
@@ -369,14 +369,13 @@ Remove a BN from a map.
 
 **Show maps**
 > `!show`   `<map link|beatmapsetid|map title>`
-Show the detials of a map.
+Show the details of a map.
 > `!list`   `(user link|userid|user name)`
 List all maps, the maps of a mapper or the maps linked to a BN.
 
 **Other**
 > `!info`
 Show this message.
-----------
 ");
 
             log.Write($"InfoAsync();",

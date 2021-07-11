@@ -30,7 +30,7 @@ Remove a BN from a map.<br/>
 
 ***Show maps***<br/>
 `!show`   `<map link|beatmapsetid|map title>`<br/>
-Show the detials of a map.<br/>
+Show the details of a map.<br/>
 `!list`   `(user link|userid|user name)`<br/>
 List all maps, the maps of a mapper or the maps linked to a BN.<br/>
 

@@ -19,7 +19,7 @@ namespace _10KRanker
             updateDBTablesTimer.Elapsed += OnUpdateDBTablesTimerElapsed;
             updateDBTablesTimer.Start();
 
-            //OnUpdateDBTablesTimerElapsed(null, null);
+            OnUpdateDBTablesTimerElapsed(null, null);
         }
 
         public static void OnUpdateDBTablesTimerElapsed(object s, ElapsedEventArgs e)
