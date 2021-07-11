@@ -106,6 +106,168 @@ namespace _10KRanker.Modules
 
 
 
+
+        [Name("Show commands")]
+        [Command("help")]
+        [Alias("h", "info", "i", "commands", "c")]
+        [Remarks("add")]
+        [Summary("Show all commands. Or show more details about a specific command.")]
+        public async Task InfoAsync(
+            [Summary("(command)")] string commandAlias = null)
+        {
+            string message = $"InfoAsync(";
+            if (commandAlias != null)
+                message += $"\"{ commandAlias }\"";
+            message += ");";
+
+            try
+            {
+                if (commandAlias != null)
+                {
+                    var result = CommandService.Search(Context, commandAlias);
+
+                    if (!result.IsSuccess)
+                        throw new ArgumentException("There is no command with that name.");
+
+                    CommandInfo command = result.Commands[0].Command;
+
+                    await ReplyAsync(ModuleHelper.CommandToStringDetailed(command));
+                }
+                else
+                {
+                    List<CommandInfo> commands = CommandService.Commands.ToList();
+
+                    string reply = "> **== Commands ==**\n" +
+                        "> `<>` = Required     `\"\"` = Name/Title with spaces as 1 value\n" +
+                        "> `()` = Optional       `|`  = Or\n";
+
+
+                    foreach (CommandInfo command in commands)
+                        if (command.Preconditions.Count == 0)
+                            reply += "> \n" + ModuleHelper.CommandToString(command) + "\n";
+
+                    await ReplyAsync(reply);
+                }
+
+                log.Write(message, ModuleHelper.SocketUserToString(Context.User));
+            }
+            catch (ArgumentException ae)
+            {
+                await ReplyAsync(ae.Message);
+                log.Write(message, $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
+            }
+        }
+
+
+
+
+        private const int MAPS_PER_MESSAGE = 10;
+        [Name("List maps")]
+        [Command("list")]
+        [Alias("l", "all", "maps")]
+        [Remarks("\"Komirin\"")]
+        [Summary("List all maps. Optionally you can filter by mapper or beatmap nominator.")]
+        public async Task ListAsync(
+            [Summary("(user link|userid|user name)")][Remainder] string userAlias = null)
+        {
+            string message = $"ListAsync(";
+            if (userAlias != null)
+                message += $"\"{ userAlias }\"";
+            message += ");";
+
+            try
+            {
+                Mapper mapper;
+                Nominator nominator;
+                if (userAlias == null)
+                {
+                    List<Map> maps = DB.GetMaps();
+
+                    if (maps.Count == 0)
+                        throw new ArgumentException("There are no maps at the moment.");
+
+                    await ShowMaps(maps, "== **Maps** ==\n");
+                }
+                else if ((mapper = ModuleHelper.MapperAliasToMapper(userAlias, false)) != null)
+                {
+                    if (mapper.Maps.Count == 0)
+                        throw new ArgumentException("The mapper doesn't have any maps in the bot's system.");
+
+                    await ShowMaps(mapper.Maps, $"== **{mapper.Name}'s Maps** ==\n");
+                }
+                else if ((nominator = ModuleHelper.NominatorAliasToNominator(userAlias, false)) != null)
+                {
+                    if (nominator.Maps.Count == 0)
+                        throw new ArgumentException("The BN isn't linked to any maps in the bot's system.");
+
+                    await ShowMaps(nominator.Maps, $"== **Maps Linked to {nominator.Name}** ==\n");
+                }
+                else
+                {
+                    throw new ArgumentException("The user is not in the bot's system.");
+                }
+
+                log.Write(message, ModuleHelper.SocketUserToString(Context.User));
+            }
+            catch (ArgumentException ae)
+            {
+                await ReplyAsync(ae.Message);
+                log.Write(message, $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
+            }
+        }
+
+        private async Task ShowMaps(List<Map> maps, string reply)
+        {
+            OsuToDB.UpdateMaps(maps);
+
+            int mapCount = 0;
+            foreach (Map map in maps)
+            {
+                reply += ModuleHelper.MapToString(map);
+
+                mapCount++;
+                if (mapCount == MAPS_PER_MESSAGE)
+                {
+                    mapCount = 0;
+                    await ReplyAsync(reply);
+                    reply = "‏‏‎ ‎\n";
+                }
+            }
+
+            if (reply != "‏‏‎ ‎\n")
+                await ReplyAsync(reply);
+        }
+
+
+        [Name("Show map")]
+        [Command("show")]
+        [Alias("s", "map", "display")]
+        [Remarks("\"Last Resort\"")]
+        [Summary("Show a map in full detail.")]
+        public async Task ShowAsync(
+            [Summary("<map link|beatmapsetid|map title>")][Remainder] string mapAlias)
+        {
+            try
+            {
+                Map map = ModuleHelper.MapAliasToMap(mapAlias);
+
+                OsuToDB.UpdateMap(map);
+
+                await ReplyAsync(ModuleHelper.MapToStringDetailed(map));
+                log.Write($"ShowAsync(\"{ mapAlias }\");",
+                    ModuleHelper.SocketUserToString(Context.User));
+            }
+            catch (ArgumentException ae)
+            {
+                await ReplyAsync(ae.Message);
+                log.Write($"ShowAsync(\"{ mapAlias }\");",
+                    $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
+            }
+        }
+
+
+
+
         [Name("Add map")]
         [Command("add")]
         [Alias("addmap", "create", "createmap")]
@@ -280,165 +442,6 @@ namespace _10KRanker.Modules
                 await ReplyAsync(ae.Message);
                 log.Write($"RemoveNominatorAsync(\"{ mapAlias }\", \"{ nominatorAlias }\");",
                     $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
-            }
-        }
-
-
-
-
-        [Name("Show map")]
-        [Command("show")]
-        [Alias("s", "map", "display")]
-        [Remarks("\"Last Resort\"")]
-        [Summary("Show a map in full detail.")]
-        public async Task ShowAsync(
-            [Summary("<map link|beatmapsetid|map title>")] [Remainder] string mapAlias)
-        {
-            try
-            {
-                Map map = ModuleHelper.MapAliasToMap(mapAlias);
-
-                OsuToDB.UpdateMap(map);
-
-                await ReplyAsync(ModuleHelper.MapToStringDetailed(map));
-                log.Write($"ShowAsync(\"{ mapAlias }\");",
-                    ModuleHelper.SocketUserToString(Context.User));
-            }
-            catch (ArgumentException ae)
-            {
-                await ReplyAsync(ae.Message);
-                log.Write($"ShowAsync(\"{ mapAlias }\");",
-                    $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
-            }
-        }
-
-
-        private const int MAPS_PER_MESSAGE = 10;
-        [Name("List maps")]
-        [Command("list")]
-        [Alias("l", "all", "maps")]
-        [Remarks("\"Komirin\"")]
-        [Summary("List all maps. Optionally you can filter by mapper or beatmap nominator.")]
-        public async Task ListAsync(
-            [Summary("(user link|userid|user name)")] [Remainder] string userAlias = null)
-        {
-            string message = $"ListAsync(";
-            if (userAlias != null)
-                message += $"\"{ userAlias }\"";
-            message += ");";
-
-            try
-            {
-                Mapper mapper;
-                Nominator nominator;
-                if (userAlias == null)
-                {
-                    List<Map> maps = DB.GetMaps();
-
-                    if (maps.Count == 0)
-                        throw new ArgumentException("There are no maps at the moment.");
-
-                    await ShowMaps(maps, "== **Maps** ==\n");
-                }
-                else if ((mapper = ModuleHelper.MapperAliasToMapper(userAlias, false)) != null)
-                {
-                    if (mapper.Maps.Count == 0)
-                        throw new ArgumentException("The mapper doesn't have any maps in the bot's system.");
-
-                    await ShowMaps(mapper.Maps, $"== **{mapper.Name}'s Maps** ==\n");
-                }
-                else if ((nominator = ModuleHelper.NominatorAliasToNominator(userAlias, false)) != null)
-                {
-                    if (nominator.Maps.Count == 0)
-                        throw new ArgumentException("The BN isn't linked to any maps in the bot's system.");
-
-                    await ShowMaps(nominator.Maps, $"== **Maps Linked to {nominator.Name}** ==\n");
-                }
-                else
-                {
-                    throw new ArgumentException("The user is not in the bot's system.");
-                }
-
-                log.Write(message, ModuleHelper.SocketUserToString(Context.User));
-            }
-            catch (ArgumentException ae)
-            {
-                await ReplyAsync(ae.Message);
-                log.Write(message, $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
-            }
-        }
-
-        private async Task ShowMaps(List<Map> maps, string reply)
-        {
-            OsuToDB.UpdateMaps(maps);
-
-            int mapCount = 0;
-            foreach (Map map in maps)
-            {
-                reply += ModuleHelper.MapToString(map);
-
-                mapCount++;
-                if (mapCount == MAPS_PER_MESSAGE)
-                {
-                    mapCount = 0;
-                    await ReplyAsync(reply);
-                    reply = "‏‏‎ ‎\n";
-                }
-            }
-
-            if (reply != "‏‏‎ ‎\n")
-                await ReplyAsync(reply);
-        }
-
-
-        [Name("Show commands")]
-        [Command("help")]
-        [Alias("h", "info", "i", "commands", "c")]
-        [Remarks("add")]
-        [Summary("Show all commands. Or show more details about a specific command.")]
-        public async Task InfoAsync(
-            [Summary("(command)")] string commandAlias = null)
-        {
-            string message = $"InfoAsync(";
-            if (commandAlias != null)
-                message += $"\"{ commandAlias }\"";
-            message += ");";
-
-            try
-            {
-                if (commandAlias != null)
-                {
-                    var result = CommandService.Search(Context, commandAlias);
-
-                    if (!result.IsSuccess)
-                        throw new ArgumentException("There is no command with that name.");
-
-                    CommandInfo command = result.Commands[0].Command;
-
-                    await ReplyAsync(ModuleHelper.CommandToStringDetailed(command));
-                }
-                else
-                {
-                    List<CommandInfo> commands = CommandService.Commands.ToList();
-
-                    string reply = "> **== Commands ==**\n" +
-                        "> `<>` = Required     `\"\"` = Name/Title with spaces as 1 value\n" +
-                        "> `()` = Optional       `|`  = Or\n";
-
-
-                    foreach (CommandInfo command in commands)
-                        if (command.Preconditions.Count == 0)
-                            reply += "> \n" + ModuleHelper.CommandToString(command) + "\n";
-
-                    await ReplyAsync(reply);
-                }
-
-                log.Write(message, ModuleHelper.SocketUserToString(Context.User));
-            }
-            catch (ArgumentException ae)
-            {
-                await ReplyAsync(ae.Message);
-                log.Write(message, $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
             }
         }
     }
