@@ -1,2 +1,1 @@
-rename status to mapping progress
-update unittests with renames
+reorder commands

@@ -67,7 +67,7 @@ namespace _10KRanker.Modules
             reply += "\n";
 
             if (m.Status != null)
-                reply += $"\tStatus: { m.Status }\n";
+                reply += $"\tState: { m.Status }\n";
 
             reply += "\n";
             return reply;
@@ -93,7 +93,7 @@ namespace _10KRanker.Modules
             $"Last updated here: { m.UpdateDate.ToString(DateFormat) }\n" +
             $"Mapper: { m.Mapper.Name } ({ UserIdToLink(m.MapperId) })\n" +
             $"Category: { m.Category }\n" +
-            "Status: ";
+            "Mapping state: ";
             if (m.Status != null)
             {
                 reply += m.Status + "\n";

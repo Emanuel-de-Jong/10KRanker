@@ -43,11 +43,11 @@ namespace _10KRanker
             await Send("add 1509186");
             //add2 <link>
             await Send("add https://osu.ppy.sh/beatmapsets/1466367#mania/3011461");
-            //add3 <id> <status>
-            await Send("add 1343787 map3 status");
+            //add3 <id> <mapping state>
+            await Send("add 1343787 map3 state");
             //add4 <id>
             await Send("add 1095022");
-            //add5 <id> <status>
+            //add5 <id> <mapping state>
             await Send("add 1509353 map5 %$#@test");
 
             if (testBadWeather)
@@ -143,12 +143,12 @@ namespace _10KRanker
         {
             await SendTitle("UPDATE MAP STATUS", true);
 
-            //cs <id>2 <status>
-            await Send("cs 1466367 map2 status");
-            //cs <id>3 <status>
-            await Send("cs 1343787 map3 status edit1");
-            //cs <id>3 <other status>
-            await Send("cs 1343787 map3 status edit2");
+            //cs <id>2 <mapping state>
+            await Send("cs 1466367 map2 state");
+            //cs <id>3 <mapping state>
+            await Send("cs 1343787 map3 state edit1");
+            //cs <id>3 <other mapping state>
+            await Send("cs 1343787 map3 state edit2");
 
             if (testBadWeather)
             {

@@ -24,7 +24,7 @@ namespace _10KRanker.Modules
             {
                 await AddMapAsync("1509186");
                 await AddMapAsync("https://osu.ppy.sh/beatmapsets/1466367#mania/3011461");
-                await AddMapAsync("1343787", "map3 status");
+                await AddMapAsync("1343787", "map3 state");
                 await AddMapAsync("1095022");
                 await AddMapAsync("1509353", "map5 %$#@test");
 
@@ -85,9 +85,9 @@ namespace _10KRanker.Modules
 
             if (true) // UPDATE MAP STATUS
             {
-                await UpdateMapStatusAsync("1466367", "map2 status");
-                await UpdateMapStatusAsync("1343787", "map3 status edit1");
-                await UpdateMapStatusAsync("1343787", "map3 status edit2");
+                await UpdateMapStatusAsync("1466367", "map2 state");
+                await UpdateMapStatusAsync("1343787", "map3 state edit1");
+                await UpdateMapStatusAsync("1343787", "map3 state edit2");
             }
 
 
@@ -110,10 +110,10 @@ namespace _10KRanker.Modules
         [Command("add")]
         [Alias("addmap", "create", "createmap")]
         [Remarks("1234567   \"Almost ready for modding.\"")]
-        [Summary("Add a map to the bot. Optionally you can give a short description about the current state of the map.")]
+        [Summary("Add a map to the bot. Optionally you can give a short description about the current mapping state of the map.")]
         public async Task AddMapAsync(
             [Summary("<map link|beatmapsetid|map title>")] string mapAlias,
-            [Summary("(state)")] [Remainder] string status = null)
+            [Summary("(mapping state)")] [Remainder] string status = null)
         {
             string message = $"AddMapAsync(\"{ mapAlias }\"";
             if (status != null)
@@ -173,14 +173,14 @@ namespace _10KRanker.Modules
 
 
 
-        [Name("Update map state")]
+        [Name("Update mapping state")]
         [Command("updatestate")]
-        [Alias("us", "changestate", "cs", "editstate", "es")]
+        [Alias("updatestatus", "updateprogress", "changestate", "changestatus", "changeprogress")]
         [Remarks("\"Last Resort\"   \"Open for modding now.Any help is appreciated!\"")]
-        [Summary("Update the state of a map. This is the same state as the optional value of `!add`.")]
+        [Summary("Update the mapping state of a map. This is the same state as the optional value of `!add`.")]
         public async Task UpdateMapStatusAsync(
             [Summary("<map link|beatmapsetid|map title>")] string mapAlias,
-            [Summary("<state>")] [Remainder] string status)
+            [Summary("<mapping state>")] [Remainder] string status)
         {
             try
             {
@@ -188,7 +188,7 @@ namespace _10KRanker.Modules
                 map.Status = status;
                 DB.Update(map);
 
-                await ReplyAsync("The map status has been changed.");
+                await ReplyAsync("The mapping state has been changed.");
                 log.Write($"UpdateMapStatusAsync(\"{ mapAlias }\", \"{ status }\");",
                     ModuleHelper.SocketUserToString(Context.User));
             }
@@ -338,72 +338,21 @@ namespace _10KRanker.Modules
                     if (maps.Count == 0)
                         throw new ArgumentException("There are no maps at the moment.");
 
-                    OsuToDB.UpdateMaps(maps);
-
-                    int mapCount = 0;
-                    string reply = "== **Maps** ==\n";
-                    foreach (Map map in maps)
-                    {
-                        reply += ModuleHelper.MapToString(map);
-
-                        mapCount++;
-                        if (mapCount == MAPS_PER_MESSAGE)
-                        {
-                            mapCount = 0;
-                            await ReplyAsync(reply);
-                            reply = "‏‏‎ ‎\n";
-                        }
-                    }
-
-                    await ReplyAsync(reply);
+                    await ShowMaps(maps, "== **Maps** ==\n");
                 }
                 else if ((mapper = ModuleHelper.MapperAliasToMapper(userAlias, false)) != null)
                 {
                     if (mapper.Maps.Count == 0)
                         throw new ArgumentException("The mapper doesn't have any maps in the bot's system.");
 
-                    OsuToDB.UpdateMaps(mapper.Maps);
-
-                    int mapCount = 0;
-                    string reply = $"== **{mapper.Name}'s Maps** ==\n";
-                    foreach (Map map in mapper.Maps)
-                    {
-                        reply += ModuleHelper.MapToString(map);
-
-                        mapCount++;
-                        if (mapCount == MAPS_PER_MESSAGE)
-                        {
-                            mapCount = 0;
-                            await ReplyAsync(reply);
-                            reply = "‏‏‎ ‎\n";
-                        }
-                    }
-
-                    await ReplyAsync(reply);
+                    await ShowMaps(mapper.Maps, $"== **{mapper.Name}'s Maps** ==\n");
                 }
                 else if ((nominator = ModuleHelper.NominatorAliasToNominator(userAlias, false)) != null)
                 {
                     if (nominator.Maps.Count == 0)
                         throw new ArgumentException("The BN isn't linked to any maps in the bot's system.");
 
-                    OsuToDB.UpdateMaps(nominator.Maps);
-
-                    int mapCount = 0;
-                    string reply = $"== **Maps Linked to {nominator.Name}** ==\n";
-                    foreach (Map map in nominator.Maps)
-                    {
-                        reply += ModuleHelper.MapToString(map);
-
-                        mapCount++;
-                        if (mapCount == MAPS_PER_MESSAGE)
-                        {
-                            mapCount = 0;
-                            await ReplyAsync(reply);
-                            reply = "‏‏‎ ‎\n";
-                        }
-                    }
-
-                    await ReplyAsync(reply);
+                    await ShowMaps(nominator.Maps, $"== **Maps Linked to {nominator.Name}** ==\n");
                 }
                 else
                 {
@@ -417,6 +366,28 @@ namespace _10KRanker.Modules
                 await ReplyAsync(ae.Message);
                 log.Write(message, $"{ModuleHelper.SocketUserToString(Context.User)} - { ae.Message }");
             }
+        }
+
+        private async Task ShowMaps(List<Map> maps, string reply)
+        {
+            OsuToDB.UpdateMaps(maps);
+
+            int mapCount = 0;
+            foreach (Map map in maps)
+            {
+                reply += ModuleHelper.MapToString(map);
+
+                mapCount++;
+                if (mapCount == MAPS_PER_MESSAGE)
+                {
+                    mapCount = 0;
+                    await ReplyAsync(reply);
+                    reply = "‏‏‎ ‎\n";
+                }
+            }
+
+            if (reply != "‏‏‎ ‎\n")
+                await ReplyAsync(reply);
         }
 
 
