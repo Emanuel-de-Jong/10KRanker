@@ -1,4 +1,5 @@
 ﻿using Database;
+using Discord;
 using Discord.Commands;
 using Logger;
 using System;
@@ -10,11 +11,12 @@ namespace _10KRanker.Modules
     [RequireContext(ContextType.Guild)]
     public class MainModule : ModuleBase<SocketCommandContext>
     {
-        private Log log = ModuleHelper.Log;
+        private readonly Log log = ModuleHelper.Log;
 
 
-        //[Command("unittest")]
-        public async Task TestAsync()
+        [Command("a-unittest")]
+        [RequireUserPermission(GuildPermission.Administrator)]
+        public async Task UnitTestAsync(bool badWeather = true)
         {
             if (true) // ADD MAP
             {
@@ -24,7 +26,7 @@ namespace _10KRanker.Modules
                 await AddMapAsync("1095022");
                 await AddMapAsync("1509353", "map5 %$#@test");
 
-                if (true) // BAD WEATHER
+                if (badWeather) // BAD WEATHER
                 {
                     await AddMapAsync("osu.ppy.sh/beatmapsets/11X3846");
                     await AddMapAsync("osu.ppy.sh/bla");
@@ -43,7 +45,7 @@ namespace _10KRanker.Modules
             {
                 await RemoveMapAsync("1095022");
 
-                if (true) // BAD WEATHER
+                if (badWeather) // BAD WEATHER
                 {
                     await RemoveMapAsync("1095022");
                 }
@@ -57,7 +59,7 @@ namespace _10KRanker.Modules
                 await AddNominatorAsync("1466367", "osu.ppy.sh/users/259972/fruits");
                 await AddNominatorAsync("1343787", "2225008");
 
-                if (true) // BAD WEATHER
+                if (badWeather) // BAD WEATHER
                 {
                     await AddNominatorAsync("1509186", "osu.ppy.sh/bla");
                     await AddNominatorAsync("1509186", "abc123test321cba");
@@ -72,7 +74,7 @@ namespace _10KRanker.Modules
             {
                 await RemoveNominatorAsync("lalabai call me", "2225008");
 
-                if (true) // BAD WEATHER
+                if (badWeather) // BAD WEATHER
                 {
                     await RemoveNominatorAsync("lalabai call me", "2225008");
                 }
@@ -88,6 +90,16 @@ namespace _10KRanker.Modules
 
 
             await ListAsync();
+        }
+
+
+        [Command("a-cleardatabase")]
+        [RequireUserPermission(GuildPermission.Administrator)]
+        public async Task ClearDatabaseAsync()
+        {
+            DB.ClearDatabase();
+
+            await ReplyAsync("Database cleared.");
         }
 
 

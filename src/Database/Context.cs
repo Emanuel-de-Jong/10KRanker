@@ -9,7 +9,7 @@ namespace Database
     public class Context : DbContext
     {
         public static string DBDirPath { get; }
-            = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\10KRanked";
+            = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\10KRanked";
         public static string DBPath { get; } = DBDirPath + @"\10KRanked.db";
 
         public string[] TableNames { get; } = new string[] { "Maps", "Mappers", "Nominators", "MapNominator" };

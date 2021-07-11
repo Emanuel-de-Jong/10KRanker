@@ -30,7 +30,7 @@ The map status has been changed.
 The map status has been changed.
 == Maps ==
 linear ring - lalabai call me (https://osu.ppy.sh/beatmapsets/1343787)
-    Last updated on osu: 7/9/2021 12:24 PM
+    Last updated on osu: 7/10/2021 10:46 PM
     Category: Pending    Mapper: [Sick]Catcat
     Status: map3 status edit2
 

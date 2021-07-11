@@ -6,7 +6,7 @@ namespace Logger
 {
     public class Log
     {
-        public static string LogDirPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\10KRanked\logs";
+        public static string LogDirPath { get; } = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\10KRanked\logs";
 
         private string logName;
         private string logPath;
