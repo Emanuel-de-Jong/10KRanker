@@ -7,9 +7,8 @@ namespace Database
 {
     public class Context : DbContext
     {
-        public static string DBDirPath { get; }
-            = G.AssetPath + $"{G.DS}10KRanked";
-        public static string DBPath { get; } = DBDirPath + $"{G.DS}10KRanked.db";
+        public static string DBDirPath { get; } = G.AssetPath;
+        public static string DBPath { get; } = DBDirPath + $"{G.DS}10KRanker.db";
 
         public string[] TableNames { get; } = new string[] { "Maps", "Mappers", "Nominators", "MapNominator" };
         public DbSet<Map> Maps { get; set; }

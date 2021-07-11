@@ -9,8 +9,7 @@ namespace Database
     {
         private static Timer makeDBBackupTimer;
         public static int BackupCount { get; set; } = 5;
-        public static string BackupDirPath { get; }
-            = Context.DBDirPath + $"{G.DS}backups";
+        public static string BackupDirPath { get; } = G.AssetPath + $"{G.DS}backups";
 
         public static void Init()
         {
@@ -32,7 +31,7 @@ namespace Database
         {
             RemoveOldBackup();
 
-            File.Copy(Context.DBPath, BackupDirPath + $"{G.DS}10KRanked { DateTime.Now.ToString("MM-dd-y HH-mm") }.db", true);
+            File.Copy(Context.DBPath, BackupDirPath + $"{G.DS}10KRanker { DateTime.Now.ToString("MM-dd-y HH-mm") }.db", true);
         }
 
         private static void RemoveOldBackup()

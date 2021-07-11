@@ -7,8 +7,7 @@ namespace Logger
 {
     public class Log
     {
-        public static string LogDirPath { get; }
-            = G.AssetPath + $"{G.DS}10KRanked{G.DS}logs";
+        public static string LogDirPath { get; } = G.AssetPath + $"{G.DS}logs";
 
         private string logName;
         private string logPath;
