@@ -1,3 +1,2 @@
 rename status to mapping progress
-list send every 5 maps
 update unittests with renames

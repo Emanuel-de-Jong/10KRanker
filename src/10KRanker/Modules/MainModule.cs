@@ -300,7 +300,7 @@ namespace _10KRanker.Modules
 
                 OsuToDB.UpdateMap(map);
 
-                await ReplyAsync(ModuleHelper.MapToString(map));
+                await ReplyAsync(ModuleHelper.MapToStringDetailed(map));
                 log.Write($"ShowAsync(\"{ mapAlias }\");",
                     ModuleHelper.SocketUserToString(Context.User));
             }
@@ -313,6 +313,7 @@ namespace _10KRanker.Modules
         }
 
 
+        private const int MAPS_PER_MESSAGE = 10;
         [Name("List maps")]
         [Command("list")]
         [Alias("l", "all", "maps")]
@@ -339,7 +340,22 @@ namespace _10KRanker.Modules
 
                     OsuToDB.UpdateMaps(maps);
 
-                    await ReplyAsync("== **Maps** ==\n" + ModuleHelper.MapsToString(maps));
+                    int mapCount = 0;
+                    string reply = "== **Maps** ==\n";
+                    foreach (Map map in maps)
+                    {
+                        reply += ModuleHelper.MapToString(map);
+
+                        mapCount++;
+                        if (mapCount == MAPS_PER_MESSAGE)
+                        {
+                            mapCount = 0;
+                            await ReplyAsync(reply);
+                            reply = "‏‏‎ ‎\n";
+                        }
+                    }
+
+                    await ReplyAsync(reply);
                 }
                 else if ((mapper = ModuleHelper.MapperAliasToMapper(userAlias, false)) != null)
                 {
@@ -348,7 +364,22 @@ namespace _10KRanker.Modules
 
                     OsuToDB.UpdateMaps(mapper.Maps);
 
-                    await ReplyAsync($"== **{mapper.Name}'s Maps** ==\n" + ModuleHelper.MapsToString(mapper.Maps));
+                    int mapCount = 0;
+                    string reply = $"== **{mapper.Name}'s Maps** ==\n";
+                    foreach (Map map in mapper.Maps)
+                    {
+                        reply += ModuleHelper.MapToString(map);
+
+                        mapCount++;
+                        if (mapCount == MAPS_PER_MESSAGE)
+                        {
+                            mapCount = 0;
+                            await ReplyAsync(reply);
+                            reply = "‏‏‎ ‎\n";
+                        }
+                    }
+
+                    await ReplyAsync(reply);
                 }
                 else if ((nominator = ModuleHelper.NominatorAliasToNominator(userAlias, false)) != null)
                 {
@@ -357,7 +388,22 @@ namespace _10KRanker.Modules
 
                     OsuToDB.UpdateMaps(nominator.Maps);
 
-                    await ReplyAsync($"== **Maps Linked to {nominator.Name}** ==\n" + ModuleHelper.MapsToString(nominator.Maps));
+                    int mapCount = 0;
+                    string reply = $"== **Maps Linked to {nominator.Name}** ==\n";
+                    foreach (Map map in nominator.Maps)
+                    {
+                        reply += ModuleHelper.MapToString(map);
+
+                        mapCount++;
+                        if (mapCount == MAPS_PER_MESSAGE)
+                        {
+                            mapCount = 0;
+                            await ReplyAsync(reply);
+                            reply = "‏‏‎ ‎\n";
+                        }
+                    }
+
+                    await ReplyAsync(reply);
                 }
                 else
                 {

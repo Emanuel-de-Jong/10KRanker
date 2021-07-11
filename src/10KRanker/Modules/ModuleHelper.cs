@@ -32,51 +32,49 @@ namespace _10KRanker.Modules
 
 
 
-        public static string MapsToString(List<Map> maps)
+        public static string MapToString(Map m)
         {
             string reply = "";
-            foreach (Map m in maps)
+            reply += $"**{ m.Artist } - { m.Name }** ({ MapIdToLink(m.MapId) })\n";
+            if (m.OsuUpdateDate == null)
             {
-                reply += $"**{ m.Artist } - { m.Name }** ({ MapIdToLink(m.MapId) })\n";
-                if (m.OsuUpdateDate == null)
-                {
-                    reply += $"\tSubmitted to osu: { m.OsuSubmitDate.ToString(DateFormat) }\n";
-                }
-                else
-                {
-                    reply += $"\tLast updated on osu: { m.OsuUpdateDate.Value.ToString(DateFormat) }\n";
-                }
-                reply += $"\tCategory: { m.Category }\tMapper: { m.Mapper.Name }";
-
-                if (m.Nominators.Count != 0)
-                {
-                    reply += "\tBN(s): ";
-
-                    bool firstLoop = true;
-                    foreach (Nominator n in m.Nominators)
-                    {
-                        if (firstLoop)
-                        {
-                            firstLoop = false;
-                            reply += n.Name;
-                            continue;
-                        }
-
-                        reply += $", {n.Name}";
-                    }
-                }
-
-                reply += "\n";
-
-                if (m.Status != null)
-                    reply += $"\tStatus: { m.Status }\n";
-
-                reply += "\n";
+                reply += $"\tSubmitted to osu: { m.OsuSubmitDate.ToString(DateFormat) }\n";
             }
+            else
+            {
+                reply += $"\tLast updated on osu: { m.OsuUpdateDate.Value.ToString(DateFormat) }\n";
+            }
+            reply += $"\tCategory: { m.Category }\tMapper: { m.Mapper.Name }";
+
+            if (m.Nominators.Count != 0)
+            {
+                reply += "\tBN(s): ";
+
+                bool firstLoop = true;
+                foreach (Nominator n in m.Nominators)
+                {
+                    if (firstLoop)
+                    {
+                        firstLoop = false;
+                        reply += n.Name;
+                        continue;
+                    }
+
+                    reply += $", {n.Name}";
+                }
+            }
+
+            reply += "\n";
+
+            if (m.Status != null)
+                reply += $"\tStatus: { m.Status }\n";
+
+            reply += "\n";
             return reply;
         }
 
-        public static string MapToString(Map m)
+
+        public static string MapToStringDetailed(Map m)
         {
             string reply = $"**{ m.Artist } - { m.Name }** ({ MapIdToLink(m.MapId) })\n";
             if (m.OsuUpdateDate == null)
@@ -147,7 +145,7 @@ namespace _10KRanker.Modules
                 parameters += $"   { parameter.Summary }";
             }
 
-            return $"> **== { command.Name } ==**\n" +
+            return $"> **{ command.Name }**\n" +
                 $"> Description:     { command.Summary }\n" +
                 $"> Aliases:            { alias }\n" +
                 $"> Syntax:             `{ cmd }{ parameters }`\n" +
