@@ -1,6 +1,7 @@
 ﻿using Logger;
 using OsuSharp;
 using System;
+using System.Collections.Generic;
 
 namespace OsuAPI
 {
@@ -24,7 +25,7 @@ namespace OsuAPI
         {
             string logMessage = $"GetMap({ beatmapsetId });";
 
-            var maps = client.GetBeatmapsetAsync(beatmapsetId).Result;
+            IReadOnlyList<Beatmap> maps = client.GetBeatmapsetAsync(beatmapsetId).Result;
 
             if (maps.Count == 0)
             {

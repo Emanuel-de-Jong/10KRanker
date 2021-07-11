@@ -4,7 +4,9 @@ using Logger;
 using OsuAPI;
 using OsuSharp;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 
 namespace Test
@@ -32,9 +34,9 @@ namespace Test
 
         private static void DBTest()
         {
-            var maps = DB.GetMaps();
-            var mappers = DB.GetMappers();
-            var nominators = DB.GetNominators();
+            List<Map> maps = DB.GetMaps();
+            List<Mapper> mappers = DB.GetMappers();
+            List<Nominator> nominators = DB.GetNominators();
         }
 
         private static void ValidatorTest()
@@ -75,7 +77,7 @@ namespace Test
 
         private static void PrintProperties(object obj)
         {
-            foreach (var prop in obj.GetType().GetProperties())
+            foreach (PropertyInfo prop in obj.GetType().GetProperties())
             {
                 Console.WriteLine("{0} = {1}", prop.Name, prop.GetValue(obj, null));
             }

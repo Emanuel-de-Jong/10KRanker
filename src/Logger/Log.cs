@@ -17,11 +17,12 @@ namespace Logger
 
         public Log(string logName)
         {
+            this.logName = logName;
+
             if (!Directory.Exists(LogDirPath))
                 Directory.CreateDirectory(LogDirPath);
 
-            this.logName = logName;
-            this.logPath = LogDirPath + $"{G.DS}{ logName }.log";
+            logPath = LogDirPath + $"{G.DS}{ logName }.log";
 
             disposeWriterTimer = new Timer(5000);
             disposeWriterTimer.AutoReset = false;

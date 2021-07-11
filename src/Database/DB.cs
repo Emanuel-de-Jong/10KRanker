@@ -50,6 +50,7 @@ namespace Database
         {
             foreach (string table in context.TableNames)
                 context.Database.ExecuteSqlRaw($"DELETE FROM { table };");
+
             context.SaveChanges();
         }
 
@@ -100,6 +101,7 @@ namespace Database
             foreach (Map map in context.Maps)
                 if (map.Name.ToLower() == mapName.ToLower())
                     return map;
+
             return null;
         }
 
@@ -108,6 +110,7 @@ namespace Database
             foreach (Mapper mapper in context.Mappers)
                 if (mapper.Name.ToLower() == mapperName.ToLower())
                     return mapper;
+
             return null;
         }
 
@@ -116,6 +119,7 @@ namespace Database
             foreach (Nominator nominator in context.Nominators)
                 if (nominator.Name.ToLower() == nominatorName.ToLower())
                     return nominator;
+
             return null;
         }
 
@@ -130,14 +134,19 @@ namespace Database
         }
 
         public static List<Map> GetMaps()
-            => context.Maps.ToList();
+        {
+            return context.Maps.ToList();
+        }
 
         public static List<Mapper> GetMappers()
-            => context.Mappers.ToList();
+        {
+            return context.Mappers.ToList();
+        }
 
         public static List<Nominator> GetNominators()
-            => context.Nominators.ToList();
-
+        {
+            return context.Nominators.ToList();
+        }
 
         public static void Update(object obj)
         {
