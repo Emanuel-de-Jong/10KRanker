@@ -144,11 +144,11 @@ namespace _10KRanker
             await SendTitle("UPDATE MAP STATUS", true);
 
             //cs <id>2 <mapping state>
-            await Send("cs 1466367 map2 state");
+            await Send("us 1466367 map2 state");
             //cs <id>3 <mapping state>
-            await Send("cs 1343787 map3 state edit1");
+            await Send("us 1343787 map3 state edit1");
             //cs <id>3 <other mapping state>
-            await Send("cs 1343787 map3 state edit2");
+            await Send("us 1343787 map3 state edit2");
 
             if (testBadWeather)
             {

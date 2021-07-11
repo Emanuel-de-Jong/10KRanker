@@ -337,7 +337,7 @@ namespace _10KRanker.Modules
 
         [Name("Update mapping state")]
         [Command("updatestate")]
-        [Alias("updatestatus", "updateprogress", "changestate", "changestatus", "changeprogress")]
+        [Alias("us", "updatestatus", "updateprogress", "changestate", "changestatus", "changeprogress")]
         [Remarks("\"Last Resort\"   \"Open for modding now.Any help is appreciated!\"")]
         [Summary("Update the mapping state of a map. This is the same state as the optional value of `!add`.")]
         public async Task UpdateMapStatusAsync(

@@ -3,7 +3,7 @@
 The map has been added.
 !add https://osu.ppy.sh/beatmapsets/1466367#mania/3011461
 The map has been added.
-!add 1343787 map3 status
+!add 1343787 map3 state
 The map has been added.
 !add 1095022
 The map has been added.
@@ -65,31 +65,31 @@ The BN has been removed from the map.
 The BN already wasn't linked to the map.
 ‎
 ==UPDATE MAP STATUS==
-!cs 1466367 map2 status
-The map status has been changed.
-!cs 1343787 map3 status edit1
-The map status has been changed.
-!cs 1343787 map3 status edit2
-The map status has been changed.
-
-
+!us 1466367 map2 state
+The mapping state has been changed.
+!us 1343787 map3 state edit1
+The mapping state has been changed.
+!us 1343787 map3 state edit2
+The mapping state has been changed.
+‎
+‎
 !list
 == Maps ==
 linear ring - lalabai call me (https://osu.ppy.sh/beatmapsets/1343787)
-	Last updated on osu: 7/9/2021 12:24 PM
-	Category: Pending    Mapper: [Sick]Catcat
-	Status: map3 status edit2
+    Last updated on osu: 7/11/2021 05:04 PM
+    Category: Pending    Mapper: [Sick]Catcat
+    State: map3 state edit2
 
 Lunatic Sounds - DataErr0r (https://osu.ppy.sh/beatmapsets/1466367)
-	Last updated on osu: 5/19/2021 02:35 AM
-	Category: Graveyard    Mapper: XDerbyX    BN(s): Jakads
-	Status: map2 status
+    Last updated on osu: 5/19/2021 02:35 AM
+    Category: Graveyard    Mapper: XDerbyX    BN(s): Jakads
+    State: map2 state
 
 Various Artist - 10K Indo Pack #2 (https://osu.ppy.sh/beatmapsets/1509186)
-	Last updated on osu: 7/3/2021 10:49 AM
-	Category: Pending    Mapper: XDerbyX    BN(s): Feerum, Unpredictable
+    Last updated on osu: 7/3/2021 10:49 AM
+    Category: Pending    Mapper: XDerbyX    BN(s): Feerum, Unpredictable
 
 Frums - Wavetapper (https://osu.ppy.sh/beatmapsets/1509353)
-	Last updated on osu: 7/3/2021 02:33 PM
-	Category: WIP    Mapper: Friedchicken
-	Status: map5 %$#@test
+    Last updated on osu: 7/3/2021 02:33 PM
+    Category: WIP    Mapper: Friedchicken
+    State: map5 %$#@test
