@@ -165,7 +165,7 @@ namespace _10KRanker.Modules
         [Name("List maps")]
         [Command("list")]
         [Alias("l", "all", "maps")]
-        [Remarks("\"Komirin\"")]
+        [Remarks("Komirin")]
         [Summary("List all maps. Optionally you can filter by mapper or beatmap nominator.")]
         public async Task ListAsync(
             [Summary("(user link|userid|user name)")][Remainder] string userAlias = null)
@@ -242,7 +242,7 @@ namespace _10KRanker.Modules
         [Name("Show map")]
         [Command("show")]
         [Alias("s", "map", "display")]
-        [Remarks("\"Last Resort\"")]
+        [Remarks("Last Resort")]
         [Summary("Show a map in full detail.")]
         public async Task ShowAsync(
             [Summary("<map link|beatmapsetid|map title>")][Remainder] string mapAlias)
@@ -271,7 +271,7 @@ namespace _10KRanker.Modules
         [Name("Add map")]
         [Command("add")]
         [Alias("addmap", "create", "createmap")]
-        [Remarks("1234567   \"Almost ready for modding.\"")]
+        [Remarks("1234567   Almost ready for modding.")]
         [Summary("Add a map to the bot. Optionally you can give a short description about the current mapping state of the map.")]
         public async Task AddMapAsync(
             [Summary("<map link|beatmapsetid|map title>")] string mapAlias,
@@ -309,7 +309,7 @@ namespace _10KRanker.Modules
         [Name("Remove map")]
         [Command("rm")]
         [Alias("rmmap", "remove", "removemap", "delete", "deletemap")]
-        [Remarks("\"Last Resort\"")]
+        [Remarks("Last Resort")]
         [Summary("Remove a map from the bot.")]
         public async Task RemoveMapAsync(
             [Summary("<map link|beatmapsetid|map title>")] [Remainder] string mapAlias)
@@ -338,7 +338,7 @@ namespace _10KRanker.Modules
         [Name("Update mapping state")]
         [Command("updatestate")]
         [Alias("us", "updatestatus", "updateprogress", "changestate", "changestatus", "changeprogress")]
-        [Remarks("\"Last Resort\"   \"Open for modding now.Any help is appreciated!\"")]
+        [Remarks("\"Last Resort\"   Open for modding now. Any help is appreciated!")]
         [Summary("Update the mapping state of a map. This is the same state as the optional value of `!add`.")]
         public async Task UpdateMapStatusAsync(
             [Summary("<map link|beatmapsetid|map title>")] string mapAlias,
@@ -368,7 +368,7 @@ namespace _10KRanker.Modules
         [Name("Add BN to map")]
         [Command("addbn")]
         [Alias("addnominator", "createbn", "createnominator")]
-        [Remarks("\"Last Resort\"   \"Komirin\"")]
+        [Remarks("\"Last Resort\"   Komirin")]
         [Summary("Link a beatmap nominator to a map. This shows that the BN has helped/will help with the modding/ranking of the map. A map can have multiple BNs.")]
         public async Task AddNominatorAsync(
             [Summary("<map link|beatmapsetid|map title>")] string mapAlias,
@@ -416,7 +416,7 @@ namespace _10KRanker.Modules
         [Name("Remove BN from map")]
         [Command("rmbn")]
         [Alias("rmnominator", "removebn", "removenominator", "deletebn", "deletenominator")]
-        [Remarks("\"Last Resort\"   \"Komirin\"")]
+        [Remarks("\"Last Resort\"   Komirin")]
         [Summary("Remove a beatmap nominator from a map.")]
         public async Task RemoveNominatorAsync(
             [Summary("<map link|beatmapsetid|map title>")] string mapAlias,
