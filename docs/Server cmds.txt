@@ -1,10 +1,8 @@
 dotnet publish -c Release -r linux-arm64 -p:PublishSingleFile=true
 
-ping ubuntu.home
-
 rm ./*
-scp E:\Coding\Repos\10KRanker\src\10KRanker\bin\Release\net5.0\linux-arm64\publish\* ubuntu@192.168.2.24:/home/ubuntu/10KRanker
-scp "E:\Coding\Repos\10KRanker\docs\10KRanker Empty.db" ubuntu@192.168.2.24:/home/ubuntu/10KRankerAssets/10KRanker.db
+scp E:\Coding\Repos\10KRanker\src\10KRanker\bin\Release\net5.0\linux-arm64\publish\* ubuntu@ubuntu.home:/home/ubuntu/10KRanker
+scp "E:\Coding\Repos\10KRanker\docs\10KRanker Empty.db" ubuntu@ubuntu.home:/home/ubuntu/10KRankerAssets/10KRanker.db
 
 chmod u+x 10KRanker
 
