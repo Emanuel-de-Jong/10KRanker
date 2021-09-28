@@ -1,3 +1,4 @@
+Use faster hasing algo
 test when to use " in commands
 use values in command replies
 only make backup on different file size
