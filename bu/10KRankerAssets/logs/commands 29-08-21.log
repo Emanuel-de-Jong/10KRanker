@@ -1,0 +1,97 @@
+07-12-21 08:34:09: ListAsync(); // KillBottt#1368 - There are no maps at the moment.
+07-12-21 08:34:11: InfoAsync(); // KillBottt#1368
+07-12-21 08:48:27: ListAsync(); // XDerbyX#6494 - There are no maps at the moment.
+07-12-21 08:52:10: AddMapAsync("1159481", "Ready for ranking"); // XDerbyX#6494
+07-12-21 08:52:13: ListAsync(); // XDerbyX#6494
+07-12-21 08:53:14: AddMapAsync("1466367", "Need hitsound and audio check, Might also add other difficulties"); // XDerbyX#6494
+07-12-21 08:55:12: AddMapAsync("1343787"); // XDerbyX#6494
+07-12-21 08:55:33: ListAsync(); // Komirin#9568
+07-12-21 08:55:49: ShowAsync("last resort"); // Holycoldwater#5242 - The map is not in the bot's system.
+07-12-21 08:56:22: AddMapAsync("1495423", "need some mods on available difficulties and hitsound"); // Aphelion#3410
+07-12-21 08:56:26: ListAsync(); // Aphelion#3410
+07-12-21 08:56:29: ShowAsync(""last resort""); // Holycoldwater#5242 - The map is not in the bot's system.
+07-12-21 09:21:37: ListAsync(); // Duck#7046
+07-12-21 09:22:47: UpdateMapStatusAsync("lalabai call me", ""A mapping state.""); // Sick_CtCt#3006
+07-12-21 09:23:26: UpdateMapStatusAsync("lalabai call me", ""checking""); // Sick_CtCt#3006
+07-12-21 09:24:00: AddMapAsync("1102223"); // XDerbyX#6494
+07-12-21 09:26:23: AddNominatorAsync("lalabai call me", ""Feerum""); // Sick_CtCt#3006 - A user with that name doesn't exist.
+07-12-21 09:26:44: InfoAsync("addbn"); // KillBottt#1368
+07-12-21 09:28:11: ShowAsync(""lalabai call me""); // KillBottt#1368 - The map is not in the bot's system.
+07-12-21 09:28:42: ShowAsync("lalabai call me"); // KillBottt#1368
+07-12-21 09:29:13: AddNominatorAsync("lalabai call me", ""Feerum""); // KillBottt#1368 - A user with that name doesn't exist.
+07-12-21 09:29:19: AddNominatorAsync("lalabai", "call me Feerum"); // XDerbyX#6494 - The map is not in the bot's system.
+07-12-21 09:29:49: AddNominatorAsync("1343787", "4815717"); // KillBottt#1368
+07-12-21 09:30:06: AddNominatorAsync("1343787", "Feerum"); // XDerbyX#6494 - The BN is already linked to the map.
+07-12-21 09:30:17: ListAsync(); // XDerbyX#6494
+07-12-21 09:31:27: AddNominatorAsync("10047413", "Davvy"); // Sick_CtCt#3006 - The map is not in the bot's system.
+07-12-21 09:31:53: AddNominatorAsync("1343787", "10047413"); // Sick_CtCt#3006
+07-12-21 09:31:57: ListAsync(); // Sick_CtCt#3006
+07-12-21 09:32:55: ListAsync(); // KillBottt#1368
+07-12-21 09:33:33: InfoAsync(); // z0zvoldlol#2585
+07-12-21 09:33:54: InfoAsync(); // z0zvoldlol#2585
+07-12-21 09:41:27: UpdateMapStatusAsync("akikaze no answer", "a"); // lyuiop#9140
+07-12-21 09:41:47: ShowAsync(""akikaze no answer""); // lyuiop#9140 - The map is not in the bot's system.
+07-12-21 09:42:15: ShowAsync("akikaze no answer"); // lyuiop#9140
+07-12-21 09:42:50: UpdateMapStatusAsync("akikaze no answer", "ready for rank, looking for bns"); // lyuiop#9140
+07-12-21 09:43:06: ShowAsync("akikaze no answer"); // lyuiop#9140
+07-12-21 09:50:05: AddNominatorAsync("11544934", "10047413"); // Sick_CtCt#3006 - The map is not in the bot's system.
+07-12-21 09:50:24: AddNominatorAsync("1343787", "11544934"); // Sick_CtCt#3006
+07-12-21 09:50:34: ListAsync(); // Sick_CtCt#3006
+07-12-21 09:51:02: InfoAsync(); // Sick_CtCt#3006
+07-12-21 09:51:33: RemoveNominatorAsync("1343787", "11544934"); // Sick_CtCt#3006
+07-12-21 09:51:57: AddNominatorAsync("1343787", "s3x"); // XDerbyX#6494
+07-12-21 09:52:02: ShowAsync("1343787"); // XDerbyX#6494
+07-12-21 09:52:26: RemoveNominatorAsync("1343787", "s3x"); // XDerbyX#6494
+07-12-21 10:44:59: ListAsync(); // KillBottt#1368
+07-12-21 14:33:51: ListAsync(); // KillBottt#1368
+07-13-21 08:34:35: ListAsync(); // KillBottt#1368
+07-13-21 16:33:03: ListAsync(); // GrGuruto#0602
+07-14-21 16:21:22: ListAsync(); // KillBottt#1368
+07-14-21 17:00:53: ListAsync(); // KillBottt#1368
+07-16-21 14:52:53: ListAsync(); // KillBottt#1368
+07-17-21 21:50:23: UpdateMapStatusAsync("1466367", "1 Diff WIP."); // XDerbyX#6494
+07-18-21 20:50:38: ListAsync(); // KillBottt#1368
+07-19-21 13:00:28: InfoAsync(); // Aphelion#3410
+07-19-21 13:02:09: UpdateMapStatusAsync("1495423", ""need 1 GD for any incomplete diffs. DM Aphelion#3410 if interested""); // Aphelion#3410
+07-19-21 13:02:15: ListAsync(); // Aphelion#3410
+07-19-21 14:04:20: ListAsync(); // KillBottt#1368
+07-19-21 14:06:30: ShowAsync("Bon Appetit S (TV Size ver)"); // KillBottt#1368
+07-19-21 14:09:20: ListAsync(); // Duck#7046
+07-19-21 22:09:22: InfoAsync("add"); // KillBottt#1368
+07-19-21 22:10:20: AddMapAsync("https://osu.ppy.sh/beatmapsets/1520393#mania/3113732", "Modding/Revisions"); // HuggedToDeath#2456
+07-19-21 22:10:32: ListAsync(); // HuggedToDeath#2456
+07-19-21 22:12:44: ShowAsync("1520393"); // KillBottt#1368
+07-19-21 22:14:04: ListAsync(); // KillBottt#1368
+07-19-21 22:24:16: AddMapAsync("1498150", "Modding/Polishing"); // xBombZ#6843
+07-19-21 22:24:21: ShowAsync("1498150"); // xBombZ#6843
+07-20-21 02:00:10: ListAsync(); // HuggedToDeath#2456
+07-20-21 04:11:05: ListAsync(); // KillBottt#1368
+07-21-21 04:05:45: ListAsync("Huged"); // HuggedToDeath#2456 - The user is not in the bot's system.
+07-21-21 04:05:52: ListAsync("Hugged"); // HuggedToDeath#2456
+07-22-21 08:51:48: ListAsync(); // KillBottt#1368
+07-23-21 07:14:38: ListAsync(); // Cra Dow#9683
+07-23-21 07:15:26: InfoAsync(); // Cra Dow#9683
+07-23-21 07:16:07: ListAsync("XDerbyX"); // Cra Dow#9683
+07-24-21 08:53:51: ListAsync("HuggedtoDeath"); // Cra Dow#9683 - The user is not in the bot's system.
+07-24-21 08:54:05: ListAsync("Hugged"); // Cra Dow#9683
+07-26-21 21:34:27: ListAsync("Hugged"); // Cra Dow#9683
+07-26-21 21:56:01: ListAsync(); // Cra Dow#9683
+07-27-21 08:21:17: ListAsync(); // Cra Dow#9683
+07-27-21 08:21:42: InfoAsync(); // HuggedToDeath#2456
+07-27-21 08:23:14: UpdateMapStatusAsync("https://osu.ppy.sh/beatmapsets/1520393#mania/3113734", "Creating new [Easy] difficulty + Restructuring [Intermediate]"); // HuggedToDeath#2456
+07-27-21 08:25:21: ListAsync("Hugged"); // Cra Dow#9683
+07-27-21 09:01:31: RemoveNominatorAsync("lalabai call me", "Feerum"); // KillBottt#1368
+07-28-21 20:13:36: UpdateMapStatusAsync("https://osu.ppy.sh/beatmapsets/1520393#mania/3113734", "Changed diff naming. Created [Normal], restructuring [Hyper], addressing hitsound modding"); // HuggedToDeath#2456
+07-29-21 05:43:30: UpdateMapStatusAsync("https://osu.ppy.sh/beatmapsets/1520393#mania/3113734", "All caught up. Looking for more mods"); // HuggedToDeath#2456
+07-29-21 05:44:34: ListAsync(); // HuggedToDeath#2456
+08-07-21 09:37:47: ListAsync(); // KillBottt#1368
+08-10-21 04:50:53: UpdateMapStatusAsync("https://osu.ppy.sh/beatmapsets/1466367", "All done. Need mods."); // XDerbyX#6494
+08-10-21 04:51:08: ListAsync("XDerbyX"); // XDerbyX#6494
+08-12-21 12:41:39: ListAsync(); // KillBottt#1368
+08-12-21 12:44:14: ListAsync(); // KillBottt#1368
+08-12-21 12:50:50: InfoAsync("add"); // KillBottt#1368
+08-12-21 14:41:39: AddMapAsync("https://osu.ppy.sh/beatmapsets/1282077#mania/2827110", "I think its still need somebody modding?"); // HDRoop_7#5247
+08-12-21 14:44:14: ShowAsync("Purorogu"); // KillBottt#1368
+08-12-21 14:46:01: ListAsync(); // KillBottt#1368
+08-18-21 10:01:19: ListAsync(); // KillBottt#1368
+08-25-21 06:34:47: ListAsync(); // KillBottt#1368
