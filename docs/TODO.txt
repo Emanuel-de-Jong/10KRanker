@@ -1,3 +1,2 @@
 use values in command replies
-remove maps with Ranked status
 update the README
