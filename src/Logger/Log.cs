@@ -1,5 +1,6 @@
 ﻿using GlobalValues;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Timers;
 
@@ -11,11 +12,17 @@ namespace Logger
 
         private string logName;
         private string logPath;
+        private bool disabled;
         private StreamWriter writer;
         private Timer disposeWriterTimer;
+        private List<string> blacklist = new List<string>();
 
-        public Log(string logName)
+        public Log(string logName, bool disabled=false)
         {
+            this.disabled = disabled;
+            if (disabled)
+                return;
+
             this.logName = logName;
 
             if (!Directory.Exists(LogDirPath))
@@ -28,8 +35,32 @@ namespace Logger
             disposeWriterTimer.Elapsed += OnDisposeWriterTimerElapsed;
         }
 
+        public void SetBlacklist(List<string> blacklist)
+        {
+            this.blacklist = blacklist;
+        }
+
+        public void AddBlacklistItem(string item)
+        {
+            blacklist.Add(item);
+        }
+
+        public void RemoveBlacklistItem(string item)
+        {
+            blacklist.Remove(item);
+        }
+
         public void Write(string message, string comment = null)
         {
+            if (disabled)
+                return;
+
+            foreach (string item in blacklist)
+            {
+                if (message.Contains(item))
+                    return;
+            }
+
             if (writer == null)
             {
                 writer = new StreamWriter(logPath, true);

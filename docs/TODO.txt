@@ -1,4 +1,3 @@
-test when to use " in commands
 use values in command replies
 only make backup on different file size
 add all BN to nominator table and don't allow others

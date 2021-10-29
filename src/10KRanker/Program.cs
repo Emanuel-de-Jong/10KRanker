@@ -7,6 +7,7 @@ using Logger;
 using Microsoft.Extensions.DependencyInjection;
 using OsuAPI;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -25,6 +26,16 @@ namespace _10KRanker
         public async Task MainAsync()
         {
             log = new Log("console");
+            log.SetBlacklist(new List<string>() {
+                "Discord     Discord.Net v",
+                "Gateway     Ready",
+                "Gateway     Connected",
+                "Gateway     Connecting",
+                "Gateway     Disconnected",
+                "Gateway     Disconnecting",
+                "Gateway     Resumed previous session",
+                "Discord.WebSocket.GatewayReconnectException: Server requested a reconnect"
+            });
 
             client = new DiscordSocketClient(new DiscordSocketConfig()
             {

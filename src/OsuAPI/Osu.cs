@@ -13,7 +13,7 @@ namespace OsuAPI
 
         public static void Init()
         {
-            log = new Log("osu");
+            log = new Log("osu", true);
 
             client = new(new OsuSharpConfiguration()
             {
