@@ -29,17 +29,18 @@ namespace Database
 
         public static void Make()
         {
-            RemoveOldBackup();
+            if (!RemoveOldBackup())
+                return;
 
             File.Copy(Context.DBPath, BackupDirPath + $"{G.DS}10KRanker { DateTime.Now.ToString("MM-dd-y HH-mm") }.db", true);
         }
 
-        private static void RemoveOldBackup()
+        private static bool RemoveOldBackup()
         {
             string[] filePaths = Directory.GetFiles(BackupDirPath, "*.db");
 
             if (filePaths.Length < BackupCount)
-                return;
+                return true;
 
             DateTime fileDate;
             DateTime oldestFileDate = DateTime.MaxValue;
@@ -55,7 +56,11 @@ namespace Database
                 }
             }
 
+            if (new FileInfo(Context.DBPath).Length == new FileInfo(oldestFilePath).Length)
+                return false;
+
             File.Delete(oldestFilePath);
+            return true;
         }
 
         public static void ClearBackups()
