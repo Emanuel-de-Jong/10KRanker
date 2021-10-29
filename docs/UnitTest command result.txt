@@ -30,20 +30,20 @@ The mapping state has been changed.
 The mapping state has been changed.
 == Maps ==
 linear ring - lalabai call me (https://osu.ppy.sh/beatmapsets/1343787)
-    Last updated on osu: 7/11/2021 05:04 PM
-    Category: Pending    Mapper: [Sick]Catcat
+    Last updated on osu: 7/14/2021 05:42 PM
+    Category: Graveyard    Mapper: [Sick]Catcat
     State: map3 state edit2
 
 Lunatic Sounds - DataErr0r (https://osu.ppy.sh/beatmapsets/1466367)
-    Last updated on osu: 5/19/2021 02:35 AM
+    Last updated on osu: 8/10/2021 07:10 PM
     Category: Graveyard    Mapper: XDerbyX    BN(s): Jakads
     State: map2 state
 
 Various Artist - 10K Indo Pack #2 (https://osu.ppy.sh/beatmapsets/1509186)
     Last updated on osu: 7/3/2021 10:49 AM
-    Category: Pending    Mapper: XDerbyX    BN(s): Feerum, Unpredictable
+    Category: Graveyard    Mapper: XDerbyX    BN(s): Feerum, Unpredictable
 
 Frums - Wavetapper (https://osu.ppy.sh/beatmapsets/1509353)
     Last updated on osu: 7/3/2021 02:33 PM
-    Category: WIP    Mapper: Friedchicken
+    Category: Graveyard    Mapper: Friedchicken
     State: map5 %$#@test
