@@ -1,6 +1,6 @@
 dotnet publish -c Release -r linux-arm64 -p:PublishSingleFile=true
 
-rm ./*
+rm ./* -r
 scp E:\Coding\Repos\10KRanker\src\10KRanker\bin\Release\net5.0\linux-arm64\publish\* ubuntu@192.168.xxx.xxx:/home/ubuntu/10KRanker
 scp "E:\Coding\Repos\10KRanker\docs\10KRanker Empty.db" ubuntu@192.168.xxx.xxx:/home/ubuntu/10KRankerAssets/10KRanker.db
 pscp.exe ubuntu@192.168.xxx.xxx:/home/ubuntu/10KRankerAssets/* E:\Media\Downloads\10KRankerAssets
