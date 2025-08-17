@@ -3,6 +3,19 @@ A [discord bot](https://discord.com/developers/docs/intro#bots-and-apps) that ke
 I will be used in the [10+ Key Rhythm Games](https://discord.gg/PwzcUzk) discord server.
 It's good enough for what it will be used for. But for bigger projects, it would need some optimalizations. Especially in asynchronous programming.
 
+### Table of Contents
+- [About](#about)
+
+| | |
+| :---: | :---: |
+| ![](/Screenshots/1.png) | ![](/Screenshots/1.png) |
+
+## About
+| | |
+| --- | --- |
+| | - **Project Overview** - |
+| **Active Development:** |  |
+| **Maintenance:** |  |
 
 
 ## Commands
