@@ -1,22 +1,16 @@
 # 10KRanker
 A [discord bot](https://discord.com/developers/docs/intro#bots-and-apps) that keeps track of 10 key [mania](https://osu.ppy.sh/wiki/en/Game_mode#-osu!mania) maps that their mappers want to get [ranked](https://osu.ppy.sh/wiki/en/Beatmap/Category#ranked).
-I will be used in the [10+ Key Rhythm Games](https://discord.gg/PwzcUzk) discord server.
+
+I will be used it in the [10+ Key Rhythm Games](https://discord.gg/PwzcUzk) discord server.
+
 It's good enough for what it will be used for. But for bigger projects, it would need some optimalizations. Especially in asynchronous programming.
 
-### Table of Contents
-- [About](#about)
+**Active Development:** <br>
+**Last Change:** <br>
 
 | | |
 | :---: | :---: |
-| ![](/Screenshots/1.png) | ![](/Screenshots/1.png) |
-
-## About
-| | |
-| --- | --- |
-| | - **Project Overview** - |
-| **Active Development:** |  |
-| **Maintenance:** |  |
-
+| ![](/Screenshots/.png) | ![](/Screenshots/.png) |
 
 ## Commands
 Discord users use commands to interact with the bot. All commands for this bot need to be prefixed with: `!`<br/>
@@ -51,8 +45,6 @@ List all maps, the maps of a mapper or the maps linked to a BN.<br/>
 `!info`<br/>
 Show this message.<br/>
 
-
-
 ## Issues
 ***I get the error: `The type initializer for 'Database.DB' threw an exception.` for every command.***<br/>
 The Database project (Entity Framework Core) can't connect to the db file. Probably because the data source configuration has changed.<br/>
@@ -65,8 +57,6 @@ A new migration has to be generated:
     - `Update-Database`
 5. Set the startup project back to the 10KRanker project.
 
-
-
 ## Code structure
 There are 5 Visual Studio projects
 
@@ -74,8 +64,7 @@ There are 5 Visual Studio projects
 ***Type:*** C# .NET 5 Console Application<br/>
 ***Dependencies:*** [Discord.Net 2.4.0](https://www.nuget.org/packages/Discord.Net/2.4.0), [Microsoft.Extensions.DependencyInjection 5.0.1](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/5.0.1)
 
-The discord bot itself. It uses Discord.Net so we don't have to worry about the connection to discord, reading and filtering command calls and parsing command parameters.
-It uses the next 2 projects to retrieve and save all the data it needs.<br/>
+The discord bot itself. It uses Discord.Net so we don't have to worry about the connection to discord, reading and filtering command calls and parsing command parameters. It uses the next 2 projects to retrieve and save all the data it needs.<br/>
 There are 3 classes that have most of the logic:<br/>
 ***Modules/MainModule:*** Handles the commands.<br/>
 ***Validator:*** Most command parameters can be in multiple formats. This class gets the format type and converts the input accordingly.<br/>
@@ -89,29 +78,24 @@ Validator.GetMapType(Input) -> Validator.MapTypeXToId(MapType)<br/>
 ***Type:*** C# .NET 5 Library<br/>
 ***Dependencies:*** [OsuSharp 5.4.4](https://www.nuget.org/packages/OsuSharp/5.4.4)
 
-Has a static wrapper for easy communication with osu. 10KRanked uses it to get information about maps and users.
-It throws exceptions when a map/user doesn't exist and if a map is incompatible with our standards.
+Has a static wrapper for easy communication with osu. 10KRanked uses it to get information about maps and users. It throws exceptions when a map/user doesn't exist and if a map is incompatible with our standards.
 
 ### Database
 ***Type:*** C# .NET 5 Library<br/>
 ***Dependencies:*** [Microsoft.EntityFrameworkCore.Sqlite/Tools/Design 5.0.7](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/5.0.7)
 
-Has a static wrapper for easy communication with a SQLite db file located in the OS's ApplicationData.
-It uses auto generated migrations to speed up database design changes.
+Has a static wrapper for easy communication with a SQLite db file located in the OS's ApplicationData. It uses auto generated migrations to speed up database design changes.
 10KRanked uses it to save and retrieve the maps/users.
 
 ### Logger
 ***Type:*** C# .NET 5 Library<br/>
 
-Its Log class can be instanced with a filename. The Write function appends a string to the `.log` file.
-It is used to log the user commands, osu api calls and database changes.
+Its Log class can be instanced with a filename. The Write function appends a string to the `.log` file. It is used to log the user commands, osu api calls and database changes.
 
 ### Test
 ***Type:*** C# .NET 5 Console Application<br/>
 
 Used to test individual features without the overhead and complexity of the discord bot.
-
-
 
 ## Running your own version
 I'm asuming you are using Visual Studio 2019.
@@ -120,8 +104,6 @@ I'm asuming you are using Visual Studio 2019.
     - [10KRanked template](https://github.com/Emanuel-de-Jong/10KRanker/blob/7950235b3674a0618c2475c4ce9c88a4d7d1e8dc/src/10KRanker/SecretsTemplate.cs)
     - [OsuAPI template](https://github.com/Emanuel-de-Jong/10KRanker/blob/7950235b3674a0618c2475c4ce9c88a4d7d1e8dc/src/OsuAPI/SecretsTemplate.cs)
 2. That is it for now.
-
-
 
 ## Testing
 The 10KRanked project has a UnitTest class that acts as a discord user and calls commands. It goes through most of the possible and invalid parameters of the commands.<br/>
