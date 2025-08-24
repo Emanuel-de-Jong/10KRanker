@@ -10,7 +10,7 @@ It's good enough for what it will be used for. But for bigger projects, it would
 
 | | |
 | :---: | :---: |
-| ![](/Screenshots/.png) | ![](/Screenshots/.png) |
+| ![](/Screenshots/1-Help_Command.png) | ![](/Screenshots/2-List_Command.png) |
 
 ## Commands
 Discord users use commands to interact with the bot. All commands for this bot need to be prefixed with: `!`<br/>
