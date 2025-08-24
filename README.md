@@ -14,8 +14,7 @@ It's good enough for what it will be used for. But for bigger projects, it would
 
 ## Commands
 Discord users use commands to interact with the bot. All commands for this bot need to be prefixed with: `!`<br/>
-The commands are as follows:
-
+The commands are as follows:<br/>
 `<>` = Required<br/>
 `()` = Optional<br/>
 `|` = Or<br/>
