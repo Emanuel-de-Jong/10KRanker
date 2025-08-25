@@ -5,8 +5,8 @@ I will be used it in the [10+ Key Rhythm Games](https://discord.gg/PwzcUzk) disc
 
 It's good enough for what it will be used for. But for bigger projects, it would need some optimalizations. Especially in asynchronous programming.
 
-**Active Development:** <br>
-**Last Change:** <br>
+**Active Development:** 2021-06-30 - 2021-07-11<br>
+**Last Change:** 2021-10-30<br>
 
 | | |
 | :---: | :---: |
